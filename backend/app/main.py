@@ -10,6 +10,7 @@ from .config import get_settings
 from .db import session_factory
 from .logging_setup import configure_logging, get_logger
 from .registry.registry import sync_registry
+from .api.datasets_routes import router as datasets_router
 from .scheduler import start_scheduler
 
 settings = get_settings()
@@ -37,3 +38,4 @@ app = FastAPI(title="AI Bubble Monitor API", version="0.1.0", lifespan=lifespan,
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origin_list, allow_methods=["*"],
                    allow_headers=["*"])
 app.include_router(router)
+app.include_router(datasets_router)

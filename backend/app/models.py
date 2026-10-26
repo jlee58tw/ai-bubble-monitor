@@ -107,3 +107,93 @@ class Observation(Base):
     @property
     def observation_date(self) -> dt.date:
         return self.period_end
+
+
+# ---------------------------------------------------------------- Phase 2 datasets
+# These are NOT time series of one metric, so they live in their own tables. Same principles:
+# every row carries source URL, observation time and (where published) the documented date; rows are
+# append-only - an unchanged value only bumps last_seen_at, a changed value inserts a new row.
+
+class ModelPrice(Base):
+    """Published API list price (USD per 1M tokens) for one model / tier / token type."""
+    __tablename__ = "model_prices"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    vendor: Mapped[str] = mapped_column(String(32), index=True)      # openai / anthropic / google / openrouter
+    model_id: Mapped[str] = mapped_column(String(160), index=True)
+    model_label: Mapped[str] = mapped_column(String(300))
+    tier: Mapped[str] = mapped_column(String(64))                    # standard / <=200k / host name ...
+    price_type: Mapped[str] = mapped_column(String(32))              # input / output / cached_input
+    usd_per_mtok: Mapped[float] = mapped_column(Float)
+    price_status: Mapped[str] = mapped_column(String(24))            # current / scheduled / documented_history
+    effective_from: Mapped[dt.date | None] = mapped_column(Date)     # only when the source states it
+    effective_to: Mapped[dt.date | None] = mapped_column(Date)
+    first_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    last_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    source_url: Mapped[str] = mapped_column(Text)
+    raw_text: Mapped[str | None] = mapped_column(Text)
+    note: Mapped[str | None] = mapped_column(Text)
+    open_weight: Mapped[bool] = mapped_column(Boolean, default=False)
+    run_id: Mapped[int | None] = mapped_column(ForeignKey("ingestion_runs.id"))
+    supersedes_id: Mapped[int | None] = mapped_column(ForeignKey("model_prices.id"))
+
+    __table_args__ = (Index("ix_model_price_key", "vendor", "model_id", "tier", "price_type", "price_status"),)
+
+
+class BenchmarkResult(Base):
+    """One leaderboard entry. (benchmark, benchmark_version, split, metric) defines comparability."""
+    __tablename__ = "benchmark_results"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    benchmark: Mapped[str] = mapped_column(String(64), index=True)   # swe-bench / terminal-bench / metr-horizon
+    benchmark_version: Mapped[str] = mapped_column(String(64))
+    split: Mapped[str] = mapped_column(String(64))                   # e.g. verified / lite / -
+    metric: Mapped[str] = mapped_column(String(64))                  # resolved_pct / accuracy_pct / p50_horizon_min
+    model: Mapped[str] = mapped_column(String(300))
+    harness: Mapped[str | None] = mapped_column(String(300))         # agent / scaffold
+    entry_key: Mapped[str] = mapped_column(String(300))
+    value: Mapped[float] = mapped_column(Float)
+    ci_low: Mapped[float | None] = mapped_column(Float)
+    ci_high: Mapped[float | None] = mapped_column(Float)
+    result_date: Mapped[dt.date | None] = mapped_column(Date)        # as published by the leaderboard
+    first_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    last_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    source_url: Mapped[str] = mapped_column(Text)
+    extra: Mapped[dict | None] = mapped_column(JSON)
+    run_id: Mapped[int | None] = mapped_column(ForeignKey("ingestion_runs.id"))
+    supersedes_id: Mapped[int | None] = mapped_column(ForeignKey("benchmark_results.id"))
+
+    __table_args__ = (Index("ix_bench_key", "benchmark", "benchmark_version", "split", "metric", "entry_key"),)
+
+
+class GpuPrice(Base):
+    """GPU instance list price. price_kind distinguishes list on-demand vs marketplace rental."""
+    __tablename__ = "gpu_prices"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    source: Mapped[str] = mapped_column(String(32), index=True)      # azure_retail
+    price_kind: Mapped[str] = mapped_column(String(32))              # list_on_demand / list_spot
+    sku: Mapped[str] = mapped_column(String(120))
+    gpu_model: Mapped[str] = mapped_column(String(64))
+    gpu_count: Mapped[int] = mapped_column(Integer)
+    region: Mapped[str] = mapped_column(String(64))
+    usd_per_hour: Mapped[float] = mapped_column(Float)               # whole instance
+    usd_per_gpu_hour: Mapped[float] = mapped_column(Float)
+    effective_from: Mapped[dt.date | None] = mapped_column(Date)     # source 'effectiveStartDate'
+    first_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    last_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    source_url: Mapped[str] = mapped_column(Text)
+    run_id: Mapped[int | None] = mapped_column(ForeignKey("ingestion_runs.id"))
+    supersedes_id: Mapped[int | None] = mapped_column(ForeignKey("gpu_prices.id"))
+
+    __table_args__ = (Index("ix_gpu_key", "source", "price_kind", "sku", "region"),)
+
+
+class RiskSnapshot(Base):
+    """Result of one risk-engine evaluation (kept so 'risk rising' can be detected from history)."""
+    __tablename__ = "risk_snapshots"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    computed_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow, index=True)
+    config_hash: Mapped[str] = mapped_column(String(64))
+    coverage: Mapped[float] = mapped_column(Float)
+    score: Mapped[float | None] = mapped_column(Float)              # null when coverage < minimum
+    score_low: Mapped[float] = mapped_column(Float)
+    score_high: Mapped[float] = mapped_column(Float)
+    detail: Mapped[dict] = mapped_column(JSON)

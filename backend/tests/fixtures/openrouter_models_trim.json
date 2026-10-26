@@ -1,0 +1,817 @@
+{
+ "data": [
+  {
+   "id": "recursive/flint-v1.0:free",
+   "canonical_slug": "recursive/flint-v1.0-20261021",
+   "hugging_face_id": "RecursiveSI/flint",
+   "name": "Recursive: Flint (free)",
+   "created": 1792622765,
+   "description": "Flint is an open-weight mixture-of-experts model from Recursive, with about 2.5B active parameters out of 40B total, built by Recursive's autoresearch system Eureka Machine for coding agents. It is suited...",
+   "context_length": 262144,
+   "architecture": {
+    "modality": "text->text",
+    "input_modalities": [
+     "text"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0",
+    "completion": "0"
+   },
+   "top_provider": {
+    "context_length": 262144,
+    "max_completion_tokens": 235929,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "temperature",
+    "tools",
+    "top_logprobs",
+    "top_p"
+   ],
+   "default_parameters": {},
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/recursive/flint-v1.0-20261021/endpoints"
+   },
+   "reasoning": {
+    "mandatory": true
+   }
+  },
+  {
+   "id": "minimax/minimax-m3.1-flash",
+   "canonical_slug": "minimax/minimax-m3.1-flash-20261019",
+   "hugging_face_id": "MiniMaxAI/MiniMax-M3.1-Flash",
+   "name": "MiniMax: MiniMax M3.1 Flash",
+   "created": 1792379569,
+   "description": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks, particularly in complex agentic tasks, coding, and cybersecurity. It is built for complex,...",
+   "context_length": 1048576,
+   "architecture": {
+    "modality": "text+image+video->text",
+    "input_modalities": [
+     "text",
+     "image",
+     "video"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0.00000015",
+    "completion": "0.0000006",
+    "input_cache_read": "0.000000015"
+   },
+   "top_provider": {
+    "context_length": 1048576,
+    "max_completion_tokens": 524288,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ],
+   "default_parameters": {},
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/minimax/minimax-m3.1-flash-20261019/endpoints"
+   },
+   "benchmarks": {
+    "design_arena": [],
+    "artificial_analysis": {
+     "intelligence_index": 42.7,
+     "coding_index": null,
+     "agentic_index": null
+    }
+   },
+   "reasoning": {
+    "mandatory": true,
+    "supported_efforts": [
+     "max",
+     "xhigh",
+     "high",
+     "medium",
+     "low"
+    ],
+    "default_effort": "max"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4.1-flash-1017",
+   "canonical_slug": "deepseek/deepseek-v4.1-flash-20261017",
+   "hugging_face_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+   "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
+   "created": 1792225624,
+   "description": "DeepSeek V4.1 Flash 1017 is the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served by DeepSeek under the `deepseek-flash` API model name. V4.1 Flash is a sparse mixture-of-experts model...",
+   "context_length": 1048576,
+   "architecture": {
+    "modality": "text+image->text",
+    "input_modalities": [
+     "text",
+     "image"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "DeepSeek",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0.00000015",
+    "completion": "0.0000006",
+    "input_cache_read": "0.000000003",
+    "overrides": [
+     {
+      "utc_days": [
+       "saturday",
+       "sunday"
+      ],
+      "prompt": "0.00000015",
+      "completion": "0.0000006",
+      "input_cache_read": "0.000000003"
+     },
+     {
+      "utc_days": [
+       "monday",
+       "tuesday",
+       "wednesday",
+       "thursday",
+       "friday"
+      ],
+      "utc_start": 0,
+      "utc_end": 100,
+      "prompt": "0.00000015",
+      "completion": "0.0000006",
+      "input_cache_read": "0.000000003"
+     },
+     {
+      "utc_days": [
+       "monday",
+       "tuesday",
+       "wednesday",
+       "thursday",
+       "friday"
+      ],
+      "utc_start": 100,
+      "utc_end": 400,
+      "prompt": "0.0000003",
+      "completion": "0.0000012",
+      "input_cache_read": "0.000000006"
+     },
+     {
+      "utc_days": [
+       "monday",
+       "tuesday",
+       "wednesday",
+       "thursday",
+       "friday"
+      ],
+      "utc_start": 400,
+      "utc_end": 600,
+      "prompt": "0.00000015",
+      "completion": "0.0000006",
+      "input_cache_read": "0.000000003"
+     },
+     {
+      "utc_days": [
+       "monday",
+       "tuesday",
+       "wednesday",
+       "thursday",
+       "friday"
+      ],
+      "utc_start": 600,
+      "utc_end": 1000,
+      "prompt": "0.0000003",
+      "completion": "0.0000012",
+      "input_cache_read": "0.000000006"
+     },
+     {
+      "utc_days": [
+       "monday",
+       "tuesday",
+       "wednesday",
+       "thursday",
+       "friday"
+      ],
+      "utc_start": 1000,
+      "utc_end": 0,
+      "prompt": "0.00000015",
+      "completion": "0.0000006",
+      "input_cache_read": "0.000000003"
+     }
+    ]
+   },
+   "top_provider": {
+    "context_length": 1048576,
+    "max_completion_tokens": 393216,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_completion_tokens",
+    "max_tokens",
+    "min_p",
+    "parallel_tool_calls",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ],
+   "default_parameters": {},
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/deepseek/deepseek-v4.1-flash-20261017/endpoints"
+   },
+   "benchmarks": {
+    "design_arena": [
+     {
+      "arena": "agents",
+      "category": "spreadsheet",
+      "elo": 1278,
+      "win_rate": 51.2,
+      "rank": 6
+     },
+     {
+      "arena": "models",
+      "category": "3d",
+      "elo": 1360,
+      "win_rate": 46.6,
+      "rank": 10
+     },
+     {
+      "arena": "models",
+      "category": "asciiart",
+      "elo": 1220,
+      "win_rate": 50.8,
+      "rank": 19
+     },
+     {
+      "arena": "models",
+      "category": "codecategories",
+      "elo": 1290,
+      "win_rate": 47.9,
+      "rank": 20
+     },
+     {
+      "arena": "models",
+      "category": "dataviz",
+      "elo": 1278,
+      "win_rate": 51.6,
+      "rank": 23
+     },
+     {
+      "arena": "models",
+      "category": "gamedev",
+      "elo": 1266,
+      "win_rate": 43.5,
+      "rank": 28
+     },
+     {
+      "arena": "models",
+      "category": "svg",
+      "elo": 1242,
+      "win_rate": 51.4,
+      "rank": 15
+     },
+     {
+      "arena": "models",
+      "category": "uicomponent",
+      "elo": 1301,
+      "win_rate": 53.5,
+      "rank": 17
+     },
+     {
+      "arena": "models",
+      "category": "website",
+      "elo": 1300,
+      "win_rate": 52.9,
+      "rank": 15
+     }
+    ],
+    "artificial_analysis": {
+     "intelligence_index": 39.5,
+     "coding_index": null,
+     "agentic_index": null
+    }
+   },
+   "reasoning": {
+    "mandatory": false,
+    "default_enabled": true,
+    "supported_efforts": [
+     "max",
+     "high",
+     "low",
+     "none"
+    ],
+    "default_effort": "high"
+   }
+  },
+  {
+   "id": "xingchen-agi/xing4.0-29b-a4b:free",
+   "canonical_slug": "xingchen-agi/xing4.0-29b-a4b-20261015",
+   "hugging_face_id": "XingChen-AGI/Xing4.0-29B-A4B",
+   "name": "XingChen: Xing4.0 29B A4B (free)",
+   "created": 1792177496,
+   "description": "Xing4.0-29B-A4B is an open-weight mixture-of-experts language model from China Telecom's AI team (TeleAI) and the successor to the TeleChat series. It has 29B total parameters with 4B active per token...",
+   "context_length": 262144,
+   "architecture": {
+    "modality": "text->text",
+    "input_modalities": [
+     "text"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0",
+    "completion": "0"
+   },
+   "top_provider": {
+    "context_length": 262144,
+    "max_completion_tokens": 235929,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ],
+   "default_parameters": {
+    "temperature": 1,
+    "top_p": 0.95,
+    "repetition_penalty": 1.05
+   },
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/xingchen-agi/xing4.0-29b-a4b-20261015/endpoints"
+   },
+   "reasoning": {
+    "mandatory": false,
+    "default_enabled": true
+   }
+  },
+  {
+   "id": "reflection/beam-1.0-501b-a23b",
+   "canonical_slug": "reflection/beam-1.0-501b-a23b-20261016",
+   "hugging_face_id": "reflection/Beam-1.0-501B-A23B",
+   "name": "Reflection: Beam 1.0 501B A23B",
+   "created": 1792160499,
+   "description": "Beam 1.0 is Reflection's open-weight reasoning model for coding and long-horizon agentic workflows. It uses a sparse mixture-of-experts architecture with 501B total and 23B active parameters per token, and a...",
+   "context_length": 1048576,
+   "architecture": {
+    "modality": "text->text",
+    "input_modalities": [
+     "text"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0.00000025",
+    "completion": "0.000001",
+    "input_cache_read": "0.00000005"
+   },
+   "top_provider": {
+    "context_length": 1048576,
+    "max_completion_tokens": 131072,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ],
+   "default_parameters": {},
+   "supported_voices": null,
+   "knowledge_cutoff": "2026-06-30",
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/reflection/beam-1.0-501b-a23b-20261016/endpoints"
+   },
+   "benchmarks": {
+    "design_arena": [
+     {
+      "arena": "models",
+      "category": "codecategories",
+      "elo": 1224,
+      "win_rate": 43,
+      "rank": 56
+     },
+     {
+      "arena": "models",
+      "category": "gamedev",
+      "elo": 1213,
+      "win_rate": 41.5,
+      "rank": 50
+     },
+     {
+      "arena": "models",
+      "category": "website",
+      "elo": 1229,
+      "win_rate": 43.6,
+      "rank": 53
+     }
+    ]
+   },
+   "reasoning": {
+    "mandatory": true,
+    "supported_efforts": [
+     "max",
+     "xhigh",
+     "high",
+     "medium",
+     "low"
+    ],
+    "default_effort": "max"
+   }
+  },
+  {
+   "id": "moondream/moondream3-preview",
+   "canonical_slug": "moondream/moondream3-preview-20261013",
+   "hugging_face_id": "moondream/moondream3-preview",
+   "name": "Moondream: Moondream 3 Preview",
+   "created": 1792102385,
+   "description": "Moondream 3 Preview is a vision-language model from Moondream with 9B total parameters and 2B active (mixture-of-experts). It handles visual question answering, captioning, OCR, and visual reasoning over images, with...",
+   "context_length": 32000,
+   "architecture": {
+    "modality": "text+image->text",
+    "input_modalities": [
+     "text",
+     "image"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000025"
+   },
+   "top_provider": {
+    "context_length": 32000,
+    "max_completion_tokens": 4096,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "temperature",
+    "top_p"
+   ],
+   "default_parameters": {
+    "temperature": 0.2,
+    "top_p": 0.9
+   },
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/moondream/moondream3-preview-20261013/endpoints"
+   },
+   "reasoning": {
+    "mandatory": false,
+    "default_enabled": false
+   }
+  },
+  {
+   "id": "recursive/flint-v1.0:free",
+   "canonical_slug": "recursive/flint-v1.0-20261021",
+   "hugging_face_id": "RecursiveSI/flint",
+   "name": "Recursive: Flint (free)",
+   "created": 1792622765,
+   "description": "Flint is an open-weight mixture-of-experts model from Recursive, with about 2.5B active parameters out of 40B total, built by Recursive's autoresearch system Eureka Machine for coding agents. It is suited...",
+   "context_length": 262144,
+   "architecture": {
+    "modality": "text->text",
+    "input_modalities": [
+     "text"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0",
+    "completion": "0"
+   },
+   "top_provider": {
+    "context_length": 262144,
+    "max_completion_tokens": 235929,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "temperature",
+    "tools",
+    "top_logprobs",
+    "top_p"
+   ],
+   "default_parameters": {},
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/recursive/flint-v1.0-20261021/endpoints"
+   },
+   "reasoning": {
+    "mandatory": true
+   }
+  },
+  {
+   "id": "moonshotai/kimi-k3.1-pro",
+   "canonical_slug": "moonshotai/kimi-k3.1-pro-20261023",
+   "hugging_face_id": null,
+   "name": "MoonshotAI: Kimi K3.1 Pro",
+   "created": 1792778188,
+   "description": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context window. It is built for long-horizon coding, 3D...",
+   "context_length": 1048576,
+   "architecture": {
+    "modality": "text+image+video->text",
+    "input_modalities": [
+     "text",
+     "image",
+     "video"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "input_cache_read": "0.0000002"
+   },
+   "top_provider": {
+    "context_length": 1048576,
+    "max_completion_tokens": 943718,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools"
+   ],
+   "default_parameters": {
+    "top_p": 0.95
+   },
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/moonshotai/kimi-k3.1-pro-20261023/endpoints"
+   },
+   "benchmarks": {
+    "design_arena": [
+     {
+      "arena": "models",
+      "category": "3d",
+      "elo": 1468,
+      "win_rate": 73.9,
+      "rank": 1
+     },
+     {
+      "arena": "models",
+      "category": "codecategories",
+      "elo": 1353,
+      "win_rate": 60.6,
+      "rank": 6
+     },
+     {
+      "arena": "models",
+      "category": "dataviz",
+      "elo": 1318,
+      "win_rate": 57.7,
+      "rank": 11
+     },
+     {
+      "arena": "models",
+      "category": "gamedev",
+      "elo": 1402,
+      "win_rate": 65.9,
+      "rank": 5
+     },
+     {
+      "arena": "models",
+      "category": "svg",
+      "elo": 1331,
+      "win_rate": 62.6,
+      "rank": 1
+     },
+     {
+      "arena": "models",
+      "category": "uicomponent",
+      "elo": 1397,
+      "win_rate": 66.1,
+      "rank": 1
+     },
+     {
+      "arena": "models",
+      "category": "website",
+      "elo": 1324,
+      "win_rate": 57.6,
+      "rank": 5
+     }
+    ],
+    "artificial_analysis": {
+     "intelligence_index": 55.1,
+     "coding_index": null,
+     "agentic_index": null
+    }
+   },
+   "reasoning": {
+    "mandatory": false,
+    "default_enabled": true,
+    "supported_efforts": [
+     "max",
+     "high",
+     "low",
+     "none"
+    ],
+    "default_effort": "max"
+   }
+  },
+  {
+   "id": "elorian/glimpse",
+   "canonical_slug": "elorian/glimpse-20261016",
+   "hugging_face_id": null,
+   "name": "Elorian: Glimpse",
+   "created": 1792206629,
+   "description": "Glimpse is a multimodal visual reasoning model from Elorian, built for visual understanding and complex visual reasoning in the physical world. It reasons directly over images and video rather than...",
+   "context_length": 262144,
+   "architecture": {
+    "modality": "text+image+video->text",
+    "input_modalities": [
+     "text",
+     "image",
+     "video"
+    ],
+    "output_modalities": [
+     "text"
+    ],
+    "tokenizer": "Other",
+    "instruct_type": null
+   },
+   "pricing": {
+    "prompt": "0.0000006",
+    "completion": "0.000003",
+    "input_cache_read": "0.00000006"
+   },
+   "top_provider": {
+    "context_length": 262144,
+    "max_completion_tokens": 256000,
+    "is_moderated": false
+   },
+   "per_request_limits": null,
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ],
+   "default_parameters": {},
+   "supported_voices": null,
+   "knowledge_cutoff": null,
+   "expiration_date": null,
+   "links": {
+    "details": "/api/v1/models/elorian/glimpse-20261016/endpoints"
+   },
+   "reasoning": {
+    "mandatory": false
+   }
+  }
+ ]
+}
