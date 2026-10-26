@@ -4,12 +4,18 @@ import { usePathname } from "next/navigation";
 
 const LINKS = [
   { href: "/", label: "OVERVIEW" },
-  { href: "/capex", label: "HYPERSCALER CAPEX" },
-  { href: "/pipeline", label: "DATA SOURCES / PIPELINE" },
+  { href: "/risk", label: "RISK SCORE" },
+  { href: "/alerts", label: "ALERTS" },
+  { href: "/capex", label: "CAPEX" },
+  { href: "/valuation", label: "VALUATION" },
+  { href: "/supply-chain", label: "SUPPLY CHAIN / GPU" },
+  { href: "/pricing", label: "MODEL PRICING" },
+  { href: "/benchmarks", label: "BENCHMARKS" },
+  { href: "/roi", label: "ROI SIM" },
+  { href: "/methodology", label: "METHODOLOGY" },
+  { href: "/pipeline", label: "PIPELINE" },
   { href: "/ai-monetization", label: "AI MONETIZATION", ph: true },
-  { href: "/valuation", label: "VALUATION", ph: true },
-  { href: "/supply-chain", label: "SEMIS / SUPPLY CHAIN", ph: true },
-  { href: "/credit", label: "CREDIT / FUNDING", ph: true },
+  { href: "/credit", label: "CREDIT", ph: true },
 ];
 export default function Nav() {
   const p = usePathname();
@@ -17,7 +23,7 @@ export default function Nav() {
     <header className="border-b border-term-border bg-black">
       <div className="flex items-center gap-6 px-4 py-2">
         <div className="font-mono font-bold text-term-amber tracking-widest">AI BUBBLE MONITOR</div>
-        <nav className="flex gap-1 text-xs font-mono">
+        <nav className="flex flex-wrap gap-1 text-xs font-mono">
           {LINKS.map((l) => (
             <Link key={l.href} href={l.href}
               className={`px-2 py-1 ${p === l.href ? "bg-term-amber text-black" : "text-term-muted hover:text-white"}`}>
@@ -25,7 +31,7 @@ export default function Nav() {
             </Link>
           ))}
         </nav>
-        <div className="ml-auto text-[10px] font-mono text-term-muted">RESEARCH ONLY · NOT INVESTMENT ADVICE</div>
+        <div className="ml-auto hidden 2xl:block text-[10px] font-mono text-term-muted">RESEARCH ONLY · NOT INVESTMENT ADVICE</div>
       </div>
     </header>
   );

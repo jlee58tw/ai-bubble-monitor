@@ -14,6 +14,10 @@ const ST: Record<string, string> = {
   placeholder: "bg-zinc-800 text-term-muted", stale: "bg-yellow-900/40 text-term-amber",
   success: "bg-green-900/40 text-term-up", partial: "bg-yellow-900/40 text-term-amber",
   failed: "bg-red-900/40 text-term-down", running: "bg-blue-900/40 text-term-info",
+  skipped: "bg-zinc-800 text-term-amber", ok: "bg-green-900/40 text-term-up", insufficient: "bg-yellow-900/40 text-term-amber",
+  current: "bg-green-900/40 text-term-up", scheduled: "bg-blue-900/40 text-term-info",
+  documented_history: "bg-zinc-800 text-purple-300", warning: "bg-red-900/40 text-term-down", info: "bg-blue-900/40 text-term-info",
+  withheld: "bg-yellow-900/40 text-term-amber",
 };
 export function StatusPill({ s }: { s: string | null }) {
   return <span className={`px-1.5 py-0.5 text-[10px] uppercase font-mono ${ST[s ?? ""] ?? "bg-zinc-800"}`}>{s ?? "n/a"}</span>;

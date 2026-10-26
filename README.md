@@ -1,8 +1,14 @@
-# AI Bubble Monitor — Phase 1
+# AI Bubble Monitor — Phase 1 + Phase 2
 
 A research dashboard asking one question: **is AI monetization keeping up with AI capex?**
 Phase 1 is a vertical slice: hyperscaler capex, revenue, operating cash flow and FCF from **SEC EDGAR**, plus the
 US 10Y yield from **FRED**. Everything else is shown as explicitly *unavailable* or *placeholder*.
+
+**Phase 2** adds: Taiwan AI supply-chain valuation from TWSE open data (price, trailing P/E, P/B, yield, derived market cap and
+52-week drawdown), NVIDIA Data Center revenue from SEC filing XBRL, optional US prices via Alpha Vantage (free key), model API
+list prices (OpenAI, Anthropic, Gemini, OpenRouter open-weight), agent benchmarks (SWE-bench, METR time horizon, Terminal-Bench,
+never merged across benchmarks), Azure GPU list prices, a six-dimension **risk score** with coverage and ranges, a methodology
+page, a reliability **ROI simulator**, and in-app **alerts**. Full source list and unavailable metrics: [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
 
 > Research only, not a trading tool and not investment advice.
 
@@ -36,6 +42,14 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8000 npm run build && npm start   # or
 
 CLI options: `python -m app.cli refresh --provider sec_edgar --entity MSFT`.
 
+Phase 2 CLI:
+```bash
+python -m app.cli refresh --provider twse        # TWSE prices/valuation (spaced 3 s per request; ~2 min)
+python -m app.cli refresh --provider sec_filing_xbrl   # NVDA Data Center revenue
+python -m app.cli datasets                       # model pricing + benchmarks + Azure GPU prices (or --source pricing_google ...)
+python -m app.cli risk                           # compute and store a risk snapshot
+```
+
 Tests: `cd backend && pytest -q`. They are offline and use recorded companyfacts fixtures plus a mocked HTTP transport.
 
 ### Docker Compose
@@ -47,7 +61,7 @@ docker compose exec api python -m app.cli refresh
 ```
 
 SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgresql+psycopg://user:pass@host:5432/aibm` (psycopg is included).
-*Note: the compose files were written but not run on the build host (Docker was not installed there).*
+*Note: the compose files were written but **not run**: Docker is not available on the build host (Phase 1 and Phase 2).*
 
 ## Configuration (env)
 
@@ -60,6 +74,11 @@ SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgres
 | `SCHEDULER_ENABLED` / `SCHEDULER_CRON` | false / `30 22 * * *` (UTC) | APScheduler daily refresh |
 | `LOG_LEVEL`, `LOG_JSON` | INFO, true | structlog JSON logs |
 | `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:8000` | API URL as seen by the browser (inlined at build time) |
+| `TWSE_HISTORY_MONTHS` / `TWSE_MIN_INTERVAL_S` | 13 / 3 | TWSE daily history depth and request spacing |
+| `ALPHAVANTAGE_API_KEY` | — | Optional free key for US prices; unset = UNAVAILABLE |
+| `SEC_FILINGS_LIMIT` | 12 | Recent 10-Q/10-K instances parsed for dimensional facts |
+| `RISK_MIN_COVERAGE` | — (uses `risk.yaml`, 0.5) | Below this weighted coverage the overall score is withheld |
+| `DATASETS_CRON` | `0 23 * * 0` (UTC) | Weekly datasets refresh + risk snapshot (needs `SCHEDULER_ENABLED=true`) |
 
 ## API
 
@@ -73,13 +92,44 @@ SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgres
 | GET | `/api/ingestion/status` | provider status + per-series freshness (fresh/stale/missing/unavailable/placeholder) |
 | GET | `/api/ingestion/runs`, `/api/ingestion/errors` | run log and error log |
 | GET | `/api/overview` | dashboard cards (current, previous, abs/% change, source, confidence) |
+| GET | `/api/model-prices`, `/api/model-prices/changes`, `/api/model-prices/history` | model API prices (`vendor`, `open_weight`, `q`), observed/scheduled/documented changes |
+| GET | `/api/benchmarks` | benchmark groups keyed by (benchmark, version, split, metric) — never merged |
+| GET | `/api/gpu-prices` | Azure GPU list prices + explicit placeholders |
+| GET / POST | `/api/datasets/status`, `/api/datasets/counts`, `/api/datasets/refresh` | dataset sources and manual refresh |
+| GET / POST | `/api/risk`, `/api/risk/history`, `/api/risk/snapshot` | live risk evaluation, stored snapshots |
+| GET | `/api/methodology` | risk config (weights, thresholds, rationale), rules, config hash |
+| GET | `/api/alerts` | alerts computed from stored real data |
 
 ## Frontend pages
 
 - **Overview** (`/`): metric cards.
 - **Hyperscaler CapEx** (`/capex`): company + date range, YoY growth chart (capex vs revenue vs OCF vs FCF), levels chart, cross-company capex, observation table with EDGAR links, CSV, manual refresh.
 - **Data Sources / Pipeline** (`/pipeline`): providers, registry, freshness, runs, errors.
-- `[PH]` pages are labeled placeholders with no data: AI Monetization, Valuation, Semis/Supply Chain, Credit/Funding.
+- **Risk score** (`/risk`): overall score (withheld below min coverage), possible range given missing data, coverage, six dimensions with indicator values/thresholds, snapshot history.
+- **Alerts** (`/alerts`): capex vs revenue growth gap, negative FCF, risk rise (same config only), low coverage, price cuts/increases, scheduled price changes, drawdowns, failing sources.
+- **Valuation** (`/valuation`): TWSE table + price/drawdown charts; US tickers shown UNAVAILABLE without a key; forward P/E UNAVAILABLE.
+- **Supply chain / GPU** (`/supply-chain`): NVDA Data Center revenue, Azure GPU list prices, marketplace placeholder.
+- **Model pricing** (`/pricing`), **Benchmarks** (`/benchmarks`), **ROI simulator** (`/roi`), **Methodology** (`/methodology`).
+- `[PH]` pages are labeled placeholders with no data: AI Monetization, Credit/Funding.
+
+Screenshots: `docs/screenshot_*.png`.
+
+## Risk score (research prototype)
+
+Six dimensions, weights in `backend/app/registry/risk.yaml`: capex vs cash 25, valuation 20, monetization 20, supply chain 15,
+macro/funding 10, technology/reliability 10. Each indicator maps linearly from a `benign` (0) to a `stretched` (100) threshold;
+**all thresholds are research hypotheses**. Unavailable, stale or insufficient indicators are excluded from the point score and
+widen the range (0 for the low bound, 100 for the high bound) — missing data never counts as zero risk. If weighted coverage is
+below `min_coverage` (0.5) the overall score is withheld and only the range is shown. Every snapshot stores the config hash.
+
+## ROI simulator formulas (documented assumptions)
+
+```
+ETC (Effective Task Cost) = inference_cost + (review_minutes / 60) × reviewer_rate + (1 − p_success) × failure_recovery_cost
+Effective ROI             = (baseline_manual_cost − ETC) / ETC
+Totals                    = per-task values × task volume;  break-even p solves ETC = baseline
+```
+The original spec text for these formulas was not in the repo, so they are written out here and on the page. Benchmark scores are shown only as references, not as your task's success probability.
 
 ## How to add a new metric
 
@@ -133,14 +183,17 @@ The ingestion service handles storage (dedupe, append-only revisions), run/error
 backend/
   app/
     api/routes.py          FastAPI endpoints
-    providers/             base.py (interface, rate limiter), sec_edgar.py, fred.py
+    providers/             base.py (interface, rate limiter), sec_edgar.py, fred.py, twse.py, alphavantage.py, sec_filing_xbrl.py
+    datasets/              pricing.py, benchmarks.py, gpu.py, runner.py (append-only dataset tables)
+    registry/risk.yaml     risk weights, thresholds (hypotheses), alert rules
     registry/              metrics.yaml, entities.yaml, loader/sync
-    services/              periods.py (YTD→quarter, vintages), derive.py, ingest.py, queries.py
+    services/              periods.py (YTD→quarter, vintages), derive.py, ingest.py, queries.py, risk.py, alerts.py
     models.py db.py config.py scheduler.py cli.py main.py
   alembic/                 migrations
   tests/                   pytest + recorded EDGAR fixtures
 frontend/
-  app/                     page.tsx (Overview), capex/, pipeline/, [placeholder]/
+  app/                     page.tsx (Overview), capex/, pipeline/, risk/, alerts/, valuation/, supply-chain/, pricing/,
+                           benchmarks/, roi/, methodology/, [placeholder]/
   components/ lib/
 docs/                      DATA_SOURCES.md, SPOT_CHECK.md, screenshots
 docker-compose.yml

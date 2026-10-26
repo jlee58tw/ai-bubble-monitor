@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 
 const PAGES: Record<string, { title: string; needs: string[] }> = {
   "ai-monetization": { title: "AI MONETIZATION", needs: ["Company-disclosed AI revenue / run-rate (qualitative, earnings calls)", "Cloud segment revenue (dimensional XBRL — needs filing-level parser)", "Pricing / usage indicators (no source connected)"] },
-  valuation: { title: "VALUATION", needs: ["Licensed price & market-cap source (none connected; Yahoo endpoint unofficial, Stooq JS-blocked, Alpha Vantage needs key)", "Forward estimates (licensed consensus data)"] },
-  "supply-chain": { title: "SEMIS / SUPPLY CHAIN", needs: ["NVIDIA Data Center segment revenue (dimensional XBRL — UNAVAILABLE in Phase 1)", "TSMC monthly revenue (foreign filer, not in EDGAR XBRL)"] },
   credit: { title: "CREDIT / FUNDING", needs: ["Hyperscaler debt issuance & finance-lease liabilities", "Private credit / data-center ABS data (no source)"] },
 };
 
