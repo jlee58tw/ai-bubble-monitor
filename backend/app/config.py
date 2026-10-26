@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     # SEC filing-level XBRL (dimensional facts): number of recent 10-Q/10-K filings to parse
     sec_filings_limit: int = 12
     # Risk engine: refuse to show a precise overall score below this weighted coverage
-    risk_min_coverage: float = 0.5
+    risk_min_coverage: float | None = None  # None -> value in registry/risk.yaml
 
     @field_validator("sec_max_rps")
     @classmethod

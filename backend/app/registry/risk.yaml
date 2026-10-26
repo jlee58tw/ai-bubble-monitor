@@ -1,0 +1,180 @@
+# Risk engine configuration (Phase 2).
+#
+# ALL THRESHOLDS ARE RESEARCH HYPOTHESES, NOT VALIDATED MODELS. They express "at this value the indicator
+# would look benign (score 0) / stretched (score 100)" and are linearly interpolated in between (clamped).
+# Change them here; the config hash is stored with every snapshot so scores are reproducible.
+#
+# Missing data NEVER counts as zero risk: missing/stale indicators are excluded from the point score and
+# widen the [low, high] range (missing = 0 for low, = 100 for high). Below `min_coverage` no point score is shown.
+version: 1
+min_coverage: 0.5          # can be overridden by env RISK_MIN_COVERAGE
+dimensions:
+  - id: capex_cash
+    name: Capex intensity vs cash generation
+    weight: 25
+  - id: valuation
+    name: Valuation & market stress
+    weight: 20
+  - id: monetization
+    name: AI monetization & pricing power
+    weight: 20
+  - id: supply_chain
+    name: Compute supply chain
+    weight: 15
+  - id: macro
+    name: Macro & funding
+    weight: 10
+  - id: technology
+    name: Technology progress & agent reliability
+    weight: 10
+
+indicators:
+  # --- capex_cash -----------------------------------------------------------------------------
+  - id: hyperscaler_capex_to_ocf
+    dimension: capex_cash
+    name: Hyperscaler capex / operating cash flow (mean of latest quarter, MSFT GOOGL AMZN META ORCL)
+    calc: obs_mean_latest
+    args: {metric: capex_to_ocf, entities: [MSFT, GOOGL, AMZN, META, ORCL], min_entities: 3}
+    max_age_days: 200
+    thresholds: {benign: 0.4, stretched: 1.0}
+    rationale: Capex consuming most/all operating cash flow implies reliance on external funding.
+  - id: hyperscaler_capex_minus_revenue_growth
+    dimension: capex_cash
+    name: Capex YoY minus revenue YoY (mean, same five companies)
+    calc: obs_spread_latest
+    args: {metric_a: capex_yoy, metric_b: revenue_yoy, entities: [MSFT, GOOGL, AMZN, META, ORCL], min_entities: 3}
+    max_age_days: 200
+    thresholds: {benign: 0.0, stretched: 0.6}
+    rationale: Investment growing far faster than revenue for a sustained period is a classic over-build signal.
+  - id: hyperscaler_fcf_margin
+    dimension: capex_cash
+    name: Hyperscaler free-cash-flow margin, FCF / revenue (mean of latest quarter)
+    calc: obs_ratio_latest
+    args: {metric_a: fcf, metric_b: revenue, entities: [MSFT, GOOGL, AMZN, META, ORCL], min_entities: 3}
+    max_age_days: 200
+    thresholds: {benign: 0.20, stretched: -0.05}
+    rationale: >-
+      Capex absorbing cash flow shows up as a thin or negative FCF margin. (FCF YoY was rejected as an
+      indicator: it is ill-defined when the prior-year FCF is near zero or negative.)
+  - id: hyperscaler_capex_to_revenue
+    dimension: capex_cash
+    name: Hyperscaler capex / revenue (mean)
+    calc: obs_mean_latest
+    args: {metric: capex_to_revenue, entities: [MSFT, GOOGL, AMZN, META, ORCL], min_entities: 3}
+    max_age_days: 200
+    thresholds: {benign: 0.10, stretched: 0.40}
+    rationale: Capital intensity far above historical software-company norms.
+  - id: ai_capex_disclosed
+    dimension: capex_cash
+    name: AI-specific capex (company-disclosed)
+    calc: unavailable
+    reason: No company discloses AI-only capex in machine-readable form (metric ai_capex_disclosed is UNAVAILABLE).
+    thresholds: {benign: null, stretched: null}
+
+  # --- valuation ------------------------------------------------------------------------------
+  - id: tw_ai_supply_chain_pe
+    dimension: valuation
+    name: Trailing P/E, Taiwan AI supply chain (mean of 2330, 2382, 2317; TWSE)
+    calc: obs_mean_latest
+    args: {metric: tw_pe_trailing, entities: ["2330", "2382", "2317"], min_entities: 2}
+    max_age_days: 14
+    thresholds: {benign: 15, stretched: 35}
+    rationale: Elevated multiples on the hardware supply chain price in sustained AI demand.
+  - id: us_ai_forward_pe
+    dimension: valuation
+    name: Forward P/E, US AI leaders
+    calc: unavailable
+    reason: Forward consensus estimates need a licensed data source (metric forward_pe is UNAVAILABLE).
+    thresholds: {benign: null, stretched: null}
+  - id: ai_basket_drawdown
+    dimension: valuation
+    name: Drawdown from 52-week high (mean of available AI equities)
+    calc: obs_mean_latest
+    args: {metric: [tw_drawdown_52w, us_drawdown_52w], entities: ["2330", "2382", "2317", NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM], min_entities: 2}
+    max_age_days: 14
+    thresholds: {benign: -0.05, stretched: -0.35}
+    rationale: Broad, deep drawdowns indicate the market is de-rating AI expectations (stress, not valuation level).
+
+  # --- monetization ---------------------------------------------------------------------------
+  - id: ai_revenue_disclosed
+    dimension: monetization
+    name: Disclosed AI revenue vs AI capex
+    calc: unavailable
+    reason: AI revenue is disclosed only qualitatively/irregularly (metric ai_revenue_disclosed is PLACEHOLDER).
+    thresholds: {benign: null, stretched: null}
+  - id: model_price_deflation
+    dimension: monetization
+    name: Median observed list-price change of frontier-vendor models (trailing 365 days)
+    calc: model_price_change
+    args: {vendors: [openai, anthropic, google], min_history_days: 90, min_changes: 3}
+    max_age_days: 30
+    thresholds: {benign: -0.10, stretched: -0.60}
+    rationale: Steep, broad price cuts suggest commoditization faster than volume growth can offset.
+
+  # --- supply_chain ---------------------------------------------------------------------------
+  - id: nvda_datacenter_revenue_yoy
+    dimension: supply_chain
+    name: NVIDIA Data Center revenue YoY (latest quarter, SEC XBRL)
+    calc: obs_yoy_latest
+    args: {metric: nvda_datacenter_revenue, entity: NVDA}
+    max_age_days: 200
+    thresholds: {benign: 0.3, stretched: 1.5}
+    rationale: Extreme supplier growth indicates an investment boom phase whose durability is uncertain.
+  - id: gpu_spot_discount
+    dimension: supply_chain
+    name: Azure H100 (ND96isr_H100_v5) Spot discount vs pay-as-you-go list, eastus
+    calc: gpu_spot_discount
+    args: {sku: Standard_ND96isr_H100_v5}
+    max_age_days: 30
+    thresholds: {benign: 0.5, stretched: 0.9}
+    rationale: A deep spot discount suggests idle capacity. Caveat - list prices are sticky (unchanged since 2023-12).
+  - id: tsmc_monthly_revenue
+    dimension: supply_chain
+    name: TSMC monthly revenue momentum
+    calc: unavailable
+    reason: Not yet connected (TWSE/MOPS monthly revenue open data not ingested in Phase 2).
+    thresholds: {benign: null, stretched: null}
+
+  # --- macro ----------------------------------------------------------------------------------
+  - id: us10y
+    dimension: macro
+    name: US 10Y Treasury yield (FRED DGS10)
+    calc: obs_latest
+    args: {metric: us10y_yield, entity: US}
+    max_age_days: 14
+    thresholds: {benign: 3.0, stretched: 5.0}
+    rationale: Higher discount rates compress long-duration valuations and raise funding costs.
+  - id: credit_spreads
+    dimension: macro
+    name: High-yield / data-center credit spreads
+    calc: unavailable
+    reason: No source with clear redistribution terms connected (ICE BofA series on FRED carry licence restrictions).
+    thresholds: {benign: null, stretched: null}
+
+  # --- technology -----------------------------------------------------------------------------
+  - id: metr_doubling_time
+    dimension: technology
+    name: METR time-horizon doubling time (2023-on fit, days)
+    calc: metr_doubling
+    max_age_days: 30
+    thresholds: {benign: 120, stretched: 365}
+    rationale: Slower capability growth undermines the thesis behind current capex.
+  - id: terminal_bench_top
+    dimension: technology
+    name: Terminal-Bench top accuracy (latest dataset version only)
+    calc: bench_top
+    args: {benchmark: terminal-bench, metric: accuracy_pct}
+    max_age_days: 30
+    thresholds: {benign: 80, stretched: 30}
+    rationale: Low agent success on realistic tasks implies costly human review (see ROI simulator).
+
+# In-app alert rules (computed live from stored real data; thresholds are research hypotheses).
+alerts:
+  capex_vs_revenue_gap: 0.30       # capex YoY minus revenue YoY, latest quarter, per company
+  negative_fcf: true               # latest quarter FCF < 0
+  risk_rise_points: 5              # increase of overall (or range-midpoint) score between snapshots, same config
+  price_cut_pct: -0.10             # observed list-price revision <= -10%
+  price_change_lookback_days: 120
+  scheduled_change_horizon_days: 120
+  drawdown: -0.20                  # 52-week drawdown at or below -20%
+  companies: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
