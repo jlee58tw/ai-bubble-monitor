@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { background: #0a0c10; color: #d0d7de; }
+body { font-feature-settings: "tnum"; }
+.panel { @apply bg-term-panel border border-term-border rounded-sm; }
+.label { @apply text-[10px] uppercase tracking-wider text-term-muted; }
+a.src { @apply text-term-info hover:underline; }
+.btn { @apply px-3 py-1 text-xs font-mono border border-term-border bg-[#161b22] hover:border-term-amber hover:text-term-amber disabled:opacity-50; }

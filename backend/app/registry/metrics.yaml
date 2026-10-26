@@ -1,0 +1,260 @@
+# Metric registry. The pipeline, API and UI are driven by this file.
+#
+# status:          connected   -> backed by a real, working provider
+#                  unavailable -> we know what we want, but no accessible source yet (UI shows UNAVAILABLE)
+#                  placeholder -> future-phase metric, nothing is ingested
+# classification:  reported | guidance | estimated | derived | qualitative
+#
+# For provider sec_edgar, `concepts` is an ordered list of us-gaap XBRL concepts
+# (first = preferred). `concept_overrides` lets one entity use a different list.
+metrics:
+  - id: capex_total
+    name: Total company capital expenditures (cash)
+    description: >-
+      Purchases of property & equipment from the cash-flow statement, quarterly.
+      TOTAL COMPANY capex - this is NOT AI capex. No company tagged here discloses AI-only capex in XBRL.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: reported
+    provider: sec_edgar
+    status: connected
+    is_ai_specific: false
+    warning: "Total company CapEx, not AI-specific. Excludes finance-lease additions (material for MSFT/ORCL/META)."
+    methodology: >-
+      Cash-flow statements in 10-Q are year-to-date. Q1 is reported directly; Q2/Q3/Q4 are DERIVED as
+      YTD(n) - YTD(n-3 months) unless the filer reports a discrete 3-month value (e.g. Amazon), in which case the
+      reported value is used.
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    concepts: [PaymentsToAcquirePropertyPlantAndEquipment, PaymentsToAcquireProductiveAssets]
+    concept_overrides:
+      AMZN: [PaymentsToAcquireProductiveAssets, PaymentsToAcquirePropertyPlantAndEquipment]
+      NVDA: [PaymentsToAcquireProductiveAssets, PaymentsToAcquirePropertyPlantAndEquipment]
+
+  - id: operating_cash_flow
+    name: Operating cash flow
+    description: Net cash provided by operating activities, quarterly.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: reported
+    provider: sec_edgar
+    status: connected
+    methodology: Same YTD -> quarterly treatment as capex_total.
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    concepts: [NetCashProvidedByUsedInOperatingActivities]
+
+  - id: revenue
+    name: Total revenue
+    description: Total company revenue, quarterly. Q4 is derived as FY - 9M YTD.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: reported
+    provider: sec_edgar
+    status: connected
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    concepts: [RevenueFromContractWithCustomerExcludingAssessedTax, Revenues, SalesRevenueNet]
+    concept_overrides:
+      GOOGL: [Revenues, RevenueFromContractWithCustomerExcludingAssessedTax]
+      NVDA: [Revenues, RevenueFromContractWithCustomerExcludingAssessedTax]
+
+  # ---------------- derived ----------------
+  - id: fcf
+    name: Free cash flow (OCF - CapEx)
+    description: operating_cash_flow - capex_total for the same period.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "FCF = operating_cash_flow - capex_total (same period_start/period_end). Simple definition; excludes finance-lease principal repayments."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: subtract, inputs: [operating_cash_flow, capex_total]}
+
+  - id: capex_to_revenue
+    name: CapEx / Revenue
+    description: capex_total divided by revenue, same quarter.
+    unit: ratio
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "capex_total / revenue, same period."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: ratio, inputs: [capex_total, revenue]}
+
+  - id: capex_to_ocf
+    name: CapEx / Operating cash flow
+    description: capex_total divided by operating_cash_flow, same quarter. >1 means capex exceeds internally generated cash.
+    unit: ratio
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "capex_total / operating_cash_flow, same period. Not computed when OCF <= 0."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: ratio, inputs: [capex_total, operating_cash_flow], positive_denominator: true}
+
+  - id: capex_yoy
+    name: CapEx YoY growth
+    unit: pct
+    description: Quarterly capex vs the same fiscal quarter one year earlier.
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value / value(period ending ~1 year earlier, +/-20 days) - 1. Not computed when prior value <= 0."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: yoy, inputs: [capex_total]}
+
+  - id: revenue_yoy
+    name: Revenue YoY growth
+    unit: pct
+    description: Quarterly revenue vs same quarter one year earlier.
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value / value(1y earlier) - 1."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: yoy, inputs: [revenue]}
+
+  - id: ocf_yoy
+    name: Operating cash flow YoY growth
+    unit: pct
+    description: Quarterly OCF vs same quarter one year earlier.
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value / value(1y earlier) - 1. Not computed when prior value <= 0."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: yoy, inputs: [operating_cash_flow]}
+
+  - id: fcf_yoy
+    name: FCF YoY growth
+    unit: pct
+    description: Quarterly FCF vs same quarter one year earlier.
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value / value(1y earlier) - 1. Not computed when prior FCF <= 0 (growth from a negative base is meaningless)."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    derive: {op: yoy, inputs: [fcf]}
+
+  - id: capex_total_big4_cal
+    name: Big-4 hyperscaler capex (calendar-quarter sum)
+    description: Sum of capex_total for MSFT, GOOGL, AMZN, META for calendar quarters where all four have data.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    warning: "Total company CapEx, not AI-specific. ORCL excluded (non-calendar fiscal quarters)."
+    methodology: "Sum over MSFT, GOOGL, AMZN, META of capex_total with identical period_end; emitted only when all 4 present."
+    entities: [BIG4_CAL]
+    derive: {op: sum_entities, inputs: [capex_total], members: [MSFT, GOOGL, AMZN, META]}
+
+  - id: capex_total_big4_cal_yoy
+    name: Big-4 hyperscaler capex YoY
+    unit: pct
+    description: YoY growth of the Big-4 calendar-quarter capex sum.
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value / value(1y earlier) - 1."
+    entities: [BIG4_CAL]
+    derive: {op: yoy, inputs: [capex_total_big4_cal]}
+
+  # ---------------- macro (FRED) ----------------
+  - id: us10y_yield
+    name: US 10Y Treasury yield (constant maturity)
+    description: FRED series DGS10 (daily). Cost-of-capital context for long-duration AI capex.
+    unit: pct_points
+    frequency: daily
+    category: macro
+    default_classification: reported
+    provider: fred
+    status: connected
+    methodology: "Downloaded from fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10. publication_date is approximated as observation_date (no ALFRED vintage)."
+    entities: [US]
+    series_id: DGS10
+
+  # ---------------- unavailable / placeholder ----------------
+  - id: nvda_datacenter_revenue
+    name: NVIDIA Data Center segment revenue
+    description: >-
+      NVIDIA's Data Center revenue is disclosed only as a DIMENSIONAL XBRL fact (segment/market axis). The SEC
+      companyfacts API used here returns only non-dimensional facts, so this series is UNAVAILABLE in Phase 1.
+      Total NVDA revenue (metric `revenue`, entity NVDA) is connected but is NOT data-center revenue.
+    unit: USD
+    frequency: quarterly
+    category: ai_supply_chain
+    default_classification: reported
+    provider: null
+    status: unavailable
+    is_ai_specific: true
+    warning: "Unavailable: needs a filing-level XBRL instance parser (planned Phase 2)."
+    entities: [NVDA]
+
+  - id: ai_capex_disclosed
+    name: AI-specific capex (company disclosed)
+    description: No hyperscaler reports AI-only capex as a structured, audited number. Would be qualitative/guidance from earnings calls.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: qualitative
+    provider: null
+    status: unavailable
+    is_ai_specific: true
+    warning: "Unavailable - do NOT substitute total capex."
+    entities: [MSFT, GOOGL, AMZN, META, ORCL]
+
+  - id: capex_guidance
+    name: Forward capex guidance
+    description: Management capex guidance from earnings calls / 8-K exhibits. No structured source connected.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: guidance
+    provider: null
+    status: placeholder
+    is_ai_specific: false
+    entities: [MSFT, GOOGL, AMZN, META, ORCL]
+
+  - id: ai_revenue_disclosed
+    name: AI revenue / run-rate (company disclosed)
+    description: e.g. Microsoft AI run-rate statements. Qualitative, irregular; no structured source connected.
+    unit: USD
+    frequency: irregular
+    category: ai_monetization
+    default_classification: qualitative
+    provider: null
+    status: placeholder
+    is_ai_specific: true
+    entities: [MSFT, GOOGL, AMZN, META, ORCL]
+
+  - id: market_cap
+    name: Market capitalization / valuation multiples
+    description: >-
+      Requires a licensed price source. Yahoo's chart endpoint is reachable but unofficial and not used; Stooq
+      returned a JavaScript challenge; Alpha Vantage needs an API key (not configured).
+    unit: USD
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: null
+    status: unavailable
+    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]

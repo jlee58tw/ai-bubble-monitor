@@ -1,0 +1,11 @@
+# Entities tracked by the monitor. CIKs from https://www.sec.gov/files/company_tickers.json
+entities:
+  - {id: MSFT,  name: Microsoft Corporation, entity_type: company, group: hyperscaler, cik: "0000789019", notes: "Fiscal year ends June 30"}
+  - {id: GOOGL, name: Alphabet Inc.,         entity_type: company, group: hyperscaler, cik: "0001652044", notes: "Fiscal year = calendar year"}
+  - {id: AMZN,  name: Amazon.com Inc.,       entity_type: company, group: hyperscaler, cik: "0001018724", notes: "Fiscal year = calendar year"}
+  - {id: META,  name: Meta Platforms Inc.,   entity_type: company, group: hyperscaler, cik: "0001326801", notes: "Fiscal year = calendar year"}
+  - {id: ORCL,  name: Oracle Corporation,    entity_type: company, group: hyperscaler, cik: "0001341439", notes: "Fiscal year ends May 31 (quarters NOT calendar-aligned)"}
+  - {id: NVDA,  name: NVIDIA Corporation,    entity_type: company, group: ai_supplier, cik: "0001045810", notes: "52/53-week fiscal year ending late January"}
+  - {id: BIG4_CAL, name: "MSFT+GOOGL+AMZN+META (calendar-aligned sum)", entity_type: aggregate, group: hyperscaler_aggregate,
+     notes: "Sum only for calendar quarters where ALL four companies have a value. ORCL excluded (May fiscal year, quarters not calendar-aligned)."}
+  - {id: US, name: United States (macro), entity_type: macro, group: macro}
