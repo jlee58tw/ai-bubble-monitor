@@ -109,6 +109,10 @@ def compute_derived(session: Session, run: IngestionRun, reg: Registry) -> dict[
                 out = D.ratio(*frames, positive_denominator=m.derive.get("positive_denominator", False))
             elif op == "yoy":
                 out = D.yoy(frames[0])
+            elif op == "drawdown_52w":
+                out = D.drawdown_52w(frames[0])
+            elif op == "multiply_asof":
+                out = D.multiply_asof(*frames, max_gap_days=m.derive.get("max_gap_days", 45))
             elif op == "sum_entities":
                 out = D.sum_entities(frames[0], m.derive["members"], m.entities[0])
             else:
@@ -150,6 +154,13 @@ def run_ingestion(session: Session, provider_names: list[str], trigger: str = "m
             run = IngestionRun(provider=name, trigger=trigger, status="running", started_at=utcnow())
             session.add(run); session.commit()
             log.info("ingestion_start", provider=name, run_id=run.id, trigger=trigger)
+            pst = prov.status()
+            if not pst.available:
+                run.status = "skipped"; run.message = f"provider not configured: {pst.reason}"
+                run.finished_at = utcnow(); session.commit()
+                log.info("ingestion_skipped", provider=name, reason=pst.reason)
+                runs.append(run)
+                continue
             try:
                 result = prov.fetch(reg, entity_ids)
                 for e in result.errors:

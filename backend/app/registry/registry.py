@@ -35,6 +35,7 @@ class MetricDef:
     concept_overrides: dict[str, list[str]] = field(default_factory=dict)
     derive: dict[str, Any] | None = None
     series_id: str | None = None
+    params: dict[str, Any] = field(default_factory=dict)  # provider-specific options
 
     def concepts_for(self, entity_id: str) -> list[str]:
         return self.concept_overrides.get(entity_id, self.concepts)
@@ -101,6 +102,6 @@ def sync_registry(session: Session, reg: Registry | None = None) -> None:
             status=m.status, is_ai_specific=m.is_ai_specific, warning=m.warning,
             methodology=(m.methodology or "").strip() or None,
             config={"entities": m.entities, "concepts": m.concepts, "concept_overrides": m.concept_overrides,
-                    "derive": m.derive, "series_id": m.series_id},
+                    "derive": m.derive, "series_id": m.series_id, "params": m.params},
         ))
     session.commit()

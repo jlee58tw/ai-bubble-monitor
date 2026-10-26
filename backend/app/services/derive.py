@@ -97,3 +97,58 @@ def sum_entities(a: pd.DataFrame, members: list[str], target_entity: str) -> pd.
         })
     return pd.DataFrame(rows, columns=[*KEY, "value", "publication_date", "confidence", "fiscal_period",
                                        "source_url", "inputs"])
+
+
+def drawdown_52w(a: pd.DataFrame, window_days: int = 365, min_coverage_days: int = 358) -> pd.DataFrame:
+    """value_t / max(value over (t - window, t]) - 1 for daily series.
+
+    Emitted only when the stored history reaches back at least `min_coverage_days` before t, so a short
+    history never produces an understated drawdown.
+    """
+    rows = []
+    for eid, g in a.groupby("entity_id"):
+        g = g.sort_values("period_end").reset_index(drop=True)
+        dates = list(g["period_end"]); vals = list(g["value"]); ids = list(g["id"])
+        first = dates[0]
+        for i, d in enumerate(dates):
+            if (d - first).days < min_coverage_days:
+                continue
+            lo = d - dt.timedelta(days=window_days)
+            win = [(v, j) for j, (dd, v) in enumerate(zip(dates[: i + 1], vals[: i + 1])) if dd > lo]
+            hi, j = max(win)
+            if hi <= 0:
+                continue
+            rows.append({
+                "entity_id": eid, "period_start": None, "period_end": d, "value": vals[i] / hi - 1.0,
+                "publication_date": g.loc[i, "publication_date"], "confidence": g.loc[i, "confidence"],
+                "fiscal_period": None, "source_url": g.loc[i, "source_url"],
+                "inputs": f"drawdown_52w; close obs id {int(ids[i])}, 52w-high obs id {int(ids[j])} "
+                          f"({dates[j].isoformat()}, {hi:g})",
+            })
+    return pd.DataFrame(rows, columns=[*KEY, "value", "publication_date", "confidence", "fiscal_period",
+                                       "source_url", "inputs"])
+
+
+def multiply_asof(a: pd.DataFrame, b: pd.DataFrame, max_gap_days: int = 45) -> pd.DataFrame:
+    """a_t x b_(nearest date within max_gap_days), per entity (e.g. price x shares snapshot)."""
+    rows = []
+    for eid, ga in a.groupby("entity_id"):
+        gb = b[b["entity_id"] == eid]
+        if gb.empty:
+            continue
+        bl = list(gb.sort_values("period_end").to_dict("records"))
+        for r in ga.to_dict("records"):
+            best = min(bl, key=lambda x: abs((x["period_end"] - r["period_end"]).days))
+            if abs((best["period_end"] - r["period_end"]).days) > max_gap_days:
+                continue
+            rows.append({
+                "entity_id": eid, "period_start": r["period_start"], "period_end": r["period_end"],
+                "value": r["value"] * best["value"],
+                "publication_date": max(r["publication_date"], best["publication_date"]),
+                "confidence": RANK_CONF[min(CONF_RANK[r["confidence"]], CONF_RANK[best["confidence"]])],
+                "fiscal_period": r["fiscal_period"], "source_url": r["source_url"],
+                "inputs": f"a x b(asof); input obs ids {int(r['id'])}, {int(best['id'])} "
+                          f"(b dated {best['period_end'].isoformat()})",
+            })
+    return pd.DataFrame(rows, columns=[*KEY, "value", "publication_date", "confidence", "fiscal_period",
+                                       "source_url", "inputs"])

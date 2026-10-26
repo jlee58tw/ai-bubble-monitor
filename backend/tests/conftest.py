@@ -26,6 +26,7 @@ def amzn_doc():
 def db_session(tmp_path):
     from sqlalchemy.orm import sessionmaker
 
+    import app.models  # noqa: F401  (register tables on Base.metadata)
     from app.db import Base, make_engine, set_engine
     eng = make_engine(f"sqlite:///{tmp_path}/test.db")
     Base.metadata.create_all(eng)

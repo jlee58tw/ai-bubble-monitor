@@ -49,7 +49,8 @@ def test_total_capex_is_not_labeled_ai():
     m = reg.metrics["capex_total"]
     assert m.is_ai_specific is False
     assert "not ai" in m.warning.lower()
-    assert reg.metrics["nvda_datacenter_revenue"].status == "unavailable"
+    assert reg.metrics["nvda_datacenter_revenue"].provider == "sec_filing_xbrl"
+    assert "not" in reg.metrics["nvda_datacenter_revenue"].warning.lower()
 
 
 def test_fred_csv_skips_missing_values():

@@ -80,7 +80,11 @@ def test_end_to_end(db_session, monkeypatch):
         st = c.get("/api/ingestion/status").json()
         states = {(s["metric_id"], s["entity_id"]): s["state"] for s in st["series"]}
         assert states[("capex_total", "META")] == "missing"          # missing is flagged, not zero
-        assert states[("nvda_datacenter_revenue", "NVDA")] == "unavailable"
+        assert states[("nvda_datacenter_revenue", "NVDA")] == "missing"     # connected, not fetched here
+        assert states[("forward_pe", "NVDA")] == "unavailable"               # licensed consensus data
+        from app.config import get_settings
+        if not get_settings().alphavantage_api_key:
+            assert states[("us_price_close", "NVDA")] == "unavailable"       # provider not configured
         cards = c.get("/api/overview").json()["cards"]
         meta = [x for x in cards if x["metric_id"] == "capex_total" and x["entity_id"] == "META"][0]
         assert meta["status"] == "missing" and meta["current"] is None

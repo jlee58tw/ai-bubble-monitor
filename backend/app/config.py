@@ -20,10 +20,21 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
     scheduler_enabled: bool = False
     scheduler_cron: str = "30 22 * * *"
+    datasets_cron: str = "0 23 * * 0"  # weekly (Sunday 23:00 UTC = Monday 07:00 Asia/Taipei)
     log_level: str = "INFO"
     log_json: bool = True
     fred_series: str = "DGS10"
     fred_start: str = "2015-01-01"
+    # TWSE: months of daily history fetched per stock (>=13 needed for a 52-week window)
+    twse_history_months: int = 13
+    # Seconds between www.twse.com.tw requests (TWSE blocks bursts; keep >= 3)
+    twse_min_interval_s: float = 3.0
+    # Optional: Alpha Vantage key for US equity prices (free tier: 25 req/day). Unset -> UNAVAILABLE.
+    alphavantage_api_key: str = ""
+    # SEC filing-level XBRL (dimensional facts): number of recent 10-Q/10-K filings to parse
+    sec_filings_limit: int = 12
+    # Risk engine: refuse to show a precise overall score below this weighted coverage
+    risk_min_coverage: float = 0.5
 
     @field_validator("sec_max_rps")
     @classmethod

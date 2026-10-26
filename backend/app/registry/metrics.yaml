@@ -193,22 +193,6 @@ metrics:
     series_id: DGS10
 
   # ---------------- unavailable / placeholder ----------------
-  - id: nvda_datacenter_revenue
-    name: NVIDIA Data Center segment revenue
-    description: >-
-      NVIDIA's Data Center revenue is disclosed only as a DIMENSIONAL XBRL fact (segment/market axis). The SEC
-      companyfacts API used here returns only non-dimensional facts, so this series is UNAVAILABLE in Phase 1.
-      Total NVDA revenue (metric `revenue`, entity NVDA) is connected but is NOT data-center revenue.
-    unit: USD
-    frequency: quarterly
-    category: ai_supply_chain
-    default_classification: reported
-    provider: null
-    status: unavailable
-    is_ai_specific: true
-    warning: "Unavailable: needs a filing-level XBRL instance parser (planned Phase 2)."
-    entities: [NVDA]
-
   - id: ai_capex_disclosed
     name: AI-specific capex (company disclosed)
     description: No hyperscaler reports AI-only capex as a structured, audited number. Would be qualitative/guidance from earnings calls.
@@ -246,15 +230,170 @@ metrics:
     is_ai_specific: true
     entities: [MSFT, GOOGL, AMZN, META, ORCL]
 
-  - id: market_cap
-    name: Market capitalization / valuation multiples
+  # ---------------- AI supply chain: dimensional XBRL (Phase 2) ----------------
+  - id: nvda_datacenter_revenue
+    name: NVIDIA Data Center revenue (market platform)
     description: >-
-      Requires a licensed price source. Yahoo's chart endpoint is reachable but unofficial and not used; Stooq
-      returned a JavaScript challenge; Alpha Vantage needs an API key (not configured).
+      NVIDIA revenue for the Data Center market platform, parsed from the DIMENSIONAL XBRL facts in each 10-Q / 10-K
+      instance document on SEC EDGAR Archives (srt:ProductOrServiceAxis = nvda:DataCenterMember). The 10-K only
+      reports the fiscal year, so Q4 is DERIVED as FY - 9M YTD (Q3 10-Q).
+    unit: USD
+    frequency: quarterly
+    category: ai_supply_chain
+    default_classification: reported
+    provider: sec_filing_xbrl
+    status: connected
+    is_ai_specific: true
+    warning: "Data Center includes networking and non-AI compute; it is the closest audited AI-demand proxy, not 'AI revenue'."
+    methodology: >-
+      Source = SEC EDGAR filing XBRL instance (same numbers as the 10-Q/10-K revenue-by-market table). NVIDIA
+      investor-relations press releases are not scraped: the SEC filing is the audited, machine-readable original.
+    entities: [NVDA]
+    concepts: [Revenues, RevenueFromContractWithCustomerExcludingAssessedTax]
+    params: {axis: "srt:ProductOrServiceAxis", member: "nvda:DataCenterMember"}
+
+  # ---------------- valuation: Taiwan (TWSE open data) ----------------
+  - id: tw_price_close
+    name: Closing price (TWSE)
+    description: Daily closing price from the Taiwan Stock Exchange (TWD, NOT adjusted for dividends).
+    unit: TWD
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: twse
+    status: connected
+    methodology: "www.twse.com.tw exchangeReport/STOCK_DAY (monthly JSON, one request per stock-month, >= 3 s apart). ROC dates converted to ISO."
+    entities: ["2330", "2382", "2317"]
+
+  - id: tw_pe_trailing
+    name: Trailing P/E (TWSE-computed)
+    description: >-
+      Price / earnings ratio published daily by TWSE (BWIBBU_ALL): closing price over the trailing four quarters'
+      EPS. This is a TRAILING multiple, NOT forward P/E. Empty when EPS is negative or unavailable.
+    unit: ratio
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: twse
+    status: connected
+    methodology: "openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL (latest trading day only; history accumulates one snapshot per run)."
+    entities: ["2330", "2382", "2317"]
+
+  - id: tw_pb_ratio
+    name: Price / book (TWSE-computed)
+    description: P/B ratio published daily by TWSE (BWIBBU_ALL).
+    unit: ratio
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: twse
+    status: connected
+    entities: ["2330", "2382", "2317"]
+
+  - id: tw_dividend_yield
+    name: Dividend yield (TWSE-computed)
+    description: Dividend yield published daily by TWSE (BWIBBU_ALL), stored as a fraction.
+    unit: pct
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: twse
+    status: connected
+    entities: ["2330", "2382", "2317"]
+
+  - id: tw_shares_outstanding
+    name: Common shares issued (TWSE company profile)
+    description: "已發行普通股數 from TWSE open data t187ap03_L (listed-company basic information), snapshot per run."
+    unit: shares
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: twse
+    status: connected
+    methodology: "openapi.twse.com.tw/v1/opendata/t187ap03_L; observation date = 出表日期 (table date)."
+    entities: ["2330", "2382", "2317"]
+
+  - id: tw_market_cap
+    name: Market capitalization (TWD)
+    description: Closing price x common shares issued.
+    unit: TWD
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    warning: "Uses the nearest shares snapshot within 45 days; shares history starts when ingestion started."
+    methodology: "tw_price_close x tw_shares_outstanding (nearest shares snapshot within 45 days of the price date)."
+    entities: ["2330", "2382", "2317"]
+    derive: {op: multiply_asof, inputs: [tw_price_close, tw_shares_outstanding], max_gap_days: 45}
+
+  - id: tw_drawdown_52w
+    name: Drawdown from 52-week high (TWSE close)
+    description: close / max(close over the trailing 365 days) - 1. Only computed when a full 52-week window of history exists.
+    unit: pct
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    warning: "Unadjusted closes: ex-dividend drops slightly overstate the drawdown."
+    methodology: "value_t / max(value over (t-365d, t]) - 1; requires the first observation to be <= t-358d."
+    entities: ["2330", "2382", "2317"]
+    derive: {op: drawdown_52w, inputs: [tw_price_close]}
+
+  # ---------------- valuation: US (optional keyed source) ----------------
+  - id: us_price_close
+    name: Closing price (US listing)
+    description: >-
+      Daily close from Alpha Vantage TIME_SERIES_DAILY (official API, free key). Only active when ALPHAVANTAGE_API_KEY
+      is set; otherwise every series is UNAVAILABLE. Free tier returns ~100 most recent sessions (compact).
     unit: USD
     frequency: daily
     category: valuation
     default_classification: reported
+    provider: alphavantage
+    status: connected
+    warning: "Requires ALPHAVANTAGE_API_KEY. Not split/dividend adjusted. TSM = NYSE ADR (1 ADR = 5 shares)."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
+
+  - id: us_drawdown_52w
+    name: Drawdown from 52-week high (US close)
+    description: As tw_drawdown_52w, from us_price_close. Needs 52 weeks of stored history (compact API = ~100 days, so history must accumulate).
+    unit: pct
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value_t / max(value over (t-365d, t]) - 1; requires the first observation to be <= t-358d."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
+    derive: {op: drawdown_52w, inputs: [us_price_close]}
+
+  - id: market_cap
+    name: Market capitalization (US listings)
+    description: >-
+      Would be price x shares outstanding (EDGAR dei:EntityCommonStockSharesOutstanding). No unkeyed official US
+      price source is available (Stooq: JS challenge; Yahoo: unofficial endpoint, not used), and multi-class issuers
+      (GOOGL, META) report shares only as dimensional facts. UNAVAILABLE.
+    unit: USD
+    frequency: daily
+    category: valuation
+    default_classification: derived
     provider: null
     status: unavailable
-    entities: [MSFT, GOOGL, AMZN, META, ORCL, NVDA]
+    warning: "Unavailable - no licensed/official unkeyed US price feed."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
+
+  - id: forward_pe
+    name: Forward P/E (consensus EPS)
+    description: >-
+      Forward P/E requires analyst consensus EPS estimates, which are licensed data (FactSet, LSEG, S&P, Bloomberg).
+      No free, terms-compliant source exists. UNAVAILABLE for all tickers. Do NOT substitute trailing P/E.
+    unit: ratio
+    frequency: daily
+    category: valuation
+    default_classification: estimated
+    provider: null
+    status: unavailable
+    warning: "Unavailable - consensus estimates are licensed."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM, "2330", "2382", "2317"]

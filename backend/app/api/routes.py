@@ -30,6 +30,22 @@ def obs_dict(o: Observation) -> dict:
     return d
 
 
+def provider_states() -> dict[str, tuple[bool, str | None]]:
+    """Cheap (no network) configuration check for every provider."""
+    out = {}
+    for name in PROVIDERS:
+        st = get_provider(name).status()
+        out[name] = (st.available, st.reason)
+    return out
+
+
+def effective_status(status: str, provider: str | None, states: dict) -> tuple[str, str | None]:
+    """A 'connected' metric whose provider is not configured (e.g. missing API key) is UNAVAILABLE."""
+    if status == "connected" and provider in states and not states[provider][0]:
+        return "unavailable", states[provider][1]
+    return status, None
+
+
 def _csv(param: str | None) -> list[str] | None:
     return [x.strip() for x in param.split(",") if x.strip()] if param else None
 
@@ -43,13 +59,19 @@ def health():
 def list_metrics(session: Session = Depends(get_session)):
     rows = session.scalars(select(Metric).order_by(Metric.category, Metric.id)).all()
     counts = dict(session.execute(select(Observation.metric_id, func.count()).group_by(Observation.metric_id)).all())
-    return [{
+    states = provider_states()
+    out = []
+    for m in rows:
+        eff, reason = effective_status(m.status, m.provider, states)
+        out.append({
         "id": m.id, "name": m.name, "description": m.description, "unit": m.unit, "frequency": m.frequency,
         "category": m.category, "default_classification": m.default_classification, "provider": m.provider,
         "status": m.status, "is_ai_specific": m.is_ai_specific, "warning": m.warning,
         "methodology": m.methodology, "entities": (m.config or {}).get("entities", []),
-        "observation_rows": counts.get(m.id, 0),
-    } for m in rows]
+        "observation_rows": counts.get(m.id, 0), "effective_status": eff, "unavailable_reason": reason,
+        "params": (m.config or {}).get("params") or {},
+    })
+    return out
 
 
 @router.get("/entities")
@@ -144,6 +166,7 @@ def ingestion_status(session: Session = Depends(get_session)):
                           "last_run_at": last.started_at if last else None,
                           "last_success_at": last_ok.finished_at if last_ok else None})
     reg = get_registry()
+    states = provider_states()
     agg = session.execute(select(Observation.metric_id, Observation.entity_id, func.max(Observation.period_end),
                                  func.max(Observation.publication_date), func.max(Observation.ingestion_ts),
                                  func.count()).group_by(Observation.metric_id, Observation.entity_id)).all()
@@ -153,14 +176,16 @@ def ingestion_status(session: Session = Depends(get_session)):
     for m in reg.metrics.values():
         for e in m.entities:
             a = have.get((m.id, e))
-            if m.status != "connected":
-                state = m.status
+            eff, reason = effective_status(m.status, m.provider, states)
+            if eff != "connected":
+                state = eff
             elif a is None:
                 state = "missing"
             else:
                 lag = (today - a[2]).days
                 state = "stale" if lag > STALE_DAYS.get(m.frequency, 120) else "fresh"
-            series.append({"metric_id": m.id, "entity_id": e, "metric_status": m.status, "state": state,
+            series.append({"metric_id": m.id, "entity_id": e, "metric_status": eff, "state": state,
+                           "reason": reason,
                            "latest_period_end": a[2] if a else None,
                            "latest_publication_date": a[3] if a else None,
                            "last_ingested_at": a[4] if a else None, "rows": a[5] if a else 0})
