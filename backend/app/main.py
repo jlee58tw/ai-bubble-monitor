@@ -12,6 +12,7 @@ from .logging_setup import configure_logging, get_logger
 from .registry.registry import sync_registry
 from .api.datasets_routes import router as datasets_router
 from .api.risk_routes import router as risk_router
+from .api.roi_routes import router as roi_router
 from .scheduler import start_scheduler
 
 settings = get_settings()
@@ -41,3 +42,4 @@ app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origin_list, allo
 app.include_router(router)
 app.include_router(datasets_router)
 app.include_router(risk_router)
+app.include_router(roi_router)

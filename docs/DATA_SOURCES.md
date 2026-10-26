@@ -75,3 +75,7 @@ Datasets are append-only: unchanged values only bump `last_seen_at`; a changed p
 5. **FRED has no vintage history here.** `publication_date` for DGS10 ≈ observation date (ALFRED not used).
 6. **Fiscal calendars differ.** MSFT FY ends June, ORCL May, NVDA late January; the others are calendar years. Cross-company sums (`capex_total_big4_cal`) use only MSFT/GOOGL/AMZN/META with identical calendar quarter-ends.
 7. **Missing data is never zero risk.** Unavailable or missing series are shown explicitly as UNAVAILABLE / MISSING / NO DATA and are never zero-filled.
+
+## ROI simulator
+
+`/roi` and `GET /api/roi` use **no external data**: every input is a user scenario value. Formulas and the modeling assumptions for Expected Rework Cost / Expected Failure Loss are in the README ("ROI simulator"). Benchmark top scores appear on the page only as labeled references.

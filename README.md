@@ -99,6 +99,7 @@ SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgres
 | GET / POST | `/api/risk`, `/api/risk/history`, `/api/risk/snapshot` | live risk evaluation, stored snapshots |
 | GET | `/api/methodology` | risk config (weights, thresholds, rationale), rules, config hash |
 | GET | `/api/alerts` | alerts computed from stored real data |
+| GET | `/api/roi` | ROI scenario calculator (spec formulas; see below) |
 
 ## Frontend pages
 
@@ -122,14 +123,25 @@ macro/funding 10, technology/reliability 10. Each indicator maps linearly from a
 widen the range (0 for the low bound, 100 for the high bound) — missing data never counts as zero risk. If weighted coverage is
 below `min_coverage` (0.5) the overall score is withheld and only the range is shown. Every snapshot stores the config hash.
 
-## ROI simulator formulas (documented assumptions)
+## ROI simulator (`/roi`, `GET /api/roi`)
 
+Definitions from the project spec, implemented exactly in `backend/app/services/roi.py`:
 ```
-ETC (Effective Task Cost) = inference_cost + (review_minutes / 60) × reviewer_rate + (1 − p_success) × failure_recovery_cost
-Effective ROI             = (baseline_manual_cost − ETC) / ETC
-Totals                    = per-task values × task volume;  break-even p solves ETC = baseline
+Effective Task Cost = AI Inference Cost + Tool Cost + Human Review Cost + Expected Rework Cost + Expected Failure Loss
+Effective ROI       = (Baseline Human Cost - Effective Task Cost) / Baseline Human Cost
 ```
-The original spec text for these formulas was not in the repo, so they are written out here and on the page. Benchmark scores are shown only as references, not as your task's success probability.
+Inputs (query params of `/api/roi`): `success_probability` p, `review_minutes`, `reviewer_hourly_rate`, `inference_cost`,
+`tool_cost`, `rework_cost`, `rework_share` s, `failure_recovery_cost`, `baseline_human_cost`, `task_volume`.
+
+**Modeling assumptions** (how the terms are computed; not part of the spec definitions):
+```
+Human Review Cost     = review_minutes / 60 x reviewer_hourly_rate        (every task is reviewed)
+Expected Rework Cost  = (1 - p) x s       x rework_cost                   (failed task fixed by rework)
+Expected Failure Loss = (1 - p) x (1 - s) x failure_recovery_cost         (failure not fixable by rework)
+```
+A failed task is either reworked or a loss, never both. Totals = per-task values x task volume. Break-even success
+probability = p where Effective Task Cost = Baseline Human Cost (ROI = 0): `p* = 1 - (B - inference - tool - review) / (s x rework + (1 - s) x recovery)`;
+the API reports "always profitable" / "never breaks even" when p* falls outside [0, 1]. Benchmark scores on the page are references only.
 
 ## How to add a new metric
 
@@ -187,7 +199,7 @@ backend/
     datasets/              pricing.py, benchmarks.py, gpu.py, runner.py (append-only dataset tables)
     registry/risk.yaml     risk weights, thresholds (hypotheses), alert rules
     registry/              metrics.yaml, entities.yaml, loader/sync
-    services/              periods.py (YTD→quarter, vintages), derive.py, ingest.py, queries.py, risk.py, alerts.py
+    services/              periods.py (YTD→quarter, vintages), derive.py, ingest.py, queries.py, risk.py, alerts.py, roi.py
     models.py db.py config.py scheduler.py cli.py main.py
   alembic/                 migrations
   tests/                   pytest + recorded EDGAR fixtures
