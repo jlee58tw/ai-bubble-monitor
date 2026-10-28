@@ -1,4 +1,5 @@
 "use client";
+import { ANIM } from "@/lib/chart";
 import { useState } from "react";
 import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Hypothesis, Loading, Panel } from "@/components/Panel";
@@ -67,8 +68,8 @@ export default function Backtest() {
             <ComposedChart data={daily}><CartesianGrid stroke="#222" /><XAxis dataKey="date" tick={{ fontSize: 9 }} minTickGap={40} />
               <YAxis yAxisId="s" domain={[0, 100]} tick={{ fontSize: 9 }} /><YAxis yAxisId="p" orientation="right" tick={{ fontSize: 9 }} domain={["auto", "auto"]} />
               <Tooltip contentStyle={{ background: "#000", fontSize: 11 }} />
-              <Line isAnimationActive={false} yAxisId="s" dataKey="composite" stroke="#ffb000" dot={false} name="composite (partial)" connectNulls={false} />
-              <Line isAnimationActive={false} yAxisId="p" dataKey="price" stroke="#4aa3ff" dot={false} name={`${sel} close`} />
+              <Line {...ANIM} yAxisId="s" dataKey="composite" stroke="#ffb000" dot={false} name="composite (partial)" connectNulls={false} />
+              <Line {...ANIM} yAxisId="p" dataKey="price" stroke="#4aa3ff" dot={false} name={`${sel} close`} />
             </ComposedChart>
           </ResponsiveContainer>
         </Panel>
@@ -105,9 +106,9 @@ export default function Backtest() {
         <ResponsiveContainer width="100%" height={220}>
           <ComposedChart data={hist}><CartesianGrid stroke="#222" /><XAxis dataKey="date" tick={{ fontSize: 9 }} minTickGap={40} />
             <YAxis domain={[0, 100]} tick={{ fontSize: 9 }} /><Tooltip contentStyle={{ background: "#000", fontSize: 11 }} />
-            <Area isAnimationActive={false} dataKey="band" stroke="none" fill="#ffb000" fillOpacity={0.12} name="range if missing = 0…100" />
-            <Line isAnimationActive={false} dataKey="composite_partial" stroke="#ffb000" dot={false} name="composite (partial)" />
-            <Line isAnimationActive={false} dataKey="cov" stroke="#888" strokeDasharray="3 3" dot={false} name="coverage %" />
+            <Area {...ANIM} dataKey="band" stroke="none" fill="#ffb000" fillOpacity={0.12} name="range if missing = 0…100" />
+            <Line {...ANIM} dataKey="composite_partial" stroke="#ffb000" dot={false} name="composite (partial)" />
+            <Line {...ANIM} dataKey="cov" stroke="#888" strokeDasharray="3 3" dot={false} name="coverage %" />
           </ComposedChart>
         </ResponsiveContainer>
       </Panel>

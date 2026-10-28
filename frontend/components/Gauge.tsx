@@ -10,7 +10,13 @@ const arc = (a: number, b: number, r = R) => { const [x1, y1] = pt(a, r), [x2, y
 /** 半圓儀表：風險分數（0–100）、可能範圍與覆蓋率。分數為 null 時顯示「暫不公布」而不是 0。 */
 export default function Gauge({ score, low, high, coverage, minCoverage }: { score: number | null; low: number | null; high: number | null; coverage: number; minCoverage: number }) {
   const [shown, setShown] = useState(0);
-  useEffect(() => { const t = setTimeout(() => setShown(score ?? 0), 80); return () => clearTimeout(t); }, [score]);
+  useEffect(() => {
+    const target = score ?? 0, t0 = performance.now(), D = 1200;
+    let raf = 0;
+    const step = (now: number) => { const k = Math.min((now - t0) / D, 1); setShown(target * (1 - Math.pow(1 - k, 3))); if (k < 1) raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [score]);
   const lv = riskLevel(score);
   const ang = -90 + (shown / 100) * 180;
   return (
@@ -22,7 +28,7 @@ export default function Gauge({ score, low, high, coverage, minCoverage }: { sco
         {low != null && high != null ? <path d={arc(low, high, R - 22)} stroke="rgb(var(--c-info))" strokeOpacity={0.55} strokeWidth="6" strokeLinecap="round" fill="none" /> : null}
         {[0, 40, 60, 80, 100].map((v) => { const [x, y] = pt(v, R + 20); return <text key={v} x={x} y={y + 4} textAnchor="middle" fontSize="10" fill="var(--tick)">{v}</text>; })}
         {score != null ? (
-          <g style={{ transform: `rotate(${ang}deg)`, transformOrigin: `${CX}px ${CY}px`, transition: "transform 1.4s cubic-bezier(.2,.8,.2,1)" }} filter="url(#glow)">
+          <g transform={`rotate(${ang} ${CX} ${CY})`} filter="url(#glow)">
             <path d={`M ${CX - 5} ${CY} L ${CX} ${CY - R + 8} L ${CX + 5} ${CY} Z`} fill={lv.hex} />
           </g>) : null}
         <circle cx={CX} cy={CY} r="9" fill="rgb(var(--c-panel))" stroke={lv.hex} strokeWidth="3" />

@@ -1,4 +1,5 @@
 "use client";
+import { ANIM, GRID, TICK, TT } from "@/lib/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ClassBadge, StatusPill } from "@/components/Badges";
 import { Loading, Panel, SourceStatus } from "@/components/Panel";
@@ -19,9 +20,9 @@ export default function SupplyChain() {
       <Panel title="NVIDIA DATA CENTER SEGMENT REVENUE (USD B) — SEC 10-Q/10-K XBRL, DIMENSIONAL FACT nvda:DataCenterMember">
         <Loading show={!dc.data && !dc.error} />
         <ResponsiveContainer width="100%" height={260}><BarChart data={data}>
-          <CartesianGrid stroke="#232a35" strokeDasharray="2 4" /><XAxis dataKey="q" tick={{ fill: "#7d8590", fontSize: 10 }} /><YAxis tick={{ fill: "#7d8590", fontSize: 10 }} />
-          <Tooltip contentStyle={{ background: "#11151c", border: "1px solid #232a35", fontSize: 11 }} formatter={(x: number) => `$${x.toFixed(3)}B`} />
-          <Bar isAnimationActive={false} dataKey="v" fill="#58a6ff" /></BarChart></ResponsiveContainer>
+          <CartesianGrid stroke={GRID} strokeDasharray="2 4" /><XAxis dataKey="q" tick={TICK} /><YAxis tick={TICK} />
+          <Tooltip {...TT} formatter={(x: number) => `$${x.toFixed(3)}B`} />
+          <Bar {...ANIM} dataKey="v" fill="#58a6ff" /></BarChart></ResponsiveContainer>
         <table className="w-full text-[11px] font-mono mt-2"><thead className="text-term-muted text-left"><tr><th>fiscal period</th><th>period</th><th className="text-right">revenue</th><th>class</th><th>filed</th><th>source</th></tr></thead>
           <tbody>{(dc.data ?? []).slice().reverse().map((o) => (
             <tr key={o.id} className="border-t border-term-border"><td>{o.fiscal_period}</td><td>{o.period_start} → {o.period_end}</td>

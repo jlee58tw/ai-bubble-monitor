@@ -59,7 +59,7 @@ export default function RiskPage() {
             <Range low={d.score_low} high={d.score_high} score={d.score} />
             <div className="overflow-x-auto">
             <table className="w-full text-[11px] mt-2 min-w-[560px]">
-              <thead className="text-term-muted text-left"><tr><th>指標</th><th>狀態</th><th className="text-right">數值</th><th className="text-right">溫和→過熱 <Info text="指標數值等於「溫和」門檻＝0 分，等於「過熱」門檻＝100 分，中間線性內插。" /></th><th className="text-right">分數</th><th>資料日期</th></tr></thead>
+              <thead className="text-term-muted text-left whitespace-nowrap"><tr><th>指標</th><th>狀態</th><th className="text-right">數值</th><th className="text-right">溫和→過熱 <Info text="指標數值等於「溫和」門檻＝0 分，等於「過熱」門檻＝100 分，中間線性內插。" /></th><th className="text-right">分數</th><th>資料日期</th></tr></thead>
               <tbody>{d.indicators.map((i) => (
                 <tr key={i.id} className="border-t border-term-border align-top">
                   <td className="text-white py-1">{indName(i.id, i.name)} <Info text={indWhy(i.id, i.rationale)} />
