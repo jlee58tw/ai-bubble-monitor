@@ -28,7 +28,8 @@ export default function Backtest() {
   const [p, setP] = useState({ horizon: 20, drawdown: 0.1, composite_threshold: 60, indicator_threshold: 70 });
   const q = new URLSearchParams(Object.entries(p).map(([k, v]) => [k, String(v)])).toString();
   const { data: r, error, loading } = useApi<Bt>(`/api/backtest?${q}`);
-  const [sel, setSel] = useState("TW_BASKET");
+  const [selRaw, setSel] = useState<string | null>(null);
+  const sel = selRaw ?? (r && r.episodes["US_AI_BASKET"] ? "US_AI_BASKET" : "TW_BASKET");
   const daily = (r?.daily ?? []).map((d) => ({ date: d.date, composite: d.composite_partial, price: d.close[sel] ?? null }));
   const hist = (r?.history_monthly ?? []).map((h) => ({ ...h, band: [h.score_low, h.score_high], cov: h.coverage * 100 }));
   const series = r ? Object.keys(r.episodes) : [];
@@ -85,11 +86,11 @@ export default function Backtest() {
               <td>{e.n_on ?? "—"}</td><td>{pct(e.hit_rate_on)}</td><td>{e.ci95_on_overlap_adjusted ? `${pct(e.ci95_on_overlap_adjusted[0], 0)}–${pct(e.ci95_on_overlap_adjusted[1], 0)}` : "—"}</td>
               <td>{pct(e.hit_rate_off)}</td><td>{pct(e.base_rate)}</td><td className="text-left text-term-muted">{e.reason}</td></tr>)))}</tbody></table></div>
       </Panel>
-      <Panel title="CORRECTION EPISODES (≥ X% from running peak, within available history) AND SIGNAL LEAD TIMES">
+      <Panel title={`CORRECTION EPISODES — ${sel} (≥ X% from running peak, within available history) AND SIGNAL LEAD TIMES · pick series above`}>
         <div className="overflow-x-auto"><table className="w-full text-[11px] font-mono">
           <thead className="text-term-muted"><tr><th className="text-left">series</th><th>peak</th><th>confirmed (≤ −X%)</th><th>max DD</th>
             {r?.signals.filter((s) => s.status === "computed").map((s) => <th key={s.id} title={s.name} className="max-w-[90px] break-words">{s.id.replace(/_/g, " ")}</th>)}</tr></thead>
-          <tbody>{series.flatMap((k) => (r?.episodes[k] ?? []).map((ep, j) => (
+          <tbody>{series.filter((k) => k === sel).flatMap((k) => (r?.episodes[k] ?? []).map((ep, j) => (
             <tr key={k + j} className="border-t border-term-border text-center"><td className="text-left">{k}</td>
               <td>{ep.peak_date}{ep.peak_at_history_start ? " *" : ""}</td><td>{ep.trigger_date}</td><td className="text-term-down">{pct(ep.max_drawdown)}</td>
               {r?.signals.filter((s) => s.status === "computed").map((s) => { const l = s.lead_times[k]?.[j];
@@ -99,7 +100,7 @@ export default function Backtest() {
         <div className="text-[10px] text-term-muted font-mono mt-2">Lead = calendar days from start of the signal&apos;s ON run to the confirmation date. “≥” = signal already ON on the first evaluable day (left-censored).
           A signal that was ON for most of the window “precedes” almost every episode by construction — compare with the ON share and base rate before reading anything into it. * peak on first day of stored history.</div>
       </Panel>
-      <Panel title="LONG-RUN POINT-IN-TIME COMPOSITE (month-end, since 2010) — no outcomes: no stored prices that far back">
+      <Panel title="LONG-RUN POINT-IN-TIME COMPOSITE (month-end, since 2010) — context only; outcomes start with stored prices (US 2015, TWSE ~13 months)">
         <ResponsiveContainer width="100%" height={220}>
           <ComposedChart data={hist}><CartesianGrid stroke="#222" /><XAxis dataKey="date" tick={{ fontSize: 9 }} minTickGap={40} />
             <YAxis domain={[0, 100]} tick={{ fontSize: 9 }} /><Tooltip contentStyle={{ background: "#000", fontSize: 11 }} />
@@ -111,7 +112,7 @@ export default function Backtest() {
       </Panel>
       <Hypothesis>Methodology: for each date d, every indicator reading the observations table is recomputed with only rows whose publication_date ≤ d, using the
         version current on d (later revisions invisible). The official risk score requires coverage ≥ min_coverage and is withheld at every past date, so the
-        &quot;composite (partial)&quot; uses only available point-in-time indicators and is NOT the published risk score. Outcomes use realized TWSE closes.
+        &quot;composite (partial)&quot; uses only available point-in-time indicators and is NOT the published risk score. Outcomes use realized TWSE closes and, when stored, split-adjusted US closes (Tiingo, price return only, no dividends); US tickers were chosen with hindsight.
         Overlapping windows mean far fewer independent observations than days. Full notes: /methodology.</Hypothesis>
     </div>
   );

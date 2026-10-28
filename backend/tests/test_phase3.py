@@ -133,3 +133,19 @@ def test_events_guidance_watchlist_api(db_session):
         b = c.get("/api/backtest", params={"include_daily": False}).json()
         assert b["series_status"]["US"]["status"] == "unavailable" and "daily" not in b
         assert c.get("/api/backtest.csv").status_code == 200
+
+
+def test_backtest_uses_stored_us_split_adjusted_prices(db_session):
+    s = db_session
+    _seed_registry(s)
+    days = [D(2024, 1, 1) + dt.timedelta(days=i) for i in range(330)]
+    for i, d in enumerate(days):
+        _obs(s, "us_price_split_adj", "NVDA", 100 + i, d, d)
+        _obs(s, "us_price_split_adj", "AMD", 200 - 0.1 * i, d, d)
+    _obs(s, "us_price_split_adj", "QQQ", 400, days[-1], days[-1])          # too short -> explicit, not dropped
+    r = bt.run_backtest(s, today=D(2025, 1, 1))
+    st = r["series_status"]
+    assert "US" not in st and st["NVDA"]["status"] == "ok" and st["AMD"]["status"] == "ok"
+    assert st["US_AI_BASKET"]["status"] == "ok" and st["QQQ"]["status"] == "insufficient_data"
+    assert r["window"]["trading_days"] == 330
+    assert any("survivorship" in c for c in r["caveats"]) and any("volatility" in c for c in r["caveats"])

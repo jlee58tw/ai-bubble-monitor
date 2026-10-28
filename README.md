@@ -152,12 +152,15 @@ below `min_coverage` (0.5) the overall score is withheld and only the range is s
 - Dataset-based indicators (model prices, GPU prices, METR, benchmarks) have no history before first collection → `not_point_in_time`,
   excluded and widening the range (never zero risk). Past coverage is ~0.3–0.43 < `min_coverage`, so the official score is withheld
   at every past date; the backtest uses a clearly labelled **partial-coverage composite** plus per-indicator signals.
-- Outcomes: TWSE 2330 / 2382 / 2317 + equal-weight basket, ~13 months of daily closes. Hit = signal ON and the close falls ≥ X%
+- Outcomes: TWSE 2330 / 2382 / 2317 + equal-weight basket (~13 months of daily closes) and, with `TIINGO_API_KEY`, US
+  split-adjusted closes since 2015 (NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM, equal-weight `US_AI_BASKET`, QQQ, SOXX, SMH;
+  price return, no dividends; tickers chosen with hindsight → survivorship/selection bias). Hit = signal ON and the close falls ≥ X%
   within H trading days. Reported per signal × series: hit rate ON / OFF, base rate, approximate Wilson 95% CI with effective n = n/H
   (overlapping windows), status `insufficient_data` / `no_variation` (always ON) / `small_sample`. Correction episodes (≥ X% from the
   running peak within stored history) with lead time from the start of the signal's ON run (`≥` = left-censored).
-- Month-end point-in-time composite since 2010 is shown for context only (no stored prices that far back → no outcomes).
-- US outcomes: unavailable without `TIINGO_API_KEY` / `ALPHAVANTAGE_API_KEY`. **Nothing here claims predictive validity.**
+- Month-end point-in-time composite since 2010 is shown for context only (outcomes start where stored prices start).
+- Price-based signals (`ai_basket_drawdown`, `ai_index_drawdown`) share price data with the outcomes → associations partly reflect
+  volatility clustering. Without a US price key, US outcomes are `unavailable`. **Nothing here claims predictive validity.**
 
 ### US prices — free options (tested 2026-10-28, Asia/Taipei)
 

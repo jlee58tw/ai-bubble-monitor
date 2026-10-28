@@ -7,7 +7,8 @@ indicators (model prices, GPU list prices, benchmarks) were first collected rece
 `not_point_in_time` (excluded, which widens the score range - never counted as zero risk).
 
 Outcomes: forward minimum return over the next H trading days on TWSE daily closes (2330, 2382, 2317 and an
-equal-weight basket). US prices are used only if us_price_close history exists (needs ALPHAVANTAGE_API_KEY).
+equal-weight basket) and, when a US price key is configured (Tiingo), on split-adjusted US closes (8 AI stocks,
+an equal-weight US AI basket, QQQ / SOXX / SMH). Outcomes use realised future prices by design; signals never do.
 A "hit" = signal ON at d and the close falls >= X% below d's close within H trading days.
 Lead time = days from the start of the signal's ON run to the date a >= X% peak-to-trough correction was
 confirmed (and to its peak). With ~13 months of prices there are only a handful of independent windows, so
@@ -31,10 +32,20 @@ from . import risk as risk_svc
 from .queries import query_observations
 
 TW_CODES = ["2330", "2382", "2317"]
+US_CODES = ["NVDA", "AMD", "MSFT", "GOOGL", "AMZN", "META", "ORCL", "TSM"]
+US_ETFS = ["QQQ", "SOXX", "SMH"]
 CAVEATS = [
     "Research prototype. Not investment advice and NOT evidence that any signal predicts drawdowns.",
-    "Price history is ~13 months of TWSE daily closes (3 stocks + basket); US prices are not stored. "
-    "That is a handful of independent outcome windows - far too few for statistical validity.",
+    "TWSE outcomes cover only ~13 months (a handful of independent windows). US outcomes (Tiingo, split-adjusted, "
+    "price return, 2015 onward) are longer, but the windows overlap heavily, the 8 stocks are highly correlated, and "
+    "US mega-caps were selected with hindsight (survivorship / selection bias: today's AI winners).",
+    "Before ~2016 most indicators are missing (52-week drawdowns need a year of history; several SEC series start "
+    "later), so early signal days are partial-coverage composites, not the live score.",
+    "Price-based signals (ai_basket_drawdown, ai_index_drawdown, and the composite that includes them) are computed "
+    "from the same/overlapping price series as the outcomes, so any association partly reflects volatility "
+    "clustering, not bubble detection.",
+    "Split-adjusted closes use split factors known today; this rescales whole pre-split histories by a constant, "
+    "which leaves every return and drawdown unchanged (no information about future prices).",
     "Forward windows overlap day to day; intervals use an overlap-adjusted effective sample size (n / H) and are "
     "approximate.",
     "Thresholds are the same research hypotheses as the live risk engine; they were not fitted to this window, "
@@ -257,11 +268,32 @@ def run_backtest(session: Session, horizon: int = 20, drawdown: float = 0.10, co
     if b:
         prices["TW_BASKET"] = b
         series_status["TW_BASKET"] = {"status": "ok", "days": len(b), "source": "equal-weight of available TWSE codes"}
-    us = _prices(session, "us_price_close")
-    series_status["US"] = ({"status": "unavailable", "reason": "no us_price_close history stored "
-                                                               "(ALPHAVANTAGE_API_KEY not set); US outcomes not evaluated"}
-                           if not us else {"status": "insufficient_data", "reason": f"{sum(map(len, us.values()))} rows; "
-                                           "US outcome evaluation not implemented for <52 weeks of history"})
+    us = _prices(session, "us_price_split_adj", US_CODES + US_ETFS)
+    if not us:
+        series_status["US"] = {"status": "unavailable", "reason": "no US price history stored (TIINGO_API_KEY / "
+                                                                  "ALPHAVANTAGE_API_KEY not set); US outcomes not evaluated"}
+    us_ok = {}
+    for c in US_CODES + US_ETFS:
+        n = len(us.get(c, {}))
+        if not us:
+            continue
+        if n >= 260 + 2 * horizon:
+            us_ok[c] = us[c]
+            series_status[c] = {"status": "ok", "days": n, "source": "Tiingo EOD, split-adjusted (price return)"}
+        else:
+            series_status[c] = {"status": "insufficient_data", "days": n,
+                                "reason": "fewer than ~1 year + 2 horizons of US closes"}
+    ub = _basket({c: us_ok[c] for c in US_CODES if c in us_ok})
+    for c in US_CODES:
+        if c in us_ok:
+            prices[c] = us_ok[c]
+    if ub:
+        prices["US_AI_BASKET"] = ub
+        series_status["US_AI_BASKET"] = {"status": "ok", "days": len(ub),
+                                         "source": "equal-weight (rebased) of available US AI stocks, common dates"}
+    for c in US_ETFS:
+        if c in us_ok:
+            prices[c] = us_ok[c]
 
     days = sorted(set().union(*(set(p) for p in prices.values()))) if prices else []
     days = [d for d in days if d <= today]
