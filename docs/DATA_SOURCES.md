@@ -1,7 +1,16 @@
-# Data sources — Phase 1 + Phase 2
+# Data sources — Phases 1–3
 
 Connectivity was tested from the build host on **2026-10-27 (Asia/Taipei, UTC+8)**. Re-test before relying on this list.
 Phase 2 sources are listed first; the Phase 1 sections below are kept and updated.
+
+## Phase 3 — added (verified live 2026-10-28, UTC+8)
+
+| Source | Endpoint | What | Terms / access notes |
+|---|---|---|---|
+| SEC EDGAR submissions API | `https://data.sec.gov/submissions/CIK##########.json` | `filing_events`: 10-Q/10-K/20-F/40-F (+/A) and 8-K with Item 2.02 for MSFT, AMZN, GOOGL, META, ORCL, NVDA, AMD, TSM. `reportDate` = observation date, `filingDate` = publication date, `acceptanceDateTime` (UTC). 360 events stored on 2026-10-28. | SEC fair-access policy: `SEC_USER_AGENT` with contact e-mail, 2 req/s (limit 10). **Only the `filings.recent` block** (latest ~1,000 filings of any form) is read, so the earliest stored event differs per company (e.g. GOOGL 2023-07, META 2024-07, ORCL 2016); older `filings.files` pages are not fetched. |
+| Guidance | — | **Placeholder.** No guidance source is connected; 8-K earnings releases are listed but not parsed. Rows can only be stored with a source URL and verbatim quote. | — |
+| TWSE / MOPS filing calendar | — | **Not connected** (2330, 2382, 2317 show UNAVAILABLE on /events). | — |
+| Backtest outcomes | stored `tw_price_close` (TWSE STOCK_DAY) | ~13 months of daily closes for 2330/2382/2317; US prices unavailable without `ALPHAVANTAGE_API_KEY`. | No new fetches; uses stored data only. |
 
 ## Phase 2 — connected (verified live 2026-10-27, UTC+8)
 
@@ -75,6 +84,7 @@ Datasets are append-only: unchanged values only bump `last_seen_at`; a changed p
 5. **FRED has no vintage history here.** `publication_date` for DGS10 ≈ observation date (ALFRED not used).
 6. **Fiscal calendars differ.** MSFT FY ends June, ORCL May, NVDA late January; the others are calendar years. Cross-company sums (`capex_total_big4_cal`) use only MSFT/GOOGL/AMZN/META with identical calendar quarter-ends.
 7. **Missing data is never zero risk.** Unavailable or missing series are shown explicitly as UNAVAILABLE / MISSING / NO DATA and are never zero-filled.
+8. **Backtest limits.** Point-in-time reconstruction is only as good as stored publication dates: FRED DGS10 publication ≈ observation date (no ALFRED vintages); TWSE P/E is a single recent snapshot (no history), and 52-week drawdown exists only from 2026-09; dataset-based indicators have no pre-collection history. Outcome history is ~13 months for 3 TWSE stocks (~12 independent 20-day windows) — results are descriptive only.
 
 ## ROI simulator
 

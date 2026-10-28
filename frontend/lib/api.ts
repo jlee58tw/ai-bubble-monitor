@@ -30,3 +30,11 @@ export async function apiPost<T>(path: string): Promise<T> {
   if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 200)}`);
   return r.json();
 }
+export async function apiSend<T>(path: string, method: "POST" | "DELETE", body?: unknown): Promise<T> {
+  const r = await fetch(`${API_BASE}${path}`, {
+    method, headers: body === undefined ? undefined : { "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 200)}`);
+  return r.json();
+}

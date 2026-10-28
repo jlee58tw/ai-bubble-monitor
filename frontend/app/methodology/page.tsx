@@ -49,6 +49,19 @@ export default function Methodology() {
           <p className="text-xs">See <a className="src" href="/roi">/roi</a> (computed by <code>/api/roi</code>). Spec definitions: Effective Task Cost = AI Inference Cost + Tool Cost + Human Review Cost + Expected Rework Cost + Expected Failure Loss; Effective ROI = (Baseline Human Cost − Effective Task Cost) / Baseline Human Cost.</p>
           <p className="text-xs text-term-amber mt-1">Modeling assumptions (expected terms only): Expected Rework Cost = (1 − p) × rework share × rework cost; Expected Failure Loss = (1 − p) × (1 − rework share) × failure recovery cost; Human Review Cost = review minutes / 60 × hourly rate. Inputs are user scenario values.</p>
         </Panel>
+        <Panel title="HISTORICAL BACKTEST (point-in-time) — see /backtest">
+          <ul className="text-xs list-disc ml-4 space-y-1">
+            <li>No look-ahead: at each past date d, indicators reading the observations table are recomputed from rows with publication_date ≤ d, using the version current on d (later revisions and restatements are invisible until published). Derived rows carry the latest publication date of their inputs.</li>
+            <li>Dataset-based indicators (model prices, GPU list prices, METR/benchmarks) have no stored history before first collection: marked not_point_in_time and excluded. Missing indicators widen the 0–100 range and are never scored as zero risk.</li>
+            <li>Past coverage is below min_coverage, so the official risk score is withheld at every past date. The backtest reports a clearly labelled partial-coverage composite plus individual indicator signals.</li>
+            <li>Signal ON = composite ≥ 60 or indicator score ≥ 70 (same research thresholds as the live engine, not fitted). Unknown days are excluded, never treated as OFF.</li>
+            <li>Outcome: forward minimum close over H = 20 trading days ≤ −10% (TWSE 2330/2382/2317 and an equal-weight basket; ~13 months). Reported: hit rate when ON/OFF vs base rate, an approximate Wilson 95% interval with effective n = n/H for overlapping windows, and lead time from the start of the ON run to each ≥10% correction from the running peak (left-censored runs shown as “≥”).</li>
+            <li>Status labels: insufficient_data (too few days or signal never ON), no_variation (always ON — no timing information), small_sample (computed but only ~12 independent windows). Nothing here demonstrates predictive validity. US price outcomes are unavailable without an Alpha Vantage key.</li>
+          </ul>
+        </Panel>
+        <Panel title="FILING EVENTS, GUIDANCE, WATCHLIST">
+          <p className="text-xs">Events come from SEC EDGAR submissions metadata (10-Q/10-K/20-F and 8-K Item 2.02): observation date = report period / event date, publication date = filing date. Only the EDGAR “recent” block is loaded, so each company’s earliest stored date is shown. Guidance stays a placeholder until a source with URL + verbatim quote is connected; nothing is inferred. The watchlist is stored in the database and only displays stored observations.</p>
+        </Panel>
       </>) : null}
     </div>
   );

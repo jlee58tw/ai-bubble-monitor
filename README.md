@@ -1,4 +1,4 @@
-# AI Bubble Monitor — Phase 1 + Phase 2
+# AI Bubble Monitor — Phases 1–3
 
 A research dashboard asking one question: **is AI monetization keeping up with AI capex?**
 Phase 1 is a vertical slice: hyperscaler capex, revenue, operating cash flow and FCF from **SEC EDGAR**, plus the
@@ -9,6 +9,10 @@ US 10Y yield from **FRED**. Everything else is shown as explicitly *unavailable*
 list prices (OpenAI, Anthropic, Gemini, OpenRouter open-weight), agent benchmarks (SWE-bench, METR time horizon, Terminal-Bench,
 never merged across benchmarks), Azure GPU list prices, a six-dimension **risk score** with coverage and ranges, a methodology
 page, a reliability **ROI simulator**, and in-app **alerts**. Full source list and unavailable metrics: [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
+
+**Phase 3** (no new API keys): a **point-in-time historical backtest** of the risk signals against TWSE price drawdowns
+(`/backtest`, CSV download), **earnings / filing events** from SEC EDGAR submissions (`/events`; guidance = placeholder), and a
+DB-backed **watchlist** (`/watchlist`). See "Phase 3" below.
 
 > Research only, not a trading tool and not investment advice.
 
@@ -109,6 +113,10 @@ SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgres
 | GET | `/api/methodology` | risk config (weights, thresholds, rationale), rules, config hash |
 | GET | `/api/alerts` | alerts computed from stored real data |
 | GET | `/api/roi` | ROI scenario calculator (spec formulas; see below) |
+| GET | `/api/backtest`, `/api/backtest.csv` | point-in-time backtest; params `horizon` (trading days, 20), `drawdown` (0.10), `composite_threshold` (60), `indicator_threshold` (70), `lookback_days` (120), `include_daily` |
+| GET | `/api/events` | SEC filing events: `entity_id`, `event_type` (`periodic_report` / `earnings_release_8k`), `since`, `limit`; observation vs publication date, lag, coverage per company |
+| GET | `/api/guidance` | guidance items (status `placeholder` while no sourced guidance exists) |
+| GET / POST / DELETE | `/api/watchlist`, `/api/watchlist/{id}` | watchlist CRUD; POST body `{"entity_id"?, "metric_id"?, "note"?}` (≥1 of entity/metric; 404 unknown id, 409 duplicate) |
 
 ## Frontend pages
 
@@ -120,9 +128,10 @@ SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgres
 - **Valuation** (`/valuation`): TWSE table + price/drawdown charts; US tickers shown UNAVAILABLE without a key; forward P/E UNAVAILABLE.
 - **Supply chain / GPU** (`/supply-chain`): NVDA Data Center revenue, Azure GPU list prices, marketplace placeholder.
 - **Model pricing** (`/pricing`), **Benchmarks** (`/benchmarks`), **ROI simulator** (`/roi`), **Methodology** (`/methodology`).
+- **Backtest** (`/backtest`), **Events** (`/events`), **Watchlist** (`/watchlist`) — Phase 3.
 - `[PH]` pages are labeled placeholders with no data: AI Monetization, Credit/Funding.
 
-Screenshots: `docs/screenshot_*.png`.
+Screenshots: `docs/screenshot_*.png` (refresh with `scripts/screenshots.sh` while services are up; uses headless Chrome).
 
 ## Risk score (research prototype)
 
@@ -131,6 +140,31 @@ macro/funding 10, technology/reliability 10. Each indicator maps linearly from a
 **all thresholds are research hypotheses**. Unavailable, stale or insufficient indicators are excluded from the point score and
 widen the range (0 for the low bound, 100 for the high bound) — missing data never counts as zero risk. If weighted coverage is
 below `min_coverage` (0.5) the overall score is withheld and only the range is shown. Every snapshot stores the config hash.
+
+## Phase 3
+
+### Point-in-time backtest (`/backtest`, `backend/app/services/backtest.py`)
+- **No look-ahead.** For each past date d, every risk indicator that reads the observations table is recomputed from rows with
+  `publication_date <= d`, using the version current on d (a later revision/restatement is invisible until its own publication
+  date). Live `/api/risk?…` evaluation now uses the same `as_of` rule.
+- Dataset-based indicators (model prices, GPU prices, METR, benchmarks) have no history before first collection → `not_point_in_time`,
+  excluded and widening the range (never zero risk). Past coverage is ~0.3–0.43 < `min_coverage`, so the official score is withheld
+  at every past date; the backtest uses a clearly labelled **partial-coverage composite** plus per-indicator signals.
+- Outcomes: TWSE 2330 / 2382 / 2317 + equal-weight basket, ~13 months of daily closes. Hit = signal ON and the close falls ≥ X%
+  within H trading days. Reported per signal × series: hit rate ON / OFF, base rate, approximate Wilson 95% CI with effective n = n/H
+  (overlapping windows), status `insufficient_data` / `no_variation` (always ON) / `small_sample`. Correction episodes (≥ X% from the
+  running peak within stored history) with lead time from the start of the signal's ON run (`≥` = left-censored).
+- Month-end point-in-time composite since 2010 is shown for context only (no stored prices that far back → no outcomes).
+- US outcomes: unavailable without `ALPHAVANTAGE_API_KEY`. **Nothing here claims predictive validity.**
+
+### Events, guidance, watchlist
+- `python -m app.cli datasets --source sec_filing_events` (also part of the weekly datasets job) reads
+  `data.sec.gov/submissions` for every registry company with a CIK: 10-Q/10-K/20-F/40-F (+/A) and 8-K with Item 2.02.
+  Observation date = EDGAR `reportDate`, publication date = `filingDate`. Append-only, keyed by accession number. Only the EDGAR
+  "recent" block is read, so coverage starts at a different date per company (shown in the UI). TWSE companies: not connected.
+- Guidance table (`guidance_items`) requires `source_url` + verbatim `quote`; it is empty and the UI shows a placeholder.
+- Watchlist (`watchlist_items`): entity and/or metric; shows the latest current observation(s), publication date, metric status
+  (unavailable when the provider is not configured) and the latest filing.
 
 ## ROI simulator (`/roi`, `GET /api/roi`)
 
