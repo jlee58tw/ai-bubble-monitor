@@ -11,3 +11,4 @@ frontend/out/
 frontend/.next-static/
 frontend/public/snapshot/
 .pages-worktree/
+frontend/tsconfig.tsbuildinfo
