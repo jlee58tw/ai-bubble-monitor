@@ -31,6 +31,10 @@ class Settings(BaseSettings):
     twse_min_interval_s: float = 3.0
     # Optional: Alpha Vantage key for US equity prices (free tier: 25 req/day). Unset -> UNAVAILABLE.
     alphavantage_api_key: str = ""
+    # Optional: Tiingo key for US equity/ETF daily prices (free Starter plan). Unset -> UNAVAILABLE.
+    tiingo_api_key: str = ""
+    # First date requested from price APIs (>= 10 years of history for drawdown / relative performance)
+    us_price_start: str = "2015-01-01"
     # SEC filing-level XBRL (dimensional facts): number of recent 10-Q/10-K filings to parse
     sec_filings_limit: int = 12
     # Risk engine: refuse to show a precise overall score below this weighted coverage

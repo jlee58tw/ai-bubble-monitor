@@ -57,7 +57,9 @@ class Registry:
     entities: dict[str, EntityDef]
 
     def metrics_for_provider(self, provider: str) -> list[MetricDef]:
-        return [m for m in self.metrics.values() if m.provider == provider and m.status == "connected"]
+        """Connected metrics whose primary provider - or one of params.alt_providers - is `provider`."""
+        return [m for m in self.metrics.values() if m.status == "connected"
+                and (m.provider == provider or provider in (m.params or {}).get("alt_providers", []))]
 
 
 def load_registry(metrics_path: Path | None = None, entities_path: Path | None = None) -> Registry:

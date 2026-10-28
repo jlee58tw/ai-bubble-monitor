@@ -83,8 +83,12 @@ def test_end_to_end(db_session, monkeypatch):
         assert states[("nvda_datacenter_revenue", "NVDA")] == "missing"     # connected, not fetched here
         assert states[("forward_pe", "NVDA")] == "unavailable"               # licensed consensus data
         from app.config import get_settings
-        if not get_settings().alphavantage_api_key:
-            assert states[("us_price_close", "NVDA")] == "unavailable"       # provider not configured
+        cfg = get_settings()
+        if not cfg.alphavantage_api_key and not cfg.tiingo_api_key:
+            assert states[("us_price_close", "NVDA")] == "unavailable"       # no price provider configured
+            assert states[("market_cap", "NVDA")] == "unavailable"           # derived from an unconfigured source
+            assert states[("us_rel_return_1y_vs_sox", "AMD")] == "unavailable"
+        assert states[("us_index_close", "NDX")] != "unavailable"            # FRED needs no key
         cards = c.get("/api/overview").json()["cards"]
         meta = [x for x in cards if x["metric_id"] == "capex_total" and x["entity_id"] == "META"][0]
         assert meta["status"] == "missing" and meta["current"] is None

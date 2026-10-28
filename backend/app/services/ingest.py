@@ -101,7 +101,8 @@ def compute_derived(session: Session, run: IngestionRun, reg: Registry) -> dict[
                 continue  # input not computed yet
             frames = [observations_frame(session, i) for i in ins]
             op = m.derive["op"]
-            if any(f.empty for f in frames):
+            optional = set(m.derive.get("optional", []))  # inputs that may legitimately be empty (e.g. splits)
+            if any(f.empty for i, f in zip(ins, frames) if i not in optional):
                 out = pd.DataFrame()
             elif op == "subtract":
                 out = D.subtract(*frames)
@@ -113,6 +114,16 @@ def compute_derived(session: Session, run: IngestionRun, reg: Registry) -> dict[
                 out = D.drawdown_52w(frames[0])
             elif op == "multiply_asof":
                 out = D.multiply_asof(*frames, max_gap_days=m.derive.get("max_gap_days", 45))
+            elif op == "split_adjust":
+                out = D.split_adjust(frames[0], frames[1] if len(frames) > 1 else None)
+            elif op == "market_cap_asof":
+                out = D.market_cap_asof(frames[0], frames[1], frames[2] if len(frames) > 2 else None,
+                                        max_age_days=m.derive.get("max_age_days", 120),
+                                        max_age_overrides=m.derive.get("max_age_overrides"),
+                                        scale=m.derive.get("scale"))
+            elif op == "rel_return":
+                out = D.rel_return(frames[0], frames[1], m.derive["bench_entity"],
+                                   window_days=m.derive.get("window_days", 365))
             elif op == "sum_entities":
                 out = D.sum_entities(frames[0], m.derive["members"], m.entities[0])
             else:

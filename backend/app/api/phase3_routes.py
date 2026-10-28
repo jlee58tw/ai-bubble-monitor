@@ -118,7 +118,7 @@ def _watch_view(session: Session, w: WatchlistItem) -> dict:
                             .order_by(FilingEvent.filing_date.desc()).limit(1)).first()
         ev = {"form": e.form, "publication_date": e.filing_date, "observation_date": e.report_date,
               "source_url": e.source_url} if e else None
-    mstat, why = effective_status(met.status, met.provider, provider_states()) if met else ("connected", None)
+    mstat, why = effective_status(met.status, met.provider, provider_states(), (met.config or {}).get("params")) if met else ("connected", None)
     status = mstat if mstat != "connected" else ("ok" if obs else "missing")
     return {"id": w.id, "entity_id": w.entity_id, "entity_name": ent.name if ent else None,
             "metric_id": w.metric_id, "metric_name": met.name if met else None, "metric_status": mstat if met else None, "status_reason": why,

@@ -46,7 +46,7 @@ class FredProvider(Provider):
 
     def __init__(self, client: httpx.Client | None = None):
         self._client = client
-        self.limiter = RateLimiter(2)
+        self.limiter = RateLimiter(1)  # robots.txt: Crawl-delay 1
 
     def status(self) -> ProviderStatus:
         return ProviderStatus(self.name, True)
@@ -57,11 +57,12 @@ class FredProvider(Provider):
         client = self._client or httpx.Client(timeout=60, headers={"User-Agent": "ai-bubble-monitor"})
         try:
             for m in registry.metrics_for_provider(self.name):
-                sid = m.series_id
-                url = FRED_CSV.format(sid=sid, start=s.fred_start)
+                by_entity = (m.params or {}).get("series_by_entity") or {}
                 for eid in m.entities:
                     if entity_ids and eid not in entity_ids:
                         continue
+                    sid = by_entity.get(eid, m.series_id)
+                    url = FRED_CSV.format(sid=sid, start=s.fred_start)
                     try:
                         text = get_with_retry(client, url, self.limiter).text
                         recs = parse_fred_csv(text, m.id, eid, m.unit, f"https://fred.stlouisfed.org/series/{sid}", sid)

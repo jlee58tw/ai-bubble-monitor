@@ -27,10 +27,56 @@ def filing_index_url(cik: str, accn: str) -> str:
     return f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accn.replace('-', '')}/{accn}-index.htm"
 
 
+def dei_instant_records(doc: dict, entity_id: str, cik: str, m: MetricDef,
+                        errors: list[ProviderError]) -> tuple[list[ObservationRecord], int]:
+    """Cover-page (dei) instant facts, e.g. EntityCommonStockSharesOutstanding, one record per filing vintage.
+
+    period_end = the cover-page 'as of' date, publication_date = filing date. Only NON-dimensional facts are in
+    companyfacts, so multi-class issuers that tag shares per class (GOOGL, META) yield nothing -> warning.
+    """
+    dei = doc.get("facts", {}).get("dei", {})
+    unit = (m.params or {}).get("xbrl_unit", "shares")
+    out: list[ObservationRecord] = []
+    fetched = 0
+    for c in m.concepts_for(entity_id):
+        raw = dei.get(c, {}).get("units", {}).get(unit, [])
+        fetched += len(raw)
+        for f in raw:
+            try:
+                end = dt.date.fromisoformat(f["end"]); filed = dt.date.fromisoformat(f["filed"])
+                val = float(f["val"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if val <= 0:
+                continue
+            out.append(ObservationRecord(
+                metric_id=m.id, entity_id=entity_id, value=val, unit=m.unit, period_start=None, period_end=end,
+                fiscal_period=f"{f.get('fy')} {f.get('fp')}" if f.get("fy") else None, publication_date=filed,
+                source_type="sec_edgar_xbrl", classification="reported", confidence="high",
+                source_url=filing_index_url(cik, f["accn"]), source_ref=f"dei:{c}",
+                methodology=f"REPORTED cover-page dei:{c} ({f.get('form')}), as of {end}. Filing: {f['accn']}"))
+        if out:
+            break
+    if not out:
+        errors.append(ProviderError(
+            f"No non-dimensional dei facts for {m.concepts_for(entity_id)} (multi-class issuers tag shares per "
+            "class only)", level="warning", entity_id=entity_id, metric_id=m.id))
+    # several filings can restate the same cover date; keep one record per (end, filed)
+    uniq = {(r.period_end, r.publication_date): r for r in sorted(out, key=lambda r: r.publication_date)}
+    return list(uniq.values()), fetched
+
+
 def records_from_companyfacts(doc: dict, entity_id: str, cik: str, metrics: list[MetricDef],
                               errors: list[ProviderError] | None = None) -> tuple[list[ObservationRecord], int]:
     """Pure transform: companyfacts JSON -> quarterly ObservationRecords (all vintages)."""
     errors = errors if errors is not None else []
+    dei_ms = [m for m in metrics if (m.params or {}).get("taxonomy") == "dei"]
+    metrics = [m for m in metrics if m not in dei_ms]
+    dei_out: list[ObservationRecord] = []
+    dei_n = 0
+    for m in dei_ms:
+        r, n = dei_instant_records(doc, entity_id, cik, m, errors)
+        dei_out.extend(r); dei_n += n
     usgaap = doc.get("facts", {}).get("us-gaap", {})
     fetched = 0
     # facts per concept actually used, plus fiscal-year starts from all of them
@@ -73,7 +119,7 @@ def records_from_companyfacts(doc: dict, entity_id: str, cik: str, metrics: list
                     confidence=conf, source_url=filing_index_url(cik, v.accns[0]),
                     methodology=meth, source_ref=f"us-gaap:{c}",
                 ))
-    return out, fetched
+    return out + dei_out, fetched + dei_n
 
 
 class SecEdgarProvider(Provider):

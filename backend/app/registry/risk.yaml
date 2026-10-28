@@ -94,6 +94,14 @@ indicators:
     max_age_days: 14
     thresholds: {benign: -0.05, stretched: -0.35}
     rationale: Broad, deep drawdowns indicate the market is de-rating AI expectations (stress, not valuation level).
+  - id: ai_index_drawdown
+    dimension: valuation
+    name: Drawdown from 52-week high (mean of NASDAQ-100 and PHLX Semiconductor, FRED)
+    calc: obs_mean_latest
+    args: {metric: us_index_drawdown_52w, entities: [NDX, SOX], min_entities: 2}
+    max_age_days: 14
+    thresholds: {benign: -0.05, stretched: -0.35}
+    rationale: Keyless market-stress gauge for the AI trade (index level, so not a valuation measure).
 
   # --- monetization ---------------------------------------------------------------------------
   - id: ai_revenue_disclosed

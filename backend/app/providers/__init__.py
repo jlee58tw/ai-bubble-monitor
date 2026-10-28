@@ -6,6 +6,7 @@ from .alphavantage import AlphaVantageProvider
 from .fred import FredProvider
 from .sec_edgar import SecEdgarProvider
 from .sec_filing_xbrl import SecFilingXbrlProvider
+from .tiingo import TiingoProvider
 from .twse import TwseProvider
 
 PROVIDERS: dict[str, type[Provider]] = {
@@ -13,6 +14,7 @@ PROVIDERS: dict[str, type[Provider]] = {
     FredProvider.name: FredProvider,
     SecFilingXbrlProvider.name: SecFilingXbrlProvider,
     TwseProvider.name: TwseProvider,
+    TiingoProvider.name: TiingoProvider,
     AlphaVantageProvider.name: AlphaVantageProvider,
 }
 

@@ -10,7 +10,31 @@ Phase 2 sources are listed first; the Phase 1 sections below are kept and update
 | SEC EDGAR submissions API | `https://data.sec.gov/submissions/CIK##########.json` | `filing_events`: 10-Q/10-K/20-F/40-F (+/A) and 8-K with Item 2.02 for MSFT, AMZN, GOOGL, META, ORCL, NVDA, AMD, TSM. `reportDate` = observation date, `filingDate` = publication date, `acceptanceDateTime` (UTC). 360 events stored on 2026-10-28. | SEC fair-access policy: `SEC_USER_AGENT` with contact e-mail, 2 req/s (limit 10). **Only the `filings.recent` block** (latest ~1,000 filings of any form) is read, so the earliest stored event differs per company (e.g. GOOGL 2023-07, META 2024-07, ORCL 2016); older `filings.files` pages are not fetched. |
 | Guidance | — | **Placeholder.** No guidance source is connected; 8-K earnings releases are listed but not parsed. Rows can only be stored with a source URL and verbatim quote. | — |
 | TWSE / MOPS filing calendar | — | **Not connected** (2330, 2382, 2317 show UNAVAILABLE on /events). | — |
-| Backtest outcomes | stored `tw_price_close` (TWSE STOCK_DAY) | ~13 months of daily closes for 2330/2382/2317; US prices unavailable without `ALPHAVANTAGE_API_KEY`. | No new fetches; uses stored data only. |
+| Backtest outcomes | stored `tw_price_close` (TWSE STOCK_DAY) | ~13 months of daily closes for 2330/2382/2317; US prices unavailable without `TIINGO_API_KEY` / `ALPHAVANTAGE_API_KEY`. | No new fetches; uses stored data only. |
+
+## US price options (researched and tested 2026-10-28, Asia/Taipei)
+
+| Option | Works without key? | Free tier | Terms for this use | History | Result from build host |
+|---|---|---|---|---|---|
+| **FRED fredgraph CSV** (`NASDAQ100`, `NASDAQCOM`, `NASDAQSOX`) | **Yes** | robots.txt `Crawl-delay: 1` (respected: 1 req/s) | Allowed; series © Nasdaq, Inc. — personal research with attribution | NDX from 1986, SOX from 2004 (stored from 2015) | **Connected.** NDX 29,651.44 / COMP 26,477.81 / SOX 11,482.51 on 2026-10-27 |
+| **Tiingo** EOD (`/tiingo/daily/<t>/prices`) | No — free key | 50 req/h, 1,000 req/day, 500 symbols/month | Free plan = personal / internal use | 30+ years; raw close + adjClose + splitFactor | **Implemented (optional, `TIINGO_API_KEY`)**; verified with synthetic payloads only ("Please supply a token" without key) |
+| Alpha Vantage | No — free key | 25 req/day | Free key | Compact ≈100 sessions (full history premium) | Already implemented as alternative |
+| Twelve Data | No (demo key = AAPL only) | 800 credits/day, 8/min | Free = internal, **non-display** use | — | NVDA with demo key → 401 |
+| Finnhub | No | 60 calls/min | Personal | Daily candles are premium → no history | Not usable |
+| Polygon.io / Massive | No | 5 calls/min | Individual non-professional | 2 years | Too short for 10y; not used |
+| Financial Modeling Prep | No | 250 calls/day | Display/redistribution needs a separate licence | 5 years (free) | Not used |
+| EODHD | No | 20 calls/day | — | 1 year (free) | Not used |
+| marketstack | No | 100 requests/month | Non-commercial | 1 year (free) | Not used |
+| Stooq CSV | — | — | **robots.txt `Disallow: /`** for all agents + JS proof-of-work challenge | — | **Rejected** |
+| api.nasdaq.com | Returns data | — | **nasdaq.com legal terms prohibit automated/manual data capture** | — | **Rejected** |
+| Nasdaq Data Link | — | — | No free current US equity EOD dataset | — | Blocked / HTML |
+| Yahoo Finance chart API | Returns data | — | Unofficial endpoint, ToS | — | **Rejected** (Phase 1) |
+
+Implementation notes: Tiingo raw `close` is stored (`reported`), `splitFactor` stored on split days only; `us_price_split_adj`
+divides by later splits (not dividend-adjusted → price return, consistent with the FRED price-return indices and free of mass
+revisions after every dividend). Market cap = raw close × latest SEC `dei:EntityCommonStockSharesOutstanding` dated ≤ price date
+(≤120 days old; TSM ≤400 days from the annual 20-F, ÷5 per ADR), times splits between the share date and the price date. SOXX tracks
+the NYSE Semiconductor Index (not SOX), so relative performance is measured against the actual SOX index from FRED.
 
 ## Phase 2 — connected (verified live 2026-10-27, UTC+8)
 
@@ -37,8 +61,8 @@ Datasets are append-only: unchanged values only bump `last_seen_at`; a changed p
 
 | Metric | Status | Why |
 |---|---|---|
-| US prices / drawdown (`us_price_close`, `us_drawdown_52w`) | **unavailable unless `ALPHAVANTAGE_API_KEY` is set** | No unkeyed official source; Yahoo unofficial, Stooq JS challenge. |
-| US market cap (`market_cap`) | **unavailable** | No price feed without key; GOOGL/META share counts are only dimensional facts. |
+| US prices / drawdown / relative return (`us_price_close`, `us_drawdown_52w`, `us_rel_return_1y_vs_*`) | **unavailable unless `TIINGO_API_KEY` (or `ALPHAVANTAGE_API_KEY`) is set** | No keyless, terms-compliant per-stock source (see US price options below). Index level/drawdown from FRED is connected. |
+| US market cap (`market_cap`) | **unavailable without a price key**; GOOGL/META always unavailable | Derived from price × SEC cover-page shares; GOOGL/META share counts are only dimensional (per-class) facts. |
 | Forward P/E (`forward_pe`) — all 11 tickers | **unavailable** | Consensus EPS estimates are licensed (FactSet/LSEG/S&P/Bloomberg). Trailing P/E is NOT substituted. |
 | AI-specific capex (`ai_capex_disclosed`) | **unavailable** | Not tagged by any company. |
 | AI revenue (`ai_revenue_disclosed`), capex guidance (`capex_guidance`) | **placeholder** | Qualitative, from calls/press releases. |

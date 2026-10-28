@@ -15,3 +15,9 @@ entities:
   - {id: BIG4_CAL, name: "MSFT+GOOGL+AMZN+META (calendar-aligned sum)", entity_type: aggregate, group: hyperscaler_aggregate,
      notes: "Sum only for calendar quarters where ALL four companies have a value. ORCL excluded (May fiscal year, quarters not calendar-aligned)."}
   - {id: US, name: United States (macro), entity_type: macro, group: macro}
+  - {id: NDX,  name: "NASDAQ-100 index (FRED NASDAQ100)", entity_type: index, group: us_index, notes: "Price-return index; source Nasdaq, Inc. via FRED"}
+  - {id: COMP, name: "NASDAQ Composite index (FRED NASDAQCOM)", entity_type: index, group: us_index, notes: "Price-return index; source Nasdaq, Inc. via FRED"}
+  - {id: SOX,  name: "PHLX Semiconductor index (FRED NASDAQSOX)", entity_type: index, group: us_index, notes: "Price-return index; source Nasdaq, Inc. via FRED"}
+  - {id: QQQ,  name: "Invesco QQQ Trust (ETF, tracks NASDAQ-100)", entity_type: etf, group: us_etf_proxy, notes: "NASDAQ-100 proxy"}
+  - {id: SOXX, name: "iShares Semiconductor ETF", entity_type: etf, group: us_etf_proxy, notes: "Semiconductor proxy; tracks the NYSE Semiconductor Index (not SOX) since 2021"}
+  - {id: SMH,  name: "VanEck Semiconductor ETF", entity_type: etf, group: us_etf_proxy, notes: "Semiconductor proxy; tracks MarketVector US Listed Semiconductor 25"}

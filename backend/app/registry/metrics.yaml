@@ -341,24 +341,123 @@ metrics:
     entities: ["2330", "2382", "2317"]
     derive: {op: drawdown_52w, inputs: [tw_price_close]}
 
-  # ---------------- valuation: US (optional keyed source) ----------------
+  # ---------------- valuation: US (optional keyed source: Tiingo, fallback Alpha Vantage) ----------------
   - id: us_price_close
-    name: Closing price (US listing)
+    name: Closing price (US listing, raw)
     description: >-
-      Daily close from Alpha Vantage TIME_SERIES_DAILY (official API, free key). Only active when ALPHAVANTAGE_API_KEY
-      is set; otherwise every series is UNAVAILABLE. Free tier returns ~100 most recent sessions (compact).
+      Daily raw (unadjusted) close from Tiingo EOD (official API, free Starter key TIINGO_API_KEY; 30+ years of
+      history). Alpha Vantage TIME_SERIES_DAILY (ALPHAVANTAGE_API_KEY, ~100 sessions) is an alternative source.
+      With neither key set every series is UNAVAILABLE. No keyless, terms-compliant per-stock source exists.
     unit: USD
     frequency: daily
     category: valuation
     default_classification: reported
-    provider: alphavantage
+    provider: tiingo
     status: connected
-    warning: "Requires ALPHAVANTAGE_API_KEY. Not split/dividend adjusted. TSM = NYSE ADR (1 ADR = 5 shares)."
-    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
+    warning: "Requires TIINGO_API_KEY (or ALPHAVANTAGE_API_KEY). Raw close, not split/dividend adjusted. TSM = NYSE ADR (1 ADR = 5 shares)."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM, QQQ, SOXX, SMH]
+    params: {alt_providers: [alphavantage]}
+
+  - id: us_split_factor
+    name: Stock split factor (US listing)
+    description: Tiingo splitFactor on ex-dates where it differs from 1 (new shares per old share). Used to split-adjust prices and EDGAR share counts.
+    unit: ratio
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: tiingo
+    status: connected
+    warning: "Only stored on split days; absence means no split reported by Tiingo (Alpha Vantage free tier has no split data)."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM, QQQ, SOXX, SMH]
+
+  - id: us_price_split_adj
+    name: Split-adjusted close (US listing, price return)
+    description: Raw close divided by the product of later split factors. NOT dividend-adjusted, so it is a price-return series comparable with the FRED price-return indices.
+    unit: USD
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    warning: "Price return only (dividends excluded). Revised whenever a new split is recorded."
+    methodology: "us_price_close_t / prod(us_split_factor_s for split dates s > t)."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM, QQQ, SOXX, SMH]
+    derive: {op: split_adjust, inputs: [us_price_close, us_split_factor], optional: [us_split_factor]}
+    params: {upstream: [tiingo, alphavantage]}
 
   - id: us_drawdown_52w
-    name: Drawdown from 52-week high (US close)
-    description: As tw_drawdown_52w, from us_price_close. Needs 52 weeks of stored history (compact API = ~100 days, so history must accumulate).
+    name: Drawdown from 52-week high (US, split-adjusted close)
+    description: As tw_drawdown_52w, from us_price_split_adj. Needs 52 weeks of stored history (Tiingo provides 10+ years; Alpha Vantage compact only ~100 days).
+    unit: pct
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value_t / max(value over (t-365d, t]) - 1 on us_price_split_adj; requires the first observation to be <= t-358d."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM, QQQ, SOXX, SMH]
+    derive: {op: drawdown_52w, inputs: [us_price_split_adj]}
+    params: {upstream: [tiingo, alphavantage]}
+
+  - id: us_shares_outstanding
+    name: Common shares outstanding (SEC cover page)
+    description: >-
+      dei:EntityCommonStockSharesOutstanding from SEC EDGAR companyfacts (cover page of each 10-Q/10-K/20-F), dated
+      at the cover 'as of' date. Multi-class issuers GOOGL and META tag shares per class only (dimensional facts not
+      in companyfacts), so they are excluded rather than guessed. TSM: ordinary shares from the annual 20-F.
+    unit: shares
+    frequency: quarterly
+    category: valuation
+    default_classification: reported
+    provider: sec_edgar
+    status: connected
+    warning: "GOOGL / META not covered (multi-class, per-class facts only). TSM snapshot is annual."
+    entities: [NVDA, AMD, MSFT, AMZN, ORCL, TSM]
+    concepts: [EntityCommonStockSharesOutstanding]
+    params: {taxonomy: dei, xbrl_unit: shares}
+
+  - id: market_cap
+    name: Market capitalization (US listings, derived)
+    description: >-
+      Raw close (Tiingo / Alpha Vantage) x latest SEC cover-page shares outstanding dated on or before the price
+      date (<=120 days old; TSM <=400 days, annual 20-F), share count split-adjusted for splits in between. TSM ADR
+      price x ordinary shares / 5. Unavailable without a price key; GOOGL and META unavailable (no non-dimensional
+      share count).
+    unit: USD
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    warning: "Derived, not a vendor market cap. Share count lags (cover-page date); buybacks/issuance since then are not reflected. GOOGL/META UNAVAILABLE."
+    methodology: "us_price_close_t x us_shares_outstanding(latest as-of date <= t, max age 120d / TSM 400d) x prod(splits in (as-of, t]) x scale (TSM 0.2)."
+    entities: [NVDA, AMD, MSFT, AMZN, ORCL, TSM]
+    derive: {op: market_cap_asof, inputs: [us_price_close, us_shares_outstanding, us_split_factor], optional: [us_split_factor],
+             max_age_days: 120, max_age_overrides: {TSM: 400}, scale: {TSM: 0.2}}
+    params: {upstream: [tiingo, alphavantage]}
+
+  # ---------------- US benchmark indices (FRED, no key) ----------------
+  - id: us_index_close
+    name: US equity index close (NASDAQ-100, NASDAQ Composite, PHLX Semiconductor)
+    description: >-
+      Daily closes from FRED public CSV (no key): NASDAQ100, NASDAQCOM, NASDAQSOX (source Nasdaq, Inc., copyrighted;
+      used for personal research with attribution). Price-return indices (no dividends). These are the indices
+      behind the QQQ (NASDAQ-100) proxy and the SOX benchmark.
+    unit: index
+    frequency: daily
+    category: valuation
+    default_classification: reported
+    provider: fred
+    status: connected
+    warning: "Price-return index levels. FRED NASDAQSOX has occasional repeated/stale values in early history."
+    methodology: "FRED fredgraph.csv; publication_date approximated as observation date (no vintages). Missing '.' days skipped."
+    entities: [NDX, COMP, SOX]
+    series_id: NASDAQ100
+    params: {series_by_entity: {NDX: NASDAQ100, COMP: NASDAQCOM, SOX: NASDAQSOX}}
+
+  - id: us_index_drawdown_52w
+    name: Drawdown from 52-week high (US indices)
+    description: As tw_drawdown_52w, from us_index_close (NASDAQ-100, NASDAQ Composite, PHLX Semiconductor).
     unit: pct
     frequency: daily
     category: valuation
@@ -366,23 +465,38 @@ metrics:
     provider: derived
     status: connected
     methodology: "value_t / max(value over (t-365d, t]) - 1; requires the first observation to be <= t-358d."
-    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
-    derive: {op: drawdown_52w, inputs: [us_price_close]}
+    entities: [NDX, COMP, SOX]
+    derive: {op: drawdown_52w, inputs: [us_index_close]}
 
-  - id: market_cap
-    name: Market capitalization (US listings)
-    description: >-
-      Would be price x shares outstanding (EDGAR dei:EntityCommonStockSharesOutstanding). No unkeyed official US
-      price source is available (Stooq: JS challenge; Yahoo: unofficial endpoint, not used), and multi-class issuers
-      (GOOGL, META) report shares only as dimensional facts. UNAVAILABLE.
-    unit: USD
+  - id: us_rel_return_1y_vs_ndx
+    name: 1-year relative price return vs NASDAQ-100
+    description: (P_t / P_t-365d) / (NDX_t / NDX_t-365d) - 1 using split-adjusted closes and the FRED NASDAQ100 index.
+    unit: pct
     frequency: daily
     category: valuation
     default_classification: derived
-    provider: null
-    status: unavailable
-    warning: "Unavailable - no licensed/official unkeyed US price feed."
+    provider: derived
+    status: connected
+    warning: "Price return only (dividends excluded on both sides). Needs a price key (Tiingo / Alpha Vantage)."
+    methodology: "Base = last observation on/before t-365d (within 7 days) in both series; t must exist in both (no fill)."
     entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
+    derive: {op: rel_return, inputs: [us_price_split_adj, us_index_close], bench_entity: NDX, window_days: 365}
+    params: {upstream: [tiingo, alphavantage]}
+
+  - id: us_rel_return_1y_vs_sox
+    name: 1-year relative price return vs PHLX Semiconductor (SOX)
+    description: (P_t / P_t-365d) / (SOX_t / SOX_t-365d) - 1 using split-adjusted closes and the FRED NASDAQSOX index.
+    unit: pct
+    frequency: daily
+    category: valuation
+    default_classification: derived
+    provider: derived
+    status: connected
+    warning: "Price return only (dividends excluded on both sides). Needs a price key (Tiingo / Alpha Vantage)."
+    methodology: "Base = last observation on/before t-365d (within 7 days) in both series; t must exist in both (no fill)."
+    entities: [NVDA, AMD, MSFT, GOOGL, AMZN, META, ORCL, TSM]
+    derive: {op: rel_return, inputs: [us_price_split_adj, us_index_close], bench_entity: SOX, window_days: 365}
+    params: {upstream: [tiingo, alphavantage]}
 
   - id: forward_pe
     name: Forward P/E (consensus EPS)

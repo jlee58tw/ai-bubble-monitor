@@ -39,10 +39,21 @@ def provider_states() -> dict[str, tuple[bool, str | None]]:
     return out
 
 
-def effective_status(status: str, provider: str | None, states: dict) -> tuple[str, str | None]:
-    """A 'connected' metric whose provider is not configured (e.g. missing API key) is UNAVAILABLE."""
-    if status == "connected" and provider in states and not states[provider][0]:
-        return "unavailable", states[provider][1]
+def metric_providers(provider: str | None, params: dict | None) -> list[str]:
+    """Providers that can feed a metric: params.upstream (derived metrics) or primary + params.alt_providers."""
+    params = params or {}
+    if params.get("upstream"):
+        return list(params["upstream"])
+    return [p for p in [provider, *params.get("alt_providers", [])] if p]
+
+
+def effective_status(status: str, provider: str | None, states: dict,
+                     params: dict | None = None) -> tuple[str, str | None]:
+    """A 'connected' metric is UNAVAILABLE when none of the providers that can feed it is configured
+    (e.g. no API key). One configured alternative is enough."""
+    provs = [p for p in metric_providers(provider, params) if p in states]
+    if status == "connected" and provs and not any(states[p][0] for p in provs):
+        return "unavailable", " / ".join(states[p][1] or p for p in provs)
     return status, None
 
 
@@ -62,7 +73,7 @@ def list_metrics(session: Session = Depends(get_session)):
     states = provider_states()
     out = []
     for m in rows:
-        eff, reason = effective_status(m.status, m.provider, states)
+        eff, reason = effective_status(m.status, m.provider, states, (m.config or {}).get("params"))
         out.append({
         "id": m.id, "name": m.name, "description": m.description, "unit": m.unit, "frequency": m.frequency,
         "category": m.category, "default_classification": m.default_classification, "provider": m.provider,
@@ -176,7 +187,7 @@ def ingestion_status(session: Session = Depends(get_session)):
     for m in reg.metrics.values():
         for e in m.entities:
             a = have.get((m.id, e))
-            eff, reason = effective_status(m.status, m.provider, states)
+            eff, reason = effective_status(m.status, m.provider, states, m.params)
             if eff != "connected":
                 state = eff
             elif a is None:

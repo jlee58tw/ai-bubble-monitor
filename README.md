@@ -5,7 +5,7 @@ Phase 1 is a vertical slice: hyperscaler capex, revenue, operating cash flow and
 US 10Y yield from **FRED**. Everything else is shown as explicitly *unavailable* or *placeholder*.
 
 **Phase 2** adds: Taiwan AI supply-chain valuation from TWSE open data (price, trailing P/E, P/B, yield, derived market cap and
-52-week drawdown), NVIDIA Data Center revenue from SEC filing XBRL, optional US prices via Alpha Vantage (free key), model API
+52-week drawdown), NVIDIA Data Center revenue from SEC filing XBRL, US benchmark indices NASDAQ-100 / NASDAQ Composite / PHLX Semiconductor from FRED (no key), optional US stock/ETF prices via Tiingo or Alpha Vantage (free key), model API
 list prices (OpenAI, Anthropic, Gemini, OpenRouter open-weight), agent benchmarks (SWE-bench, METR time horizon, Terminal-Bench,
 never merged across benchmarks), Azure GPU list prices, a six-dimension **risk score** with coverage and ranges, a methodology
 page, a reliability **ROI simulator**, and in-app **alerts**. Full source list and unavailable metrics: [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
@@ -88,7 +88,9 @@ SQLite lives on the `aibm-data` volume. For Postgres, set `DATABASE_URL=postgres
 | `LOG_LEVEL`, `LOG_JSON` | INFO, true | structlog JSON logs |
 | `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:8000` | API URL as seen by the browser (inlined at build time) |
 | `TWSE_HISTORY_MONTHS` / `TWSE_MIN_INTERVAL_S` | 13 / 3 | TWSE daily history depth and request spacing |
-| `ALPHAVANTAGE_API_KEY` | — | Optional free key for US prices; unset = UNAVAILABLE |
+| `TIINGO_API_KEY` | — | Optional free Tiingo key (recommended) for US stock/ETF daily prices, 10+ years; unset = UNAVAILABLE |
+| `US_PRICE_START` | `2015-01-01` | First date requested from Tiingo |
+| `ALPHAVANTAGE_API_KEY` | — | Alternative free key for US prices (~100 sessions only); unset = UNAVAILABLE |
 | `SEC_FILINGS_LIMIT` | 12 | Recent 10-Q/10-K instances parsed for dimensional facts |
 | `RISK_MIN_COVERAGE` | — (uses `risk.yaml`, 0.5) | Below this weighted coverage the overall score is withheld |
 | `DATASETS_CRON` | `0 23 * * 0` (UTC) | Weekly datasets refresh + risk snapshot (needs `SCHEDULER_ENABLED=true`) |
@@ -155,7 +157,21 @@ below `min_coverage` (0.5) the overall score is withheld and only the range is s
   (overlapping windows), status `insufficient_data` / `no_variation` (always ON) / `small_sample`. Correction episodes (≥ X% from the
   running peak within stored history) with lead time from the start of the signal's ON run (`≥` = left-censored).
 - Month-end point-in-time composite since 2010 is shown for context only (no stored prices that far back → no outcomes).
-- US outcomes: unavailable without `ALPHAVANTAGE_API_KEY`. **Nothing here claims predictive validity.**
+- US outcomes: unavailable without `TIINGO_API_KEY` / `ALPHAVANTAGE_API_KEY`. **Nothing here claims predictive validity.**
+
+### US prices — free options (tested 2026-10-28, Asia/Taipei)
+
+No source provides **keyless**, terms-compliant daily prices for individual US stocks. What is connected:
+
+- **No key:** FRED `NASDAQ100`, `NASDAQCOM`, `NASDAQSOX` → `us_index_close` (NDX / COMP / SOX, 2015→), derived
+  `us_index_drawdown_52w`, risk indicator `ai_index_drawdown` (mean of NDX & SOX).
+- **Free key (optional):** Tiingo EOD → `us_price_close` (raw) + `us_split_factor` for NVDA, AMD, MSFT, GOOGL, AMZN, META,
+  ORCL, TSM, QQQ, SOXX, SMH; derived `us_price_split_adj` (split-, not dividend-adjusted), `us_drawdown_52w`,
+  `market_cap` (close × SEC cover-page `dei:EntityCommonStockSharesOutstanding`, TSM ÷5 per ADR; GOOGL/META unavailable),
+  `us_rel_return_1y_vs_ndx` / `_vs_sox`. Alpha Vantage remains an alternative source for `us_price_close`.
+- Enable: put `TIINGO_API_KEY=...` in `backend/.env`, then `python -m app.cli refresh --provider tiingo` (11 requests).
+
+See `docs/DATA_SOURCES.md` for the comparison table and rejected sources.
 
 ### Events, guidance, watchlist
 - `python -m app.cli datasets --source sec_filing_events` (also part of the weekly datasets job) reads
@@ -238,7 +254,7 @@ The ingestion service handles storage (dedupe, append-only revisions), run/error
 backend/
   app/
     api/routes.py          FastAPI endpoints
-    providers/             base.py (interface, rate limiter), sec_edgar.py, fred.py, twse.py, alphavantage.py, sec_filing_xbrl.py
+    providers/             base.py (interface, rate limiter), sec_edgar.py, fred.py, twse.py, tiingo.py, alphavantage.py, sec_filing_xbrl.py
     datasets/              pricing.py, benchmarks.py, gpu.py, runner.py (append-only dataset tables)
     registry/risk.yaml     risk weights, thresholds (hypotheses), alert rules
     registry/              metrics.yaml, entities.yaml, loader/sync
