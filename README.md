@@ -16,6 +16,26 @@ DB-backed **watchlist** (`/watchlist`). See "Phase 3" below.
 
 > Research only, not a trading tool and not investment advice.
 
+## Live static snapshot (GitHub Pages)
+
+**https://jlee58tw.github.io/ai-bubble-monitor/** is a **static snapshot, not live data**. Every page shows a banner with the
+snapshot time and latest ingestion time (Asia/Taipei), the risk score, coverage and the git commit. The site is a static Next.js
+export (`basePath=/ai-bubble-monitor`, branch `gh-pages`) whose pages read JSON baked from the local DB (`/snapshot/api`,
+`/snapshot/obs`). CSV downloads come from baked files (`/snapshot/csv`). Classification and source labels work the same as in the app.
+Read-only limits: no refresh, no watchlist edits, no `as_of` queries. The backtest page is baked only for its default parameters.
+ROI inputs and company, date and vendor selectors still work because they run client-side over the baked data.
+
+Refresh it from the local DB (run the ingestion first if you want new data):
+
+```bash
+scripts/publish_pages.sh            # bake JSON/CSV -> static export -> commit + push gh-pages (normal push, never force)
+scripts/publish_pages.sh --no-push  # build into .pages-worktree/ only
+```
+
+The bake (`scripts/pages/bake_snapshot.py`) calls the API in-process and fails if any exported file contains a secret pattern
+or a configured key value. `publish_pages.sh` checks the export again for the configured Tiingo key. Both scans print only counts.
+`backend/.env` is never read into the export.
+
 ## Data rules (enforced in code and UI)
 
 - **No fabricated data.** If a source is unavailable, the metric is registered with `status: unavailable` and the UI says so.
