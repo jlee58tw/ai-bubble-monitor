@@ -1,0 +1,352 @@
+{
+ "family": "gapfill",
+ "checked_at": "2026-10-28T19:32:46+08:00",
+ "rows": [
+  {
+   "check": "tw_monthly_revenue 2330 2026-09",
+   "stored": 511857399000.0,
+   "source": 511857399000.0,
+   "ok": true,
+   "url": "https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv",
+   "note": "NTD; MOPS CSV in thousands"
+  },
+  {
+   "check": "TSMC monthly revenue YoY 2026-09 (risk input tsmc_monthly_revenue)",
+   "stored": 0.546486,
+   "source": 0.546486,
+   "ok": true,
+   "url": "https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv",
+   "note": "current 511,857,399,000 / prior-year 330,980,920,000"
+  },
+  {
+   "check": "tw_monthly_revenue 2317 2026-09",
+   "stored": 1158633235000.0,
+   "source": 1158633235000.0,
+   "ok": true,
+   "url": "https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv",
+   "note": "NTD; MOPS CSV in thousands"
+  },
+  {
+   "check": "tw_monthly_revenue 2382 2026-09",
+   "stored": 325299509000.0,
+   "source": 325299509000.0,
+   "ok": true,
+   "url": "https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv",
+   "note": "NTD; MOPS CSV in thousands"
+  },
+  {
+   "check": "tw_monthly_revenue 3231 2026-09",
+   "stored": 380806168000.0,
+   "source": 380806168000.0,
+   "ok": true,
+   "url": "https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv",
+   "note": "NTD; MOPS CSV in thousands"
+  },
+  {
+   "check": "tw_monthly_revenue 6669 2026-09",
+   "stored": 172620352000.0,
+   "source": 172620352000.0,
+   "ok": true,
+   "url": "https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv",
+   "note": "NTD; MOPS CSV in thousands"
+  },
+  {
+   "check": "FRED DGS2 (us2y_yield) since 2026-07-01, 81 dates",
+   "stored": "latest 2026-10-26=4.68",
+   "source": "mismatches []",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
+   "note": ""
+  },
+  {
+   "check": "FRED DGS2 no missing dates since 2026-07-01",
+   "stored": 81,
+   "source": 0,
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
+   "note": "missing []"
+  },
+  {
+   "check": "FRED T10Y2Y (us_10y2y_spread) since 2026-07-01, 82 dates",
+   "stored": "latest 2026-10-27=0.29",
+   "source": "mismatches []",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
+   "note": ""
+  },
+  {
+   "check": "FRED T10Y2Y no missing dates since 2026-07-01",
+   "stored": 82,
+   "source": 0,
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
+   "note": "missing []"
+  },
+  {
+   "check": "FRED BAA10Y (baa_10y_spread) since 2026-07-01, 81 dates",
+   "stored": "latest 2026-10-26=1.45",
+   "source": "mismatches []",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y",
+   "note": ""
+  },
+  {
+   "check": "FRED BAA10Y no missing dates since 2026-07-01",
+   "stored": 81,
+   "source": 0,
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y",
+   "note": "missing []"
+  },
+  {
+   "check": "S-1 quarterly table located",
+   "stored": 757030,
+   "source": ">=0",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "S-1 Revenue 6 quarters Q1'25..Q2'26 (USD m)",
+   "stored": [
+    376.0,
+    787.0,
+    1382.0,
+    2040.0,
+    4731.0,
+    11555.0
+   ],
+   "source": [
+    376.0,
+    787.0,
+    1382.0,
+    2040.0,
+    4731.0,
+    11555.0
+   ],
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "S-1 Compute and infrastructure 6 quarters Q1'25..Q2'26 (USD m)",
+   "stored": [
+    944.0,
+    1390.0,
+    2047.0,
+    2945.0,
+    3387.0,
+    5558.0
+   ],
+   "source": [
+    944.0,
+    1390.0,
+    2047.0,
+    2945.0,
+    3387.0,
+    5558.0
+   ],
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "S-1 Operating income (loss) 6 quarters Q1'25..Q2'26 (USD m)",
+   "stored": [
+    -935.0,
+    -1200.0,
+    -3089.0,
+    -2836.0,
+    -1667.0,
+    974.0
+   ],
+   "source": [
+    -935.0,
+    -1200.0,
+    -3089.0,
+    -2836.0,
+    -1667.0,
+    974.0
+   ],
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "S-1 FY2025 revenue = sum of 4 quarters",
+   "stored": 4585.0,
+   "source": 4585.0,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": "FY2025 annual statement"
+  },
+  {
+   "check": "S-1 H1 2026 revenue = Q1+Q2",
+   "stored": 16286.0,
+   "source": 16286.0,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": "six months ended 2026-06-30"
+  },
+  {
+   "check": "S-1 annual/six-month table: FY2025 revenue",
+   "stored": 4585.0,
+   "source": 4585.0,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": "Year Ended Dec 31, 2025"
+  },
+  {
+   "check": "S-1 six months ended 2025-06-30 revenue = Q1'25+Q2'25",
+   "stored": 1163.0,
+   "source": 1163.0,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "S-1 six months ended 2026-06-30 revenue = Q1'26+Q2'26",
+   "stored": 16286.0,
+   "source": 16286.0,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "risk input ai_lab_compute_intensity = compute/revenue Q2'26",
+   "stored": 0.481004,
+   "source": 0.481004,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm",
+   "note": ""
+  },
+  {
+   "check": "8-K ai_revenue_disclosed AMZN 2026-06-30 quote verbatim in exhibit",
+   "stored": 25000000000.0,
+   "source": "Exceeded a $25 billion annual revenue run rate for AWS\u2019s AI business, growing triple-digit",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+   "note": ""
+  },
+  {
+   "check": "8-K azure_growth_yoy MSFT 2025-09-30 quote verbatim in exhibit",
+   "stored": 0.4,
+   "source": "Azure and other cloud services revenue increased 40% (up 39% in constant currency) Revenue",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_1.htm",
+   "note": ""
+  },
+  {
+   "check": "8-K azure_growth_yoy MSFT 2025-12-31 quote verbatim in exhibit",
+   "stored": 0.39,
+   "source": "Azure and other cloud services revenue increased 39% (up 38% in constant currency) Revenue",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526027198/msft-ex99_1.htm",
+   "note": ""
+  },
+  {
+   "check": "8-K azure_growth_yoy MSFT 2026-03-31 quote verbatim in exhibit",
+   "stored": 0.4,
+   "source": "Azure and other cloud services revenue increased 40% (up 39% in constant currency) Revenue",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526191457/msft-ex99_1.htm",
+   "note": ""
+  },
+  {
+   "check": "8-K azure_growth_yoy MSFT 2026-06-30 quote verbatim in exhibit",
+   "stored": 0.43,
+   "source": "Azure and other cloud services revenue increased 43% Revenue in More Personal Computing wa",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
+   "note": ""
+  },
+  {
+   "check": "capex guidance META 2026 (published 2026-10-21)",
+   "stored": "135-145B",
+   "source": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-09302026xexhibit991.htm",
+   "note": ""
+  },
+  {
+   "check": "capex guidance META 2026 (published 2026-07-29)",
+   "stored": "130-145B",
+   "source": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm",
+   "note": ""
+  },
+  {
+   "check": "capex guidance META 2026 (published 2026-04-29)",
+   "stored": "125-145B",
+   "source": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026028364/meta-03312026xexhibit991.htm",
+   "note": ""
+  },
+  {
+   "check": "capex guidance META 2026 (published 2026-01-28)",
+   "stored": "115-135B",
+   "source": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003832/meta-12312025xexhibit991.htm",
+   "note": ""
+  },
+  {
+   "check": "media ai_lab_operating_income_media OPENAI 2026-03-31 quote on page",
+   "stored": -9300000000.0,
+   "source": "HTTP 403 for https://www.investing.com/news/stock-market-news/openais-q2-revenue",
+   "ok": null,
+   "url": "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+   "note": "fetch blocked; verified manually in browser 2026-10-28"
+  },
+  {
+   "check": "media ai_lab_operating_income_media OPENAI 2026-06-30 quote on page",
+   "stored": -12300000000.0,
+   "source": "HTTP 403 for https://www.investing.com/news/stock-market-news/openais-q2-revenue",
+   "ok": null,
+   "url": "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+   "note": "fetch blocked; verified manually in browser 2026-10-28"
+  },
+  {
+   "check": "media ai_lab_revenue_media ANTHROPIC 2026-09-30 quote on page",
+   "stored": 16800000000.0,
+   "source": "Anthropic told investors its third-quarter revenue stands at $16.8 billion",
+   "ok": true,
+   "url": "https://www.cnbc.com/2026/10/15/anthropics-third-quarter-revenue-hits-16point8-billion-ipo.html",
+   "note": "MEDIA-REPORTED estimate"
+  },
+  {
+   "check": "media ai_lab_revenue_media OPENAI 2026-03-31 quote on page",
+   "stored": 5700000000.0,
+   "source": "HTTP 403 for https://www.investing.com/news/stock-market-news/openais-q2-revenue",
+   "ok": null,
+   "url": "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+   "note": "fetch blocked; verified manually in browser 2026-10-28"
+  },
+  {
+   "check": "media ai_lab_revenue_media OPENAI 2026-06-30 quote on page",
+   "stored": 6700000000.0,
+   "source": "HTTP 403 for https://www.investing.com/news/stock-market-news/openais-q2-revenue",
+   "ok": null,
+   "url": "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+   "note": "fetch blocked; verified manually in browser 2026-10-28"
+  },
+  {
+   "check": "media ai_lab_run_rate_media ANTHROPIC 2026-07-31 quote on page",
+   "stored": 65000000000.0,
+   "source": "In August, Anthropic told investors that its annualized revenue run rate hit $65 billion a",
+   "ok": true,
+   "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html",
+   "note": "MEDIA-REPORTED estimate"
+  },
+  {
+   "check": "media ai_lab_run_rate_media OPENAI 2026-09-30 quote on page",
+   "stored": 50000000000.0,
+   "source": "OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of ",
+   "ok": true,
+   "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html",
+   "note": "MEDIA-REPORTED estimate"
+  }
+ ]
+}
