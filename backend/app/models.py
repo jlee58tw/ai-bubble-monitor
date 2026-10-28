@@ -96,7 +96,7 @@ class Observation(Base):
     ingestion_ts: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
     source_url: Mapped[str | None] = mapped_column(Text)
     source_type: Mapped[str] = mapped_column(String(32))  # sec_edgar_xbrl / fred / derived
-    classification: Mapped[str] = mapped_column(String(16))  # reported/derived/guidance/estimated/qualitative
+    classification: Mapped[str] = mapped_column(String(16))  # reported/derived/guidance/estimated/qualitative/disclosed
     confidence: Mapped[str] = mapped_column(String(8))  # high / medium / low
     methodology: Mapped[str | None] = mapped_column(Text)
     source_ref: Mapped[str | None] = mapped_column(String(200))  # XBRL concept / accession / series id

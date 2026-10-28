@@ -13,7 +13,7 @@ from ..models import Entity, Metric
 
 HERE = Path(__file__).parent
 VALID_STATUS = {"connected", "unavailable", "placeholder"}
-VALID_CLASS = {"reported", "guidance", "estimated", "derived", "qualitative"}
+VALID_CLASS = {"reported", "guidance", "estimated", "derived", "qualitative", "disclosed"}  # disclosed = company-disclosed by a private/pre-IPO issuer (e.g. S-1), never mixed with listed-company reported financials
 
 
 @dataclass

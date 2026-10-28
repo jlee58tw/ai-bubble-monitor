@@ -14,6 +14,10 @@ entities:
   - {id: "2317", name: "鴻海 Hon Hai / Foxconn (TWSE 2317)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; AI server assembly; prices in TWD"}
   - {id: "3231", name: "緯創 Wistron (TWSE 3231)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; AI server ODM; monthly revenue only"}
   - {id: "6669", name: "緯穎 Wiwynn (TWSE 6669)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; hyperscale server ODM; monthly revenue only"}
+  - {id: ANTHROPIC, name: "Anthropic, PBC (pre-IPO; S-1 filed 2026-10-26)", entity_type: company, group: ai_lab, cik: "0002130357",
+     notes: "Not listed. Figures are company-disclosed in the S-1 (classification 'disclosed') or media-reported (classification 'estimated'); never 'reported'."}
+  - {id: OPENAI, name: "OpenAI (private)", entity_type: company, group: ai_lab,
+     notes: "Private; no SEC filings. Revenue figures are media-reported estimates only (classification 'estimated', low confidence)."}
   - {id: BIG4_CAL, name: "MSFT+GOOGL+AMZN+META (calendar-aligned sum)", entity_type: aggregate, group: hyperscaler_aggregate,
      notes: "Sum only for calendar quarters where ALL four companies have a value. ORCL excluded (May fiscal year, quarters not calendar-aligned)."}
   - {id: US, name: United States (macro), entity_type: macro, group: macro}

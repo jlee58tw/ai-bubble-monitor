@@ -1,6 +1,6 @@
 export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 
-export type Classification = "reported" | "guidance" | "estimated" | "derived" | "qualitative";
+export type Classification = "reported" | "guidance" | "estimated" | "derived" | "qualitative" | "disclosed";
 
 export interface Observation {
   id: number; metric_id: string; entity_id: string; value: number; unit: string;

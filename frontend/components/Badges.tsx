@@ -3,7 +3,7 @@ import type { Classification } from "@/lib/api";
 const CLS: Record<string, string> = {
   reported: "border-term-up text-term-up", derived: "border-term-info text-term-info",
   guidance: "border-purple-400 text-purple-300", estimated: "border-orange-400 text-orange-300",
-  qualitative: "border-pink-400 text-pink-300",
+  qualitative: "border-pink-400 text-pink-300", disclosed: "border-yellow-400 text-yellow-300",
 };
 export function ClassBadge({ c }: { c: Classification | string }) {
   return <span className={`px-1 text-[10px] uppercase border font-mono ${CLS[c] ?? "border-term-border"}`}>{c}</span>;
