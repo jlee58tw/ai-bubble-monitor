@@ -1,6 +1,6 @@
 {
  "family": "risk",
- "checked_at": "2026-10-28T19:01:13+08:00",
+ "checked_at": "2026-10-28T19:26:40+08:00",
  "rows": [
   {
    "check": "indicator hyperscaler_capex_to_ocf",
@@ -160,7 +160,23 @@
    ],
    "ok": true,
    "url": "http://localhost:8000/api/risk",
-   "note": "weight 0.1000; thresholds {'benign': None, 'stretched': None}; api as_of None"
+   "note": "weight 0.0667; thresholds {'benign': None, 'stretched': None}; api as_of None"
+  },
+  {
+   "check": "indicator ai_lab_compute_intensity",
+   "stored": [
+    0.48100389441800084,
+    25.86,
+    "ok"
+   ],
+   "source": [
+    0.48100389441800084,
+    25.86,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0667; thresholds {'benign': 0.3, 'stretched': 1.0}; api as_of 2026-06-30"
   },
   {
    "check": "indicator model_price_deflation",
@@ -176,7 +192,7 @@
    ],
    "ok": true,
    "url": "http://localhost:8000/api/risk",
-   "note": "weight 0.1000; thresholds {'benign': -0.1, 'stretched': -0.6}; api as_of None"
+   "note": "weight 0.0667; thresholds {'benign': -0.1, 'stretched': -0.6}; api as_of None"
   },
   {
    "check": "indicator nvda_datacenter_revenue_yoy",
@@ -213,18 +229,18 @@
   {
    "check": "indicator tsmc_monthly_revenue",
    "stored": [
-    null,
-    null,
-    "unavailable"
+    0.5464861207105232,
+    88.11,
+    "ok"
    ],
    "source": [
-    null,
-    null,
-    "unavailable"
+    0.5464861207105232,
+    88.11,
+    "ok"
    ],
    "ok": true,
    "url": "http://localhost:8000/api/risk",
-   "note": "weight 0.0500; thresholds {'benign': None, 'stretched': None}; api as_of None"
+   "note": "weight 0.0500; thresholds {'benign': 0.15, 'stretched': 0.6}; api as_of 2026-09-30"
   },
   {
    "check": "indicator us10y",
@@ -245,18 +261,18 @@
   {
    "check": "indicator credit_spreads",
    "stored": [
-    null,
-    null,
-    "unavailable"
+    1.45,
+    100.0,
+    "ok"
    ],
    "source": [
-    null,
-    null,
-    "unavailable"
+    1.45,
+    100,
+    "ok"
    ],
    "ok": true,
    "url": "http://localhost:8000/api/risk",
-   "note": "weight 0.0500; thresholds {'benign': None, 'stretched': None}; api as_of None"
+   "note": "weight 0.0500; thresholds {'benign': 2.5, 'stretched': 1.5}; api as_of 2026-10-26"
   },
   {
    "check": "indicator metr_doubling_time",
@@ -292,16 +308,16 @@
   },
   {
    "check": "coverage",
-   "stored": 0.6,
-   "source": 0.6,
+   "stored": 0.7667,
+   "source": 0.7667,
    "ok": true,
    "url": "http://localhost:8000/api/risk",
    "note": "sum of weights of scored indicators"
   },
   {
    "check": "score (point, shown only if coverage >= min_coverage)",
-   "stored": 64.01,
-   "source": 64.01,
+   "stored": 64.61,
+   "source": 64.61,
    "ok": true,
    "url": "http://localhost:8000/api/risk",
    "note": ""
@@ -309,32 +325,32 @@
   {
    "check": "score range [low, high] (missing = 0 / 100)",
    "stored": [
-    38.41,
-    78.41
+    49.54,
+    72.87
    ],
    "source": [
-    38.41,
-    78.41
+    49.54,
+    72.87
    ],
-   "ok": false,
+   "ok": true,
    "url": "http://localhost:8000/api/risk",
    "note": ""
   },
   {
-   "check": "latest stored snapshot #3 (2026-10-28 08:44:34.769471 UTC) vs live recompute",
+   "check": "latest stored snapshot #4 (2026-10-28 11:26:12.683621 UTC) vs live recompute",
    "stored": [
-    0.6,
-    64.07,
-    38.44,
-    78.44
+    0.7667,
+    64.61,
+    49.54,
+    72.87
    ],
    "source": [
-    0.6,
-    64.01,
-    38.41,
-    78.41
+    0.7667,
+    64.61,
+    49.54,
+    72.87
    ],
-   "ok": false,
+   "ok": true,
    "url": "risk_snapshots",
    "note": "differs only if data changed after the snapshot"
   },

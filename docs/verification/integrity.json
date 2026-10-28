@@ -1,6 +1,6 @@
 {
  "family": "integrity",
- "checked_at": "2026-10-28T19:03:17+08:00",
+ "checked_at": "2026-10-28T19:26:47+08:00",
  "rows": [
   {
    "check": "observations: >1 current row per (metric, entity, period_start, period_end)",
@@ -216,7 +216,7 @@
    "note": "[]"
   },
   {
-   "check": "derived publication_date >= every input's publication_date (134003 derived rows with input ids)",
+   "check": "derived publication_date >= every input's publication_date (134089 derived rows with input ids)",
    "stored": 0,
    "source": 0,
    "ok": true,
@@ -229,10 +229,93 @@
     "capex_total": 188,
     "operating_cash_flow": 208,
     "revenue": 65,
-    "nvda_datacenter_revenue": 4
+    "nvda_datacenter_revenue": 4,
+    "aws_segment_capex": 1,
+    "cloud_segment_operating_income": 12,
+    "cloud_segment_revenue": 12
    },
    "source": "-",
    "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_lab_compute_cost",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_lab_operating_income",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_lab_operating_income_media",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_lab_revenue",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_lab_revenue_media",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_lab_run_rate_media",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ai_revenue_disclosed",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness aws_segment_capex",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness azure_growth_yoy",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness baa_10y_spread",
+   "stored": "latest period_end 2026-10-26 (2 d)",
+   "source": "max_age 14",
+   "ok": true,
    "url": "db",
    "note": ""
   },
@@ -281,6 +364,38 @@
    "stored": "latest period_end 2026-09-30 (28 d)",
    "source": "max_age 200",
    "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness cloud_segment_operating_income",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness cloud_segment_operating_margin",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness cloud_segment_revenue",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness cloud_segment_revenue_yoy",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
    "url": "db",
    "note": ""
   },
@@ -373,6 +488,22 @@
    "note": ""
   },
   {
+   "check": "freshness tw_monthly_revenue",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_monthly_revenue_yoy",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 75",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
    "check": "freshness tw_pb_ratio",
    "stored": "latest period_end 2026-10-27 (1 d)",
    "source": "no risk max_age",
@@ -397,6 +528,14 @@
    "note": ""
   },
   {
+   "check": "freshness tw_revenue_ytd_yoy",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
    "check": "freshness tw_shares_outstanding",
    "stored": "latest period_end 2026-10-27 (1 d)",
    "source": "no risk max_age",
@@ -409,6 +548,22 @@
    "stored": "latest period_end 2026-10-26 (2 d)",
    "source": "max_age 14",
    "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us2y_yield",
+   "stored": "latest period_end 2026-10-26 (2 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_10y2y_spread",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
    "url": "db",
    "note": ""
   },

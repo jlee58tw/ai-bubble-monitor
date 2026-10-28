@@ -107,13 +107,13 @@ for d in cfg["dimensions"]:
             num += w * sc; den += w; lo += w * sc; hi += w * sc
 cov = den
 score = round(num / den, 2) if den and cov >= cfg["min_coverage"] else None
-R.add("coverage", api["coverage"], round(cov, 4), close(api["coverage"], cov, 1e-6), API + "/api/risk", "sum of weights of scored indicators")
+R.add("coverage", api["coverage"], round(cov, 4), abs(api["coverage"] - cov) <= 5e-5, API + "/api/risk", "sum of weights of scored indicators")
 R.add("score (point, shown only if coverage >= min_coverage)", api["score"], score, api["score"] == score, API + "/api/risk")
 R.add("score range [low, high] (missing = 0 / 100)", (api["score_low"], api["score_high"]), (round(lo, 2), round(hi, 2)),
       (api["score_low"], api["score_high"]) == (round(lo, 2), round(hi, 2)), API + "/api/risk")
 snap = con.execute("select id, computed_at, coverage, score, score_low, score_high from risk_snapshots order by id desc limit 1").fetchone()
 R.add(f"latest stored snapshot #{snap[0]} ({snap[1]} UTC) vs live recompute", snap[2:], (round(cov, 4), score, round(lo, 2), round(hi, 2)),
-      close(snap[2], cov, 1e-6) and snap[3] == score, "risk_snapshots", "differs only if data changed after the snapshot")
+      abs(snap[2] - cov) <= 5e-5 and snap[3] == score, "risk_snapshots", "differs only if data changed after the snapshot")
 
 # alerts: recompute the threshold rules and compare ids with GET /api/alerts
 al = cfg["alerts"]
