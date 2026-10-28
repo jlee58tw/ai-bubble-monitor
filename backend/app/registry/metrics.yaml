@@ -277,6 +277,48 @@ metrics:
     params: {row_label: "Operating income (loss)"}
     entities: [ANTHROPIC]
 
+  - id: ai_lab_revenue_media
+    name: AI lab quarterly revenue (media-reported)
+    description: Quarterly revenue of private AI labs as relayed by media. Kept separate from the S-1 company-disclosed ai_lab_revenue.
+    unit: USD
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: estimated
+    provider: curated_media
+    status: connected
+    is_ai_specific: true
+    warning: "MEDIA-REPORTED estimate (people familiar / investor decks). Not audited, not company-filed financials."
+    methodology: "Hand-curated from news articles (app/registry/curated/ai_lab_media.yaml); each row stores outlet, article date, URL and a verbatim quote."
+    entities: [OPENAI, ANTHROPIC]
+
+  - id: ai_lab_operating_income_media
+    name: AI lab operating income (loss) (media-reported)
+    description: Quarterly operating income/loss of private AI labs as relayed by media (definition per article, e.g. incl. SBC).
+    unit: USD
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: estimated
+    provider: curated_media
+    status: connected
+    is_ai_specific: true
+    warning: "MEDIA-REPORTED estimate (people familiar / investor decks). Not audited, not company-filed financials."
+    methodology: "Hand-curated from news articles (app/registry/curated/ai_lab_media.yaml); each row stores outlet, article date, URL and a verbatim quote."
+    entities: [OPENAI, ANTHROPIC]
+
+  - id: ai_lab_run_rate_media
+    name: AI lab annualized revenue run-rate (media-reported)
+    description: Point-in-time annualized revenue run-rate as relayed by media. Labs use different run-rate definitions (gross vs net of cloud partners); not comparable across companies.
+    unit: USD
+    frequency: irregular
+    category: ai_monetization
+    default_classification: estimated
+    provider: curated_media
+    status: connected
+    is_ai_specific: true
+    warning: "MEDIA-REPORTED estimate (people familiar / investor decks). Not audited, not company-filed financials."
+    methodology: "Hand-curated from news articles (app/registry/curated/ai_lab_media.yaml); each row stores outlet, article date, URL and a verbatim quote."
+    entities: [OPENAI, ANTHROPIC]
+
   # ---------------- unavailable / placeholder ----------------
   - id: ai_capex_disclosed
     name: AI-specific capex (company disclosed)

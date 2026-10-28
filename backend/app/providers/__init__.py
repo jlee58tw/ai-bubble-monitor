@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from .base import Provider
+from .curated_media import CuratedMediaProvider
 from .alphavantage import AlphaVantageProvider
 from .fred import FredProvider
 from .sec_edgar import SecEdgarProvider
@@ -15,6 +16,7 @@ PROVIDERS: dict[str, type[Provider]] = {
     FredProvider.name: FredProvider,
     SecFilingXbrlProvider.name: SecFilingXbrlProvider,
     SecProspectusProvider.name: SecProspectusProvider,
+    CuratedMediaProvider.name: CuratedMediaProvider,
     TwseProvider.name: TwseProvider,
     TiingoProvider.name: TiingoProvider,
     AlphaVantageProvider.name: AlphaVantageProvider,

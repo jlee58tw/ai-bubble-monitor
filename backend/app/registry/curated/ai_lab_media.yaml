@@ -1,0 +1,35 @@
+# Media-reported figures for PRIVATE / pre-IPO AI labs. Classification is ALWAYS "estimated" (confidence low):
+# these are unaudited numbers relayed by journalists from "people familiar" / investor presentations. They are
+# never "reported" financials. Every row needs: source url, publication date (article date, US time), outlet and a
+# verbatim quote copied from the article. Each quote was re-read on the live page on 2026-10-28 (Asia/Taipei).
+# Origin: docs/research_notes_openai_anthropic.md (Reuters 2026-08-17 link is paywalled (HTTP 401), so the same
+# $65B figure is sourced from the CNBC 2026-10-08 article instead).
+items:
+  - {metric: ai_lab_revenue_media, entity: OPENAI, period_start: 2026-01-01, period_end: 2026-03-31, value: 5.7e9,
+     published: 2026-08-18, outlet: "Investing.com citing The Wall Street Journal",
+     url: "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+     quote: "OpenAI told investors that revenue reached $6.7 billion in the three months ended June, up from $5.7 billion in the first quarter."}
+  - {metric: ai_lab_revenue_media, entity: OPENAI, period_start: 2026-04-01, period_end: 2026-06-30, value: 6.7e9,
+     published: 2026-08-18, outlet: "Investing.com citing The Wall Street Journal",
+     url: "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+     quote: "OpenAI told investors that revenue reached $6.7 billion in the three months ended June, up from $5.7 billion in the first quarter."}
+  - {metric: ai_lab_operating_income_media, entity: OPENAI, period_start: 2026-01-01, period_end: 2026-03-31, value: -9.3e9,
+     published: 2026-08-18, outlet: "Investing.com citing The Wall Street Journal",
+     url: "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+     quote: "OpenAI's operating loss, including stock-based compensation, widened to $12.3 billion in the second quarter from $9.3 billion in the first."}
+  - {metric: ai_lab_operating_income_media, entity: OPENAI, period_start: 2026-04-01, period_end: 2026-06-30, value: -12.3e9,
+     published: 2026-08-18, outlet: "Investing.com citing The Wall Street Journal",
+     url: "https://www.investing.com/news/stock-market-news/openais-q2-revenue-growth-lagged-anthropic-as-losses-deepened-wsj-reports-4866258",
+     quote: "OpenAI's operating loss, including stock-based compensation, widened to $12.3 billion in the second quarter from $9.3 billion in the first."}
+  - {metric: ai_lab_run_rate_media, entity: OPENAI, period_start: 2026-09-30, period_end: 2026-09-30, value: 50e9,
+     published: 2026-10-08, outlet: "CNBC (FT first reported)",
+     url: "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html",
+     quote: "OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of September, CNBC confirmed"}
+  - {metric: ai_lab_run_rate_media, entity: ANTHROPIC, period_start: 2026-07-31, period_end: 2026-07-31, value: 65e9,
+     published: 2026-10-08, outlet: "CNBC",
+     url: "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html",
+     quote: "In August, Anthropic told investors that its annualized revenue run rate hit $65 billion at the end of July."}
+  - {metric: ai_lab_revenue_media, entity: ANTHROPIC, period_start: 2026-07-01, period_end: 2026-09-30, value: 16.8e9,
+     published: 2026-10-14, outlet: "CNBC",
+     url: "https://www.cnbc.com/2026/10/15/anthropics-third-quarter-revenue-hits-16point8-billion-ipo.html",
+     quote: "Anthropic told investors its third-quarter revenue stands at $16.8 billion"}
