@@ -116,3 +116,36 @@ def test_revision_is_appended_not_overwritten(db_session):
     assert [o.value for o in query_observations(db_session, ["capex_total"])] == [11.0]
     assert [o.value for o in query_observations(db_session, ["capex_total"], as_of=dt.date(2024, 12, 31))] == [10.0]
     assert len(query_observations(db_session, ["capex_total"], include_history=True)) == 2
+
+
+def test_retracted_derived_vintage_is_corrected(db_session):
+    """Audit 2026-10-28: a YTD-subtraction vintage that mixed recast/original bases (and that the fixed provider no
+    longer produces) is superseded by the provider's latest vintage, dated today; history keeps the bad row."""
+    from app.models import IngestionRun
+    from app.providers.base import ObservationRecord
+    from app.registry.registry import sync_registry
+    from app.services.ingest import store_records
+    from app.services.queries import query_observations
+
+    sync_registry(db_session)
+    run = IngestionRun(provider="test", trigger="test", status="running"); db_session.add(run); db_session.flush()
+    base = dict(metric_id="capex_total", entity_id="META", unit="USD", period_start=dt.date(2023, 10, 1),
+                period_end=dt.date(2023, 12, 31), source_type="sec_edgar_xbrl", classification="derived",
+                confidence="medium")
+    good = ObservationRecord(value=7665.0, publication_date=dt.date(2024, 2, 2), **base)
+    bad = ObservationRecord(value=7592.0, publication_date=dt.date(2025, 1, 30), **base)
+    store_records(db_session, run, [good, bad])                       # old method produced both
+    c = store_records(db_session, run, [good])                        # fixed method: only the original
+    assert c["corrected"] == 1
+    cur = query_observations(db_session, ["capex_total"])
+    assert [o.value for o in cur] == [7665.0] and cur[0].publication_date == dt.date.today()
+    assert cur[0].methodology.startswith("CORRECTION")
+    assert len(query_observations(db_session, ["capex_total"], include_history=True)) == 3
+    assert store_records(db_session, run, [good])["corrected"] == 0   # idempotent
+    # a reported (non-derived) later vintage is never retracted
+    rb = dict(base, classification="reported", period_start=dt.date(2024, 1, 1), period_end=dt.date(2024, 3, 31))
+    store_records(db_session, run, [ObservationRecord(value=1.0, publication_date=dt.date(2024, 5, 1), **rb),
+                                    ObservationRecord(value=2.0, publication_date=dt.date(2025, 5, 1), **rb)])
+    c2 = store_records(db_session, run, [ObservationRecord(value=1.0, publication_date=dt.date(2024, 5, 1), **rb)])
+    assert c2["corrected"] == 0
+    assert sorted(o.value for o in query_observations(db_session, ["capex_total"])) == [2.0, 7665.0]

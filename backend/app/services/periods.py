@@ -108,11 +108,19 @@ def value_asof(vs: list[Vintage], d: dt.date) -> Vintage | None:
 
 def subtract_vintages(a: list[Vintage], b: list[Vintage]) -> list[Vintage]:
     """Vintages of (a - b): evaluated at every date either input changed, once both exist."""
-    dates = sorted({v.filed for v in a} | {v.filed for v in b})
+    da, db = {v.filed for v in a}, {v.filed for v in b}
     out: list[Vintage] = []
-    for d in dates:
+    for d in sorted(da | db):
         va, vb = value_asof(a, d), value_asof(b, d)
         if va is None or vb is None:
+            continue
+        # After the first value, a new vintage needs BOTH inputs restated on the same date. If only one side changed
+        # (e.g. a 10-K recasts the full year for a segment re-organisation but the 9-month YTD is still on the old
+        # basis), a - b mixes bases and is garbage (audit 2026-10-28: MSFT Intelligent Cloud FY2023 Q4 = 1,053M).
+        # Allowed: the first pair, both inputs restated on this date, or both inputs already restated (e.g. a 10-Q
+        # recast the 9M comparative and a later 10-K recast the full year -> consistent new basis).
+        ra, rb = va is not a[0], vb is not b[0]
+        if out and not (d in da and d in db) and ra != rb:
             continue
         val = va.value - vb.value
         if out and abs(out[-1].value - val) < 0.5:

@@ -39,3 +39,22 @@ def test_risk_rise_only_same_config(db_session):
     s.flush()
     a = [x for x in compute_alerts(s) if x["category"] == "risk"]
     assert len(a) == 1 and "40.0 -> 48.0" in a[0]["title"]
+
+
+def test_model_price_change_ignores_metadata_only_revisions(db_session):
+    """Audit 2026-10-28: a revision that only fills effective_to (same price) is not a price change."""
+    from app.models import ModelPrice
+    from app.services.risk import calc_model_price_change
+    s = db_session
+    base = dict(vendor="openai", model_id="m", model_label="M", tier="std", price_type="input",
+                price_status="current", effective_from=None, effective_to=None, usd_per_mtok=10.0,
+                source_url="u", raw_text="$10", note=None, open_weight=False)
+    store_rows(s, "model_prices", _run(s), [base])
+    for row in s.query(ModelPrice):  # pretend the first observation is old enough
+        row.first_seen_at = utcnow() - dt.timedelta(days=200)
+    store_rows(s, "model_prices", _run(s), [dict(base, effective_to=dt.date(2026, 12, 31))])  # metadata only
+    store_rows(s, "model_prices", _run(s), [dict(base, model_id="m2")])
+    store_rows(s, "model_prices", _run(s), [dict(base, model_id="m2", usd_per_mtok=5.0, effective_to=dt.date(2026, 12, 31))])
+    ind = {"args": {"vendors": ["openai"], "min_history_days": 90, "min_changes": 1}}
+    v = calc_model_price_change(s, ind, dt.date.today())
+    assert v.status == "ok" and v.value == -0.5 and v.detail.startswith("1 observed")

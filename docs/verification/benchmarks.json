@@ -1,0 +1,150 @@
+{
+ "family": "benchmarks",
+ "checked_at": "2026-10-28T18:56:45+08:00",
+ "rows": [
+  {
+   "check": "SWE-bench (all splits): values (323 entries)",
+   "stored": "323 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://raw.githubusercontent.com/SWE-bench/swe-bench.github.io/master/data/leaderboards.json",
+   "note": "sample [] "
+  },
+  {
+   "check": "SWE-bench (all splits): entries on source missing in DB",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "https://raw.githubusercontent.com/SWE-bench/swe-bench.github.io/master/data/leaderboards.json",
+   "note": "[]"
+  },
+  {
+   "check": "SWE-bench (all splits): entries in DB no longer on source",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "https://raw.githubusercontent.com/SWE-bench/swe-bench.github.io/master/data/leaderboards.json",
+   "note": "[]"
+  },
+  {
+   "check": "SWE-bench verified top resolved %",
+   "stored": 79.2,
+   "source": 79.2,
+   "ok": true,
+   "url": "https://www.swebench.com/",
+   "note": ""
+  },
+  {
+   "check": "SWE-bench lite top resolved %",
+   "stored": 60.33,
+   "source": 60.33,
+   "ok": true,
+   "url": "https://www.swebench.com/",
+   "note": ""
+  },
+  {
+   "check": "SWE-bench test top resolved %",
+   "stored": 52.62,
+   "source": 52.62,
+   "ok": true,
+   "url": "https://www.swebench.com/",
+   "note": ""
+  },
+  {
+   "check": "SWE-bench multimodal top resolved %",
+   "stored": 35.98,
+   "source": 35.98,
+   "ok": true,
+   "url": "https://www.swebench.com/",
+   "note": ""
+  },
+  {
+   "check": "SWE-bench multilingual top resolved %",
+   "stored": 72.7,
+   "source": 72.7,
+   "ok": true,
+   "url": "https://www.swebench.com/",
+   "note": ""
+  },
+  {
+   "check": "METR time horizon v1.1 (minutes): values (52 entries)",
+   "stored": "52 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+   "note": "sample [] "
+  },
+  {
+   "check": "METR time horizon v1.1 (minutes): entries on source missing in DB",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+   "note": "[]"
+  },
+  {
+   "check": "METR time horizon v1.1 (minutes): entries in DB no longer on source",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+   "note": "[]"
+  },
+  {
+   "check": "METR top p50 horizon (min)",
+   "stored": 1044.780145,
+   "source": 1044.780145,
+   "ok": true,
+   "url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+   "note": "claude_mythos_preview_early_inspect"
+  },
+  {
+   "check": "Terminal-Bench page version https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+   "stored": null,
+   "source": "Terminal-Bench 4.0",
+   "ok": null,
+   "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+   "note": "URL path says 2.0; payload title is what is stored"
+  },
+  {
+   "check": "Terminal-Bench accuracy == successes/n_trials on source",
+   "stored": 35,
+   "source": 35,
+   "ok": true,
+   "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+   "note": "[]"
+  },
+  {
+   "check": "Terminal-Bench (accuracy %): values (35 entries)",
+   "stored": "35 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+   "note": "sample [] stored version Terminal-Bench 4.0 (terminal-bench/terminal-bench@4-0-0)"
+  },
+  {
+   "check": "Terminal-Bench (accuracy %): entries on source missing in DB",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+   "note": "[]"
+  },
+  {
+   "check": "Terminal-Bench (accuracy %): entries in DB no longer on source",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+   "note": "[]"
+  },
+  {
+   "check": "Terminal-Bench page version https://www.tbench.ai/leaderboard",
+   "stored": null,
+   "source": "Terminal-Bench 4.0",
+   "ok": null,
+   "url": "https://www.tbench.ai/leaderboard",
+   "note": "URL path says 2.0; payload title is what is stored"
+  }
+ ]
+}

@@ -252,7 +252,144 @@ metrics:
     concepts: [Revenues, RevenueFromContractWithCustomerExcludingAssessedTax]
     params: {axis: "srt:ProductOrServiceAxis", member: "nvda:DataCenterMember"}
 
+  # ---------------- cloud segments: dimensional XBRL (gap fill 2026-10-28) ----------------
+  - id: cloud_segment_revenue
+    name: Cloud segment revenue (MSFT Intelligent Cloud, Google Cloud, AWS)
+    description: >-
+      Segment revenue from the DIMENSIONAL XBRL facts in each 10-Q / 10-K (us-gaap:StatementBusinessSegmentsAxis).
+      Q4 comes only from the 10-K (fiscal year), so it is DERIVED as FY - 9M YTD (classification derived).
+    unit: USD
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: reported
+    provider: sec_filing_xbrl
+    status: connected
+    is_ai_specific: false
+    warning: >-
+      Segments are broader than AI: MSFT Intelligent Cloud also holds server products, GitHub, Nuance and Enterprise
+      services; Google Cloud includes Workspace; AWS includes all cloud services. Segment definitions are recast from
+      time to time (MSFT FY2025), so long histories are not like-for-like. Azure growth % is NOT an XBRL fact.
+    methodology: >-
+      SEC EDGAR filing XBRL instance, segment member per company (params.member_by_entity). Values are the
+      as-filed segment note; each later filing that restates a period is stored as a new version.
+    entities: [MSFT, GOOGL, AMZN]
+    concepts: [RevenueFromContractWithCustomerExcludingAssessedTax, Revenues]
+    params:
+      axis: "us-gaap:StatementBusinessSegmentsAxis"
+      member_by_entity: {MSFT: "msft:IntelligentCloudMember", GOOGL: "goog:GoogleCloudMember", AMZN: "amzn:AmazonWebServicesSegmentMember"}
+      extra_members: {"srt:ConsolidationItemsAxis": "us-gaap:OperatingSegmentsMember"}
+
+  - id: cloud_segment_operating_income
+    name: Cloud segment operating income (MSFT Intelligent Cloud, Google Cloud, AWS)
+    description: Segment operating income from the same dimensional XBRL segment note as cloud_segment_revenue.
+    unit: USD
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: reported
+    provider: sec_filing_xbrl
+    status: connected
+    is_ai_specific: false
+    warning: "Segment profit as defined by each company (allocation rules differ); not AI-specific."
+    methodology: SEC EDGAR filing XBRL instance, us-gaap:OperatingIncomeLoss on the segment member (see cloud_segment_revenue).
+    entities: [MSFT, GOOGL, AMZN]
+    concepts: [OperatingIncomeLoss]
+    params:
+      axis: "us-gaap:StatementBusinessSegmentsAxis"
+      member_by_entity: {MSFT: "msft:IntelligentCloudMember", GOOGL: "goog:GoogleCloudMember", AMZN: "amzn:AmazonWebServicesSegmentMember"}
+      extra_members: {"srt:ConsolidationItemsAxis": "us-gaap:OperatingSegmentsMember"}
+
+  - id: cloud_segment_revenue_yoy
+    name: Cloud segment revenue YoY growth
+    unit: pct
+    description: Quarterly cloud segment revenue vs the same quarter one year earlier (as-filed values; recasts not bridged).
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "value / value(1y earlier) - 1."
+    entities: [MSFT, GOOGL, AMZN]
+    derive: {op: yoy, inputs: [cloud_segment_revenue]}
+
+  - id: cloud_segment_operating_margin
+    name: Cloud segment operating margin
+    unit: ratio
+    description: cloud_segment_operating_income / cloud_segment_revenue for the same period.
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: derived
+    provider: derived
+    status: connected
+    methodology: "segment operating income / segment revenue (same period_start/period_end)."
+    entities: [MSFT, GOOGL, AMZN]
+    derive: {op: ratio, inputs: [cloud_segment_operating_income, cloud_segment_revenue], positive_denominator: true}
+
+  - id: aws_segment_capex
+    name: AWS segment additions to long-lived assets
+    description: >-
+      Amazon's ASU 2023-07 segment disclosure us-gaap:SegmentExpenditureAdditionToLongLivedAssets for the AWS segment
+      (property & equipment additions incl. finance leases, accrual basis - NOT the cash-flow capex line). Only filed
+      since the 2024 segment-disclosure rules; earlier quarters are not available.
+    unit: USD
+    frequency: quarterly
+    category: hyperscaler_capex
+    default_classification: reported
+    provider: sec_filing_xbrl
+    status: connected
+    is_ai_specific: false
+    warning: "AWS capex is the closest audited cloud/AI-infrastructure capex split, still not AI-only."
+    methodology: SEC EDGAR filing XBRL instance, [StatementBusinessSegmentsAxis=AWS, ConsolidationItemsAxis=OperatingSegments].
+    entities: [AMZN]
+    concepts: [SegmentExpenditureAdditionToLongLivedAssets]
+    params:
+      axis: "us-gaap:StatementBusinessSegmentsAxis"
+      member: "amzn:AmazonWebServicesSegmentMember"
+      extra_members: {"srt:ConsolidationItemsAxis": "us-gaap:OperatingSegmentsMember"}
+
   # ---------------- valuation: Taiwan (TWSE open data) ----------------
+  - id: tw_monthly_revenue
+    name: Monthly revenue (TWSE listed-company filing)
+    description: >-
+      Consolidated monthly operating revenue filed by each listed company (by the 10th of the following month),
+      from the TWSE open-data summary table. Each refresh carries the data month plus the prior month and the same
+      month a year earlier as published comparatives, so history accumulates from the first refresh (2026-09 data).
+    unit: TWD
+    frequency: monthly
+    category: supply_chain
+    default_classification: reported
+    provider: twse
+    status: connected
+    is_ai_specific: false
+    methodology: "openapi.twse.com.tw/v1/opendata/t187ap05_L; NT$ thousands x 1000; publication_date = 出表日期 (table date)."
+    warning: "Total company revenue, not AI-only. 3231 Wistron and 6669 Wiwynn are AI-server ODMs (monthly revenue only)."
+    entities: ["2330", "2382", "2317", "3231", "6669"]
+
+  - id: tw_monthly_revenue_yoy
+    name: Monthly revenue YoY (exchange-published)
+    description: 營業收入-去年同月增減(%) from t187ap05_L, stored as a fraction.
+    unit: pct
+    frequency: monthly
+    category: supply_chain
+    default_classification: reported
+    provider: twse
+    status: connected
+    is_ai_specific: false
+    methodology: "openapi.twse.com.tw/v1/opendata/t187ap05_L field 營業收入-去年同月增減(%) / 100."
+    entities: ["2330", "2382", "2317", "3231", "6669"]
+
+  - id: tw_revenue_ytd_yoy
+    name: Year-to-date revenue YoY (exchange-published)
+    description: 累計營業收入-前期比較增減(%) from t187ap05_L (calendar YTD through the data month), stored as a fraction.
+    unit: pct
+    frequency: monthly
+    category: supply_chain
+    default_classification: reported
+    provider: twse
+    status: connected
+    is_ai_specific: false
+    methodology: "openapi.twse.com.tw/v1/opendata/t187ap05_L field 累計營業收入-前期比較增減(%) / 100."
+    entities: ["2330", "2382", "2317", "3231", "6669"]
+
   - id: tw_price_close
     name: Closing price (TWSE)
     description: Daily closing price from the Taiwan Stock Exchange (TWD, NOT adjusted for dividends).

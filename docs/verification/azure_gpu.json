@@ -1,0 +1,214 @@
+{
+ "family": "azure_gpu",
+ "checked_at": "2026-10-28T18:57:06+08:00",
+ "rows": [
+  {
+   "check": "Standard_NC24ads_A100_v4 list_on_demand eastus Linux USD/h",
+   "stored": [
+    3.673,
+    "2022-06-01"
+   ],
+   "source": [
+    [
+     3.673,
+     "2022-06-01",
+     "NC24ads_A100_v4"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC24ads_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC24ads_A100_v4 list_on_demand per-GPU-hour = /1",
+   "stored": 3.673,
+   "source": 3.673,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC24ads_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC24ads_A100_v4 list_spot eastus Linux USD/h",
+   "stored": [
+    0.67877,
+    "2026-07-01"
+   ],
+   "source": [
+    [
+     0.67877,
+     "2026-07-01",
+     "NC24ads_A100_v4 Spot"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC24ads_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC24ads_A100_v4 list_spot per-GPU-hour = /1",
+   "stored": 0.67877,
+   "source": 0.67877,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC24ads_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC40ads_H100_v5 list_on_demand eastus Linux USD/h",
+   "stored": [
+    6.98,
+    "2024-03-01"
+   ],
+   "source": [
+    [
+     6.98,
+     "2024-03-01",
+     "NC40adsH100v5"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC40ads_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC40ads_H100_v5 list_on_demand per-GPU-hour = /1",
+   "stored": 6.98,
+   "source": 6.98,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC40ads_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC40ads_H100_v5 list_spot eastus Linux USD/h",
+   "stored": [
+    1.289904,
+    "2026-08-01"
+   ],
+   "source": [
+    [
+     1.289904,
+     "2026-08-01",
+     "NC40adsH100v5 Spot"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC40ads_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_NC40ads_H100_v5 list_spot per-GPU-hour = /1",
+   "stored": 1.289904,
+   "source": 1.289904,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_NC40ads_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96amsr_A100_v4 list_on_demand eastus Linux USD/h",
+   "stored": [
+    32.77,
+    "2021-12-01"
+   ],
+   "source": [
+    [
+     32.77,
+     "2021-12-01",
+     "ND96amsr A100 v4"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96amsr_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96amsr_A100_v4 list_on_demand per-GPU-hour = /8",
+   "stored": 4.09625,
+   "source": 4.09625,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96amsr_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96amsr_A100_v4 list_spot eastus Linux USD/h",
+   "stored": [
+    8.441552,
+    "2026-09-01"
+   ],
+   "source": [
+    [
+     8.441552,
+     "2026-09-01",
+     "ND96amsr A100 v4 Spot"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96amsr_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96amsr_A100_v4 list_spot per-GPU-hour = /8",
+   "stored": 1.055194,
+   "source": 1.055194,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96amsr_A100_v4%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96isr_H100_v5 list_on_demand eastus Linux USD/h",
+   "stored": [
+    98.32,
+    "2023-12-01"
+   ],
+   "source": [
+    [
+     98.32,
+     "2023-12-01",
+     "ND96isrH100v5"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96isr_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96isr_H100_v5 list_on_demand per-GPU-hour = /8",
+   "stored": 12.29,
+   "source": 12.29,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96isr_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96isr_H100_v5 list_spot eastus Linux USD/h",
+   "stored": [
+    18.169536,
+    "2026-01-01"
+   ],
+   "source": [
+    [
+     18.169536,
+     "2026-01-01",
+     "ND96isrH100v5 Spot"
+    ]
+   ],
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96isr_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "Standard_ND96isr_H100_v5 list_spot per-GPU-hour = /8",
+   "stored": 2.271192,
+   "source": 2.271192,
+   "ok": true,
+   "url": "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName%20eq%20%27Virtual%20Machines%27%20and%20armRegionName%20eq%20%27eastus%27%20and%20armSkuName%20eq%20%27Standard_ND96isr_H100_v5%27%20and%20priceType%20eq%20%27Consumption%27",
+   "note": ""
+  },
+  {
+   "check": "freshness: gpu_prices last_seen_at (UTC)",
+   "stored": "2026-10-26 17:53:08.016363",
+   "source": "<= 2 days",
+   "ok": null,
+   "url": "https://prices.azure.com/api/retail/prices",
+   "note": "refreshed with datasets job"
+  }
+ ]
+}

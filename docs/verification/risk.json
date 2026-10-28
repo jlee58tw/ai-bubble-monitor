@@ -1,0 +1,380 @@
+{
+ "family": "risk",
+ "checked_at": "2026-10-28T19:01:13+08:00",
+ "rows": [
+  {
+   "check": "indicator hyperscaler_capex_to_ocf",
+   "stored": [
+    1.0517669421586058,
+    100.0,
+    "ok"
+   ],
+   "source": [
+    1.0517669421586058,
+    100,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 0.4, 'stretched': 1.0}; api as_of 2026-06-30"
+  },
+  {
+   "check": "indicator hyperscaler_capex_minus_revenue_growth",
+   "stored": [
+    0.9527910192656164,
+    100.0,
+    "ok"
+   ],
+   "source": [
+    0.9527910192656164,
+    100,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 0.0, 'stretched': 0.6}; api as_of 2026-06-30"
+  },
+  {
+   "check": "indicator hyperscaler_fcf_margin",
+   "stored": [
+    -0.03429948873453769,
+    93.72,
+    "ok"
+   ],
+   "source": [
+    -0.03429948873453769,
+    93.72,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 0.2, 'stretched': -0.05}; api as_of 2026-06-30"
+  },
+  {
+   "check": "indicator hyperscaler_capex_to_revenue",
+   "stored": [
+    0.6083202995601565,
+    100.0,
+    "ok"
+   ],
+   "source": [
+    0.6083202995601565,
+    100,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 0.1, 'stretched': 0.4}; api as_of 2026-06-30"
+  },
+  {
+   "check": "indicator ai_capex_disclosed",
+   "stored": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "source": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': None, 'stretched': None}; api as_of None"
+  },
+  {
+   "check": "indicator tw_ai_supply_chain_pe",
+   "stored": [
+    19.47,
+    22.35,
+    "ok"
+   ],
+   "source": [
+    19.47,
+    22.35,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 15, 'stretched': 35}; api as_of 2026-10-27"
+  },
+  {
+   "check": "indicator us_ai_forward_pe",
+   "stored": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "source": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': None, 'stretched': None}; api as_of None"
+  },
+  {
+   "check": "indicator ai_basket_drawdown",
+   "stored": [
+    -0.16874630173014135,
+    39.58,
+    "ok"
+   ],
+   "source": [
+    -0.16874630173014135,
+    39.58,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': -0.05, 'stretched': -0.35}; api as_of 2026-10-27"
+  },
+  {
+   "check": "indicator ai_index_drawdown",
+   "stored": [
+    -0.13288869047060847,
+    27.63,
+    "ok"
+   ],
+   "source": [
+    -0.13288869047060847,
+    27.63,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': -0.05, 'stretched': -0.35}; api as_of 2026-10-27"
+  },
+  {
+   "check": "indicator ai_revenue_disclosed",
+   "stored": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "source": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.1000; thresholds {'benign': None, 'stretched': None}; api as_of None"
+  },
+  {
+   "check": "indicator model_price_deflation",
+   "stored": [
+    null,
+    null,
+    "insufficient"
+   ],
+   "source": [
+    null,
+    null,
+    "insufficient (history 2 d since 2026-10-26)"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.1000; thresholds {'benign': -0.1, 'stretched': -0.6}; api as_of None"
+  },
+  {
+   "check": "indicator nvda_datacenter_revenue_yoy",
+   "stored": [
+    1.166220556745182,
+    72.19,
+    "ok"
+   ],
+   "source": [
+    1.166220556745182,
+    72.19,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 0.3, 'stretched': 1.5}; api as_of 2026-07-26"
+  },
+  {
+   "check": "indicator gpu_spot_discount",
+   "stored": [
+    0.8151999999999999,
+    78.8,
+    "ok"
+   ],
+   "source": [
+    0.8151999999999999,
+    78.8,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 0.5, 'stretched': 0.9}; api as_of 2026-10-26"
+  },
+  {
+   "check": "indicator tsmc_monthly_revenue",
+   "stored": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "source": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': None, 'stretched': None}; api as_of None"
+  },
+  {
+   "check": "indicator us10y",
+   "stored": [
+    5.0,
+    100.0,
+    "ok"
+   ],
+   "source": [
+    5.0,
+    100,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 3.0, 'stretched': 5.0}; api as_of 2026-10-26"
+  },
+  {
+   "check": "indicator credit_spreads",
+   "stored": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "source": [
+    null,
+    null,
+    "unavailable"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': None, 'stretched': None}; api as_of None"
+  },
+  {
+   "check": "indicator metr_doubling_time",
+   "stored": [
+    128.744,
+    3.57,
+    "ok"
+   ],
+   "source": [
+    128.744,
+    3.57,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 120, 'stretched': 365}; api as_of 2026-10-26"
+  },
+  {
+   "check": "indicator terminal_bench_top",
+   "stored": [
+    64.85,
+    30.3,
+    "ok"
+   ],
+   "source": [
+    64.85,
+    30.3,
+    "ok"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "weight 0.0500; thresholds {'benign': 80, 'stretched': 30}; api as_of 2026-09-22"
+  },
+  {
+   "check": "coverage",
+   "stored": 0.6,
+   "source": 0.6,
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": "sum of weights of scored indicators"
+  },
+  {
+   "check": "score (point, shown only if coverage >= min_coverage)",
+   "stored": 64.01,
+   "source": 64.01,
+   "ok": true,
+   "url": "http://localhost:8000/api/risk",
+   "note": ""
+  },
+  {
+   "check": "score range [low, high] (missing = 0 / 100)",
+   "stored": [
+    38.41,
+    78.41
+   ],
+   "source": [
+    38.41,
+    78.41
+   ],
+   "ok": false,
+   "url": "http://localhost:8000/api/risk",
+   "note": ""
+  },
+  {
+   "check": "latest stored snapshot #3 (2026-10-28 08:44:34.769471 UTC) vs live recompute",
+   "stored": [
+    0.6,
+    64.07,
+    38.44,
+    78.44
+   ],
+   "source": [
+    0.6,
+    64.01,
+    38.41,
+    78.41
+   ],
+   "ok": false,
+   "url": "risk_snapshots",
+   "note": "differs only if data changed after the snapshot"
+  },
+  {
+   "check": "alerts (capex gap / negative FCF / drawdown) ids",
+   "stored": [
+    "capex_gap:AMZN:2026-06-30",
+    "capex_gap:GOOGL:2026-06-30",
+    "capex_gap:META:2026-09-30",
+    "capex_gap:MSFT:2026-06-30",
+    "capex_gap:ORCL:2026-08-31",
+    "dd:2382:2026-10-28",
+    "dd:GOOGL:2026-10-27",
+    "dd:META:2026-10-27",
+    "dd:ORCL:2026-10-27",
+    "dd:SOXX:2026-10-27",
+    "neg_fcf:AMZN:2026-06-30",
+    "neg_fcf:GOOGL:2026-06-30",
+    "neg_fcf:META:2026-09-30",
+    "neg_fcf:ORCL:2026-08-31"
+   ],
+   "source": [
+    "capex_gap:AMZN:2026-06-30",
+    "capex_gap:GOOGL:2026-06-30",
+    "capex_gap:META:2026-09-30",
+    "capex_gap:MSFT:2026-06-30",
+    "capex_gap:ORCL:2026-08-31",
+    "dd:2382:2026-10-28",
+    "dd:GOOGL:2026-10-27",
+    "dd:META:2026-10-27",
+    "dd:ORCL:2026-10-27",
+    "dd:SOXX:2026-10-27",
+    "neg_fcf:AMZN:2026-06-30",
+    "neg_fcf:GOOGL:2026-06-30",
+    "neg_fcf:META:2026-09-30",
+    "neg_fcf:ORCL:2026-08-31"
+   ],
+   "ok": true,
+   "url": "http://localhost:8000/api/alerts",
+   "note": "missing [] extra []"
+  }
+ ]
+}

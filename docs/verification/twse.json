@@ -1,0 +1,358 @@
+{
+ "family": "twse",
+ "checked_at": "2026-10-28T19:06:42+08:00",
+ "rows": [
+  {
+   "check": "2330 daily closes 2025-10-01..2026-10-28 (258 days)",
+   "stored": "258 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2330",
+   "note": "mismatches []; source days missing in DB []; DB days not in source []"
+  },
+  {
+   "check": "2330 trading-day completeness in stored range",
+   "stored": 258,
+   "source": 258,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2330",
+   "note": "missing [] extra []"
+  },
+  {
+   "check": "2330 close 2026-10-22",
+   "stored": 2385.0,
+   "source": 2385.0,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2330",
+   "note": ""
+  },
+  {
+   "check": "2330 close 2026-10-27",
+   "stored": 2400.0,
+   "source": 2400.0,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2330",
+   "note": ""
+  },
+  {
+   "check": "2330 close 2026-10-28",
+   "stored": 2425.0,
+   "source": 2425.0,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2330",
+   "note": ""
+  },
+  {
+   "check": "2330 52w drawdown 2026-10-22",
+   "stored": -0.077369,
+   "source": -0.077369,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2330",
+   "note": "high 2585.0 on 2026-10-06; close 2385.0; window from 2025-10-23"
+  },
+  {
+   "check": "2330 52w drawdown 2026-10-27",
+   "stored": -0.071567,
+   "source": -0.071567,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2330",
+   "note": "high 2585.0 on 2026-10-06; close 2400.0; window from 2025-10-28"
+  },
+  {
+   "check": "2330 52w drawdown 2026-10-28",
+   "stored": -0.061896,
+   "source": -0.061896,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2330",
+   "note": "high 2585.0 on 2026-10-06; close 2425.0; window from 2025-10-29"
+  },
+  {
+   "check": "2382 daily closes 2025-10-01..2026-10-28 (258 days)",
+   "stored": "258 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2382",
+   "note": "mismatches []; source days missing in DB []; DB days not in source []"
+  },
+  {
+   "check": "2382 trading-day completeness in stored range",
+   "stored": 258,
+   "source": 258,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2382",
+   "note": "missing [] extra []"
+  },
+  {
+   "check": "2382 close 2026-10-22",
+   "stored": 322.0,
+   "source": 322.0,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2382",
+   "note": ""
+  },
+  {
+   "check": "2382 close 2026-10-27",
+   "stored": 327.5,
+   "source": 327.5,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2382",
+   "note": ""
+  },
+  {
+   "check": "2382 close 2026-10-28",
+   "stored": 330.0,
+   "source": 330.0,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2382",
+   "note": ""
+  },
+  {
+   "check": "2382 52w drawdown 2026-10-22",
+   "stored": -0.227818,
+   "source": -0.227818,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2382",
+   "note": "high 417.0 on 2026-06-03; close 322.0; window from 2025-10-23"
+  },
+  {
+   "check": "2382 52w drawdown 2026-10-27",
+   "stored": -0.214628,
+   "source": -0.214628,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2382",
+   "note": "high 417.0 on 2026-06-03; close 327.5; window from 2025-10-28"
+  },
+  {
+   "check": "2382 52w drawdown 2026-10-28",
+   "stored": -0.208633,
+   "source": -0.208633,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2382",
+   "note": "high 417.0 on 2026-06-03; close 330.0; window from 2025-10-29"
+  },
+  {
+   "check": "2317 daily closes 2025-10-01..2026-10-28 (258 days)",
+   "stored": "258 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2317",
+   "note": "mismatches []; source days missing in DB []; DB days not in source []"
+  },
+  {
+   "check": "2317 trading-day completeness in stored range",
+   "stored": 258,
+   "source": 258,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2317",
+   "note": "missing [] extra []"
+  },
+  {
+   "check": "2317 close 2026-10-22",
+   "stored": 245.0,
+   "source": 245.0,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2317",
+   "note": ""
+  },
+  {
+   "check": "2317 close 2026-10-27",
+   "stored": 247.5,
+   "source": 247.5,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2317",
+   "note": ""
+  },
+  {
+   "check": "2317 close 2026-10-28",
+   "stored": 251.5,
+   "source": 251.5,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2317",
+   "note": ""
+  },
+  {
+   "check": "2317 52w drawdown 2026-10-22",
+   "stored": -0.20712,
+   "source": -0.20712,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2317",
+   "note": "high 309.0 on 2026-06-03; close 245.0; window from 2025-10-23"
+  },
+  {
+   "check": "2317 52w drawdown 2026-10-27",
+   "stored": -0.199029,
+   "source": -0.199029,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2317",
+   "note": "high 309.0 on 2026-06-03; close 247.5; window from 2025-10-28"
+  },
+  {
+   "check": "2317 52w drawdown 2026-10-28",
+   "stored": -0.186084,
+   "source": -0.186084,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=YYYYMM01&stockNo=2317",
+   "note": "high 309.0 on 2026-06-03; close 251.5; window from 2025-10-29"
+  },
+  {
+   "check": "valuation (P/E, P/B, yield) lag vs latest close",
+   "stored": "2026-10-27",
+   "source": "2026-10-28",
+   "ok": null,
+   "url": "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL",
+   "note": "OpenAPI BWIBBU_ALL is published ~1 trading day after BWIBBU_d; within risk max_age 14 d"
+  },
+  {
+   "check": "2330 tw_pe_trailing 2026-10-27",
+   "stored": 27.82,
+   "source": 27.82,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 27.82"
+  },
+  {
+   "check": "2330 tw_pb_ratio 2026-10-27",
+   "stored": 9.68,
+   "source": 9.68,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 9.68"
+  },
+  {
+   "check": "2330 tw_dividend_yield 2026-10-27",
+   "stored": 0.0092,
+   "source": 0.0092,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 0.92"
+  },
+  {
+   "check": "2382 tw_pe_trailing 2026-10-27",
+   "stored": 14.27,
+   "source": 14.27,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 14.27"
+  },
+  {
+   "check": "2382 tw_pb_ratio 2026-10-27",
+   "stored": 5.18,
+   "source": 5.18,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 5.18"
+  },
+  {
+   "check": "2382 tw_dividend_yield 2026-10-27",
+   "stored": 0.047599999999999996,
+   "source": 0.047599999999999996,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 4.76"
+  },
+  {
+   "check": "2317 tw_pe_trailing 2026-10-27",
+   "stored": 16.32,
+   "source": 16.32,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 16.32"
+  },
+  {
+   "check": "2317 tw_pb_ratio 2026-10-27",
+   "stored": 1.82,
+   "source": 1.82,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 1.82"
+  },
+  {
+   "check": "2317 tw_dividend_yield 2026-10-27",
+   "stored": 0.028999999999999998,
+   "source": 0.028999999999999998,
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=json&date=20261027&selectType=ALL",
+   "note": "fields ['\u8b49\u5238\u4ee3\u865f', '\u8b49\u5238\u540d\u7a31', '\u6536\u76e4\u50f9', '\u6b96\u5229\u7387(%)', '\u80a1\u5229\u5e74\u5ea6', '\u672c\u76ca\u6bd4', '\u80a1\u50f9\u6de8\u503c\u6bd4', '\u8ca1\u5831\u5e74/\u5b63']; source raw 2.9"
+  },
+  {
+   "check": "2330 shares outstanding (profile \u51fa\u8868\u65e5\u671f 1151027)",
+   "stored": 25932370067.0,
+   "source": 25932370067.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "stored dated 2026-10-27; field \u5df2\u767c\u884c\u666e\u901a\u80a1\u6578\u6216TDR\u539f\u80a1\u767c\u884c\u80a1\u6578; cross-check \u5be6\u6536\u8cc7\u672c\u984d/\u9762\u984d - \u7279\u5225\u80a1 = 25932370067"
+  },
+  {
+   "check": "2330 shares cross-check: paid-in capital / par",
+   "stored": 25932370067.0,
+   "source": 25932370067.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "difference can arise from preferred shares or capital not yet registered; tolerance 0.01%"
+  },
+  {
+   "check": "2330 market cap 2026-10-28 = close x shares",
+   "stored": 62885997412475.0,
+   "source": 62885997412475.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "2425.0 TWD x 25932370067; stored pub 2026-10-28 (shares snapshot date, so no look-ahead)"
+  },
+  {
+   "check": "2382 shares outstanding (profile \u51fa\u8868\u65e5\u671f 1151027)",
+   "stored": 4107627432.0,
+   "source": 4107627432.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "stored dated 2026-10-27; field \u5df2\u767c\u884c\u666e\u901a\u80a1\u6578\u6216TDR\u539f\u80a1\u767c\u884c\u80a1\u6578; cross-check \u5be6\u6536\u8cc7\u672c\u984d/\u9762\u984d - \u7279\u5225\u80a1 = 4107627432"
+  },
+  {
+   "check": "2382 shares cross-check: paid-in capital / par",
+   "stored": 4107627432.0,
+   "source": 4107627432.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "difference can arise from preferred shares or capital not yet registered; tolerance 0.01%"
+  },
+  {
+   "check": "2382 market cap 2026-10-28 = close x shares",
+   "stored": 1355517052560.0,
+   "source": 1355517052560.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "330.0 TWD x 4107627432; stored pub 2026-10-28 (shares snapshot date, so no look-ahead)"
+  },
+  {
+   "check": "2317 shares outstanding (profile \u51fa\u8868\u65e5\u671f 1151027)",
+   "stored": 14075746497.0,
+   "source": 14075746497.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "stored dated 2026-10-27; field \u5df2\u767c\u884c\u666e\u901a\u80a1\u6578\u6216TDR\u539f\u80a1\u767c\u884c\u80a1\u6578; cross-check \u5be6\u6536\u8cc7\u672c\u984d/\u9762\u984d - \u7279\u5225\u80a1 = 14075746497"
+  },
+  {
+   "check": "2317 shares cross-check: paid-in capital / par",
+   "stored": 14075746497.0,
+   "source": 14075746497.0,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "difference can arise from preferred shares or capital not yet registered; tolerance 0.01%"
+  },
+  {
+   "check": "2317 market cap 2026-10-28 = close x shares",
+   "stored": 3540050243995.5,
+   "source": 3540050243995.5,
+   "ok": true,
+   "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+   "note": "251.5 TWD x 14075746497; stored pub 2026-10-28 (shares snapshot date, so no look-ahead)"
+  },
+  {
+   "check": "freshness: last stored TW close vs last TWSE trading day",
+   "stored": "2026-10-28",
+   "source": "2026-10-28",
+   "ok": true,
+   "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20261001&stockNo=2330",
+   "note": "stale if source has newer trading days; fix = re-run refresh (scheduler/cron)"
+  }
+ ]
+}

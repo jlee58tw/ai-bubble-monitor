@@ -39,7 +39,7 @@ def store_records(session: Session, run: IngestionRun, records: list[Observation
       * older than current row's publication_date               -> skipped (logged)
       * otherwise insert new version superseding the current row (a revision, or first value)
     """
-    counts = {"inserted": 0, "revised": 0, "unchanged": 0, "out_of_order": 0}
+    counts = {"inserted": 0, "revised": 0, "unchanged": 0, "out_of_order": 0, "corrected": 0}
     if not records:
         return counts
     pairs = {(r.metric_id, r.entity_id) for r in records}
@@ -51,25 +51,43 @@ def store_records(session: Session, run: IngestionRun, records: list[Observation
     for ch in chains.values():
         ch.sort(key=lambda o: o.version)
 
+    produced: dict[tuple, list[ObservationRecord]] = defaultdict(list)
+    for r in records:
+        produced[r.key].append(r)
+    for ps in produced.values():
+        ps.sort(key=lambda r: r.publication_date)
+
     for r in sorted(records, key=lambda r: (r.metric_id, r.entity_id, r.period_end,
                                              str(r.period_start), r.publication_date)):
         chain = chains[r.key]
-        if any(o.publication_date == r.publication_date and _same(o.value, r.value) for o in chain):
+        cur = chain[-1] if chain else None
+        retract = (cur is not None and r.publication_date < cur.publication_date and not _same(cur.value, r.value)
+                   and _retracted(cur, r, produced[r.key]))
+        if not retract and any(o.publication_date == r.publication_date and _same(o.value, r.value) for o in chain):
             counts["unchanged"] += 1
             continue
-        cur = chain[-1] if chain else None
         if cur is not None and _same(cur.value, r.value):
             counts["unchanged"] += 1
             continue
+        pub, meth = r.publication_date, r.methodology
         if cur is not None and r.publication_date < cur.publication_date:
-            counts["out_of_order"] += 1
-            continue
+            if not retract:
+                counts["out_of_order"] += 1
+                continue
+            # CORRECTION: the current row is a DERIVED vintage the provider no longer produces (a method fix, e.g.
+            # YTD subtraction across a segment recast). Append the provider's latest vintage, dated today: the
+            # correct value was knowable earlier, so dating it today never looks ahead; the bad row stays in history.
+            pub = max(dt.date.today(), cur.publication_date)
+            meth = (f"CORRECTION {dt.date.today()}: supersedes derived vintage id {cur.id} (published "
+                    f"{cur.publication_date}, value {cur.value:g}) which mixed recast and original bases; value first "
+                    f"published {r.publication_date}. {r.methodology or ''}")
+            counts["corrected"] += 1
         o = Observation(
             metric_id=r.metric_id, entity_id=r.entity_id, value=float(r.value), unit=r.unit,
             fiscal_period=r.fiscal_period, period_start=r.period_start, period_end=r.period_end,
-            publication_date=r.publication_date, ingestion_ts=utcnow(), source_url=r.source_url,
+            publication_date=pub, ingestion_ts=utcnow(), source_url=r.source_url,
             source_type=r.source_type, classification=r.classification, confidence=r.confidence,
-            methodology=r.methodology, source_ref=r.source_ref,
+            methodology=meth, source_ref=r.source_ref,
             version=(cur.version + 1) if cur else 1, supersedes_id=cur.id if cur else None,
             ingestion_run_id=run.id,
         )
@@ -78,6 +96,17 @@ def store_records(session: Session, run: IngestionRun, records: list[Observation
         chain.append(o)
         counts["revised" if cur else "inserted"] += 1
     return counts
+
+
+def _retracted(cur: Observation, r: ObservationRecord, produced: list[ObservationRecord]) -> bool:
+    """True when `cur` is a derived vintage that this run's provider output for the same key no longer contains,
+    and `r` is that output's latest vintage (so `r` is what the fixed method says the value is)."""
+    if (cur.classification != "derived" or cur.source_type != r.source_type or not produced or produced[-1] is not r
+            or r.source_type not in ("sec_edgar_xbrl", "sec_filing_xbrl")):
+        return False
+    if cur.methodology and cur.methodology.startswith("CORRECTION"):
+        return False
+    return not any(p.publication_date == cur.publication_date and _same(p.value, cur.value) for p in produced)
 
 
 def _log_error(session: Session, run: IngestionRun, message: str, level: str = "error",
@@ -89,7 +118,7 @@ def _log_error(session: Session, run: IngestionRun, message: str, level: str = "
 
 def compute_derived(session: Session, run: IngestionRun, reg: Registry) -> dict[str, int]:
     """Compute derived metrics in dependency order from CURRENT input observations."""
-    totals = {"inserted": 0, "revised": 0, "unchanged": 0, "out_of_order": 0}
+    totals = {"inserted": 0, "revised": 0, "unchanged": 0, "out_of_order": 0, "corrected": 0}
     derived = [m for m in reg.metrics.values() if m.derive and m.status == "connected"]
     done: set[str] = set()
     pending = list(derived)

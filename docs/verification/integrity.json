@@ -1,0 +1,512 @@
+{
+ "family": "integrity",
+ "checked_at": "2026-10-28T19:03:17+08:00",
+ "rows": [
+  {
+   "check": "observations: >1 current row per (metric, entity, period_start, period_end)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "observations: same period_end with different-length periods (quarter vs YTD both current)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "model_prices: duplicate current rows per natural key (vendor, model_id, tier, price_type, price_status, coalesce(effective_from,''))",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "gpu_prices: duplicate current rows per natural key (sku, region, price_kind)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "benchmark_results: duplicate current rows per natural key (benchmark, benchmark_version, split, metric, entry_key)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "unit column equals registry unit",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "metrics.yaml",
+   "note": "[]"
+  },
+  {
+   "check": "range tw_dividend_yield in [0, 0.25] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range tw_pe_trailing in [0, 500] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range tw_pb_ratio in [0, 100] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range us10y_yield in [-1, 20] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range tw_drawdown_52w in [-1, 0] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range us_drawdown_52w in [-1, 0] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range us_index_drawdown_52w in [-1, 0] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range capex_to_revenue in [0, 5] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range capex_to_ocf in [-50, 50] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range revenue_yoy in [-1, 20] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range capex_yoy in [-1, 50] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range tw_price_close in [0, 100000.0] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range us_price_close in [0, 1000000.0] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "range us_index_close in [0, 1000000.0] (fractions, not %)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "shares outstanding >1000x off entity median (source filer scaling errors)",
+   "stored": [
+    [
+     "AMD",
+     "2012-07-27",
+     707555106000000.0,
+     24632
+    ],
+    [
+     "ORCL",
+     "2012-09-17",
+     4819056000000000.0,
+     24907
+    ]
+   ],
+   "source": "verified vs SEC companyconcept",
+   "ok": null,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "values are exactly as tagged in the filings (ORCL 0001193125-12-401697 = 4,819,056,000,000,000); kept as reported, now excluded from market-cap derivation (derive.market_cap_asof guard)"
+  },
+  {
+   "check": "market_cap rows > $20T (would indicate share-unit error)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "fiscal_period label vs period length (Qn = 80-100 d) and CY quarter month",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "publication_date >= period_end",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "publication_date not in the future",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "derived publication_date >= every input's publication_date (134003 derived rows with input ids)",
+   "stored": 0,
+   "source": 0,
+   "ok": true,
+   "url": "db",
+   "note": "[]"
+  },
+  {
+   "check": "derived rows without input-id lineage (YTD-differenced EDGAR rows; checked in edgar.json)",
+   "stored": {
+    "capex_total": 188,
+    "operating_cash_flow": 208,
+    "revenue": 65,
+    "nvda_datacenter_revenue": 4
+   },
+   "source": "-",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness capex_to_ocf",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness capex_to_revenue",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness capex_total",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness capex_total_big4_cal",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness capex_total_big4_cal_yoy",
+   "stored": "latest period_end 2026-06-30 (120 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness capex_yoy",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness fcf",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness fcf_yoy",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness market_cap",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness nvda_datacenter_revenue",
+   "stored": "latest period_end 2026-07-26 (94 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness ocf_yoy",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness operating_cash_flow",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness revenue",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness revenue_yoy",
+   "stored": "latest period_end 2026-09-30 (28 d)",
+   "source": "max_age 200",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_dividend_yield",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_drawdown_52w",
+   "stored": "latest period_end 2026-10-28 (0 d)",
+   "source": "max_age 14",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_market_cap",
+   "stored": "latest period_end 2026-10-28 (0 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_pb_ratio",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_pe_trailing",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "max_age 14",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_price_close",
+   "stored": "latest period_end 2026-10-28 (0 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness tw_shares_outstanding",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us10y_yield",
+   "stored": "latest period_end 2026-10-26 (2 d)",
+   "source": "max_age 14",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_drawdown_52w",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "max_age 14",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_index_close",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_index_drawdown_52w",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "max_age 14",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_price_close",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_price_split_adj",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_rel_return_1y_vs_ndx",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_rel_return_1y_vs_sox",
+   "stored": "latest period_end 2026-10-27 (1 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_shares_outstanding",
+   "stored": "latest period_end 2026-09-07 (51 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness us_split_factor",
+   "stored": "latest period_end 2024-06-10 (870 d)",
+   "source": "no risk max_age",
+   "ok": null,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness model_prices.last_seen_at (UTC)",
+   "stored": "2026-10-28 10:55:06.804875",
+   "source": "<= 7 d",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness gpu_prices.last_seen_at (UTC)",
+   "stored": "2026-10-26 17:53:08.016363",
+   "source": "<= 7 d",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  },
+  {
+   "check": "freshness benchmark_results.last_seen_at (UTC)",
+   "stored": "2026-10-26 17:53:07.873306",
+   "source": "<= 7 d",
+   "ok": true,
+   "url": "db",
+   "note": ""
+  }
+ ]
+}

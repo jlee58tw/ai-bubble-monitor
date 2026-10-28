@@ -163,8 +163,25 @@ def parse_long_date(s: str) -> dt.date | None:
 
 
 # ------------------------------------------------------------------ Gemini
-SCHED = re.compile(r"\$([0-9.,]+) through ([A-Z][a-z]+ \d{1,2}, \d{4})\.\s*\$([0-9.,]+) starting "
-                   r"([A-Z][a-z]+ \d{1,2}, \d{4})")
+SCHED = re.compile(r"\$([0-9.,]+)(?:\s*\([^)]*\))? through ([A-Z][a-z]+ \d{1,2}, \d{4})\.\s*"
+                   r"\$([0-9.,]+)(?:\s*\([^)]*\))? starting ([A-Z][a-z]+ \d{1,2}, \d{4})")
+# First price in a paid cell: "$0.30 (text / image / video) $1.00 (audio)", "$3.50 or $0.005/min (audio)",
+# "$0.039 per image". Groups: value, modality text (may be None), trailing non-token unit (per image, ...).
+FIRST = re.compile(r"\s*\$([0-9][0-9,]*(?:\.[0-9]+)?)(?:\s*or\s*\$[0-9.,]+/min[^(]*)?(?:\s*\(([^)]*)\))?"
+                   r"(\s*per\s+(?:image|minute|second|request|video|1,000)\b)?")
+
+
+def _gemini_first_price(cell: str) -> tuple[float | None, str]:
+    """Per-1M-text-token price from a Gemini paid cell, or (None, reason) when the first price is not one."""
+    m = FIRST.match(cell or "")
+    if not m:
+        return None, "no leading $ price"
+    if m.group(3):
+        return None, "non-token unit (" + m.group(3).strip() + ")"
+    mods = (m.group(2) or "text").lower()
+    if "text" not in mods:
+        return None, f"first price is for {mods} only"
+    return float(m.group(1).replace(",", "")), ""
 
 
 def parse_gemini(md: str) -> list[dict]:
@@ -194,8 +211,9 @@ def parse_gemini(md: str) -> list[dict]:
             if not ptype or paid >= len(r):
                 continue
             cell = r[paid]
-            if "(text)" not in cell and "(audio)" in cell:
-                continue  # audio-only models priced per minute/audio tokens: not comparable, skip
+            v, why = _gemini_first_price(cell)
+            if v is None:
+                continue  # audio/image-only or per-image/per-minute price: not a per-1M text-token price
             sm = SCHED.search(cell)
             if sm:
                 v1, through, v2, starting = sm.groups()
@@ -206,11 +224,8 @@ def parse_gemini(md: str) -> list[dict]:
                                 GEMINI_URL, cell, status="scheduled", eff_from=fr,
                                 note="Scheduled change stated on the pricing page."))
                 continue
-            v = money(cell)
-            if v is None:
-                continue
             note = None
-            if "<=" in cell or "prompts" in cell or "(text)" in cell:
+            if "<=" in cell or "prompts" in cell or "(" in cell:
                 note = "first listed price (tiered/modal cell; see raw_text)"
             out.append(_row("google", mid, title, "standard (paid)", ptype, v, GEMINI_URL, cell, note=note))
     if not out:

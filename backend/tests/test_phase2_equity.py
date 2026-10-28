@@ -141,3 +141,42 @@ def test_nvda_comparative_only_quarters_are_dropped_not_dated_late():
     sub = {"filings": {"recent": {"form": ["10-Q", "8-K", "10-Q"], "reportDate": ["2026-07-26", "2026-08-26", "2025-07-27"],
                                   "filingDate": ["2026-08-26", "2026-08-26", "2025-08-27"]}}}
     assert SX.original_filing_dates(sub) == own
+
+
+def test_twse_retries_307_throttle_instead_of_losing_month():
+    """Audit 2026-10-28: TWSE throttles with 307; the October month was dropped and closes went stale at 10-22."""
+    import httpx
+    doc = json.loads((FIX / "twse_stock_day_2330_202610.json").read_text())
+    calls = {"n": 0}
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        if "STOCK_DAY" in str(req.url):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                return httpx.Response(307, headers={"Location": "https://www.twse.com.tw/"})
+            return httpx.Response(200, json=doc)
+        return httpx.Response(200, json=[])
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    p = T.TwseProvider(client=client, today=d(2026, 10, 28), months=1, min_interval_s=0.001)
+    p.throttle_backoff_s = 0.0
+    res = p.fetch(get_registry(), ["2330"])
+    closes = [r for r in res.records if r.metric_id == "tw_price_close"]
+    assert calls["n"] == 2 and closes and not [e for e in res.errors if "STOCK_DAY" in e.message]
+
+
+def test_twse_monthly_revenue_real():
+    """Gap fill 2026-10-28: t187ap05_L (NT$ thousands) -> TWD, three months, exchange YoY as fraction."""
+    recs = T.parse_monthly_revenue(json.loads((FIX / "twse_t187ap05_L.json").read_text()), {"2330", "3231"})
+    by = {(r.metric_id, r.entity_id, r.period_end): r for r in recs}
+    cur = by[("tw_monthly_revenue", "2330", dt.date(2026, 9, 30))]
+    assert cur.value == 511857399 * 1000.0 and cur.period_start == dt.date(2026, 9, 1)
+    assert cur.publication_date == dt.date(2026, 10, 17) and cur.unit == "TWD"
+    assert by[("tw_monthly_revenue", "2330", dt.date(2026, 8, 31))].value == 514805337 * 1000.0
+    assert by[("tw_monthly_revenue", "2330", dt.date(2025, 9, 30))].value == 330980920 * 1000.0
+    yoy = by[("tw_monthly_revenue_yoy", "2330", dt.date(2026, 9, 30))].value
+    assert yoy == pytest.approx(511857399 / 330980920 - 1, abs=1e-9)
+    assert by[("tw_revenue_ytd_yoy", "2330", dt.date(2026, 9, 30))].period_start == dt.date(2026, 1, 1)
+    assert all(r.publication_date >= r.period_end for r in recs)
+    assert {r.entity_id for r in recs} == {"2330", "3231"}
+    assert T._shift(dt.date(2026, 1, 1), -1) == (dt.date(2025, 12, 1), dt.date(2025, 12, 31))

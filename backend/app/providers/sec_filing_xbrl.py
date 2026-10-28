@@ -6,7 +6,8 @@ such as NVIDIA Data Center revenue are dimensional, so this adapter reads each 1
   1. https://data.sec.gov/submissions/CIK##########.json            -> recent 10-Q/10-K accessions
   2. https://www.sec.gov/Archives/edgar/data/<cik>/<acc>/<doc>_htm.xml  (inline-XBRL extracted instance)
      fallback: the filing's index.json to locate the instance file
-  3. keep facts whose context has EXACTLY one explicit member == metric.params (axis, member)
+  3. keep facts whose context has EXACTLY one explicit member == metric.params (axis, member), where the member may be
+     per entity (params.member_by_entity) and params.extra_members may allow one extra fixed member (segment notes)
 
 Same SEC fair-access policy as sec_edgar (User-Agent with contact e-mail, <= 10 req/s).
 """
@@ -50,14 +51,19 @@ def _qname(el_tag: str, nsmap_rev: dict[str, str]) -> str:
 
 
 def parse_instance(xml_bytes: bytes, concepts: list[str], axis: str, member: str, filed: dt.date,
-                   accn: str, form: str) -> list[Fact]:
-    """Duration facts for `concepts` (local names, any namespace) whose context = {axis: member} only."""
+                   accn: str, form: str, extra_members: dict[str, str] | None = None) -> list[Fact]:
+    """Duration facts for `concepts` (local names, any namespace) whose context = {axis: member} only, or
+    {axis: member} plus exactly the `extra_members` (e.g. srt:ConsolidationItemsAxis = us-gaap:OperatingSegmentsMember,
+    which ASU 2023-07 segment notes add to some segment facts)."""
+    allowed = [sorted([(axis, member)])]
+    if extra_members:
+        allowed.append(sorted([(axis, member), *extra_members.items()]))
     root = ET.fromstring(xml_bytes)
     ctx_ok: dict[str, tuple[dt.date, dt.date]] = {}
     for c in root.iter(f"{XBRLI}context"):
         mems = [(m.get("dimension"), (m.text or "").strip()) for m in c.iter(f"{XBRLDI}explicitMember")]
         typed = list(c.iter(f"{XBRLDI}typedMember"))
-        if typed or mems != [(axis, member)]:
+        if typed or sorted(mems) not in allowed:
             continue
         p = c.find(f"{XBRLI}period")
         s, e = p.find(f"{XBRLI}startDate"), p.find(f"{XBRLI}endDate")
@@ -99,6 +105,11 @@ def _original_filed(own: dict[dt.date, dt.date], end: dt.date) -> dt.date | None
     return min(cands) if cands else None
 
 
+def member_for(m: MetricDef, entity_id: str) -> str:
+    """params.member, or params.member_by_entity[entity] for segment metrics whose member is company specific."""
+    return (m.params.get("member_by_entity") or {}).get(entity_id) or m.params["member"]
+
+
 def records_from_facts(facts: list[Fact], m: MetricDef, entity_id: str, cik: str,
                        own_filed: dict[dt.date, dt.date] | None = None) -> list[ObservationRecord]:
     """`own_filed` (period end -> original filing date): quarters whose earliest available vintage was filed AFTER the
@@ -109,7 +120,7 @@ def records_from_facts(facts: list[Fact], m: MetricDef, entity_id: str, cik: str
     for c in m.concepts:
         for q in quarterize([f for f in facts if f.concept == c]):
             chosen.setdefault(q.end, (c, q))
-    axis, member = m.params["axis"], m.params["member"]
+    axis, member = m.params["axis"], member_for(m, entity_id)
     out = []
     for end, (c, q) in sorted(chosen.items()):
         if own_filed is not None:
@@ -181,27 +192,30 @@ class SecFilingXbrlProvider(Provider):
             res.errors.append(ProviderError(st.reason or "unavailable"))
             return res
         metrics = registry.metrics_for_provider(self.name)
+        eids = list(dict.fromkeys(e for m in metrics for e in m.entities if not entity_ids or e in entity_ids))
         with self._client() as client:
-            for m in metrics:
-                for eid in m.entities:
-                    if entity_ids and eid not in entity_ids:
-                        continue
-                    cik = registry.entities[eid].cik
-                    try:
-                        sub = get_with_retry(client, SUBMISSIONS_URL.format(cik=cik.zfill(10)), self.limiter).json()
-                    except Exception as exc:  # noqa: BLE001
-                        res.errors.append(ProviderError(f"submissions fetch failed: {exc}", entity_id=eid))
-                        continue
+            for eid in eids:  # entity-outer so each filing instance is downloaded once and freed afterwards
+                cik = registry.entities[eid].cik
+                try:
+                    sub = get_with_retry(client, SUBMISSIONS_URL.format(cik=cik.zfill(10)), self.limiter).json()
+                except Exception as exc:  # noqa: BLE001
+                    res.errors.append(ProviderError(f"submissions fetch failed: {exc}", entity_id=eid))
+                    continue
+                cache: dict[str, bytes] = {}
+                for m in (m for m in metrics if eid in m.entities):
                     facts: list[Fact] = []
+                    member = member_for(m, eid)
                     for f in recent_filings(sub, self.limit):
                         try:
-                            xml = self._instance(client, cik, f)
-                            fs = parse_instance(xml, m.concepts, m.params["axis"], m.params["member"],
-                                                dt.date.fromisoformat(f["filed"]), f["accn"], f["form"])
+                            if f["accn"] not in cache:
+                                cache[f["accn"]] = self._instance(client, cik, f)
+                            fs = parse_instance(cache[f["accn"]], m.concepts, m.params["axis"], member,
+                                                dt.date.fromisoformat(f["filed"]), f["accn"], f["form"],
+                                                m.params.get("extra_members"))
                             facts.extend(fs); res.fetched += len(fs)
                             if not fs:
                                 res.errors.append(ProviderError(
-                                    f"{f['accn']}: no {m.params['member']} facts", level="warning",
+                                    f"{f['accn']}: no {member} facts for {m.id}", level="warning",
                                     entity_id=eid, metric_id=m.id))
                         except Exception as exc:  # noqa: BLE001
                             res.errors.append(ProviderError(f"{f['accn']} instance failed: {exc}",

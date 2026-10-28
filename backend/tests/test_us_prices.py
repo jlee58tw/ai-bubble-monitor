@@ -184,3 +184,13 @@ def test_effective_status_alternatives_and_upstream():
     assert effective_status("connected", "derived", st, {"upstream": ["tiingo", "alphavantage"]})[0] == "unavailable"
     assert effective_status("connected", "derived", st, None)[0] == "connected"
     assert effective_status("connected", "fred", st, {})[0] == "connected"
+
+
+def test_market_cap_skips_filer_scaling_error_in_shares():
+    """Audit 2026-10-28: ORCL 10-Q 0001193125-12-401697 tags 4,819,056,000,000,000 shares (filer error)."""
+    sh = frame("ORCL", [(d(2012, 6, 15), 4.88e9), (d(2012, 9, 17), 4.819056e15), (d(2012, 12, 14), 4.75e9)])
+    p = frame("ORCL", [(d(2012, 10, 1), 30.0)])
+    out = D.market_cap_asof(p, sh, None)
+    assert out["value"].iloc[0] == pytest.approx(30.0 * 4.88e9)          # falls back to the prior sane snapshot
+    nv = frame("NVDA", [(d(2009, 7, 1), 5.4e8), (d(2021, 8, 1), 2.5e9), (d(2024, 8, 1), 2.45e10)])
+    assert len(D.market_cap_asof(frame("NVDA", [(d(2009, 7, 2), 10.0)]), nv, None)) == 1   # split history kept

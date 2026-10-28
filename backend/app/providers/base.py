@@ -94,14 +94,17 @@ class RateLimiter:
 
 
 def get_with_retry(client: httpx.Client, url: str, limiter: RateLimiter | None = None,
-                   retries: int = 3, backoff_s: float = 2.0) -> httpx.Response:
+                   retries: int = 3, backoff_s: float = 2.0,
+                   retry_statuses: tuple[int, ...] = ()) -> httpx.Response:
+    """GET with polite exponential backoff on 429/5xx (plus any extra ``retry_statuses``, e.g. TWSE answers
+    307 when it throttles a client)."""
     last_exc: Exception | None = None
     for attempt in range(retries):
         if limiter:
             limiter.wait()
         try:
             r = client.get(url)
-            if r.status_code in (429, 500, 502, 503, 504):
+            if r.status_code in (429, 500, 502, 503, 504) + tuple(retry_statuses):
                 last_exc = httpx.HTTPStatusError(f"HTTP {r.status_code}", request=r.request, response=r)
                 time.sleep(backoff_s * (2 ** attempt))
                 continue

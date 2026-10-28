@@ -61,7 +61,24 @@ def test_subtract_vintages_point_in_time():
     a = [Vintage(300, D(2025, 1, 10), ("a1",)), Vintage(310, D(2025, 6, 1), ("a2",))]
     b = [Vintage(100, D(2025, 2, 1), ("b1",))]
     out = subtract_vintages(a, b)
-    assert [(v.value, v.filed) for v in out] == [(200, D(2025, 2, 1)), (210, D(2025, 6, 1))]
+    # only `a` was restated on 2025-06-01 -> mixed basis -> no new vintage (audit 2026-10-28)
+    assert [(v.value, v.filed) for v in out] == [(200, D(2025, 2, 1))]
+    # both inputs restated in the same filing date -> a new vintage
+    b2 = b + [Vintage(105, D(2025, 6, 1), ("a2",))]
+    assert [(v.value, v.filed) for v in subtract_vintages(a, b2)] == [(200, D(2025, 2, 1)), (205, D(2025, 6, 1))]
+    # b restated earlier (as a 10-Q comparative), a restated later -> both on the new basis -> a new vintage then
+    b3 = b + [Vintage(104, D(2025, 4, 1), ("q",))]
+    assert [(v.value, v.filed) for v in subtract_vintages(a, b3)] == [(200, D(2025, 2, 1)), (206, D(2025, 6, 1))]
+
+
+def test_subtract_vintages_segment_recast_not_mixed():
+    """MSFT FY2025 10-K recast FY2023 Intelligent Cloud revenue (new segments) while the 9M YTD stayed on the old
+    basis; the old code published FY2023 Q4 = 9,030M next to the original 23,993M. Synthetic inputs (USD millions)
+    chosen to reproduce those two stored values; the shape (one-sided recast) is the point."""
+    fy = [Vintage(87907, D(2023, 7, 27), ("10-K 2023",)), Vintage(72944, D(2025, 7, 30), ("10-K 2025",))]
+    ytd9 = [Vintage(63914, D(2023, 4, 25), ("10-Q 2023Q3",))]
+    out = subtract_vintages(fy, ytd9)
+    assert [(v.value, v.filed) for v in out] == [(23993, D(2023, 7, 27))]
 
 
 def test_fiscal_labels():

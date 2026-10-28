@@ -138,10 +138,14 @@ indicators:
     rationale: A deep spot discount suggests idle capacity. Caveat - list prices are sticky (unchanged since 2023-12).
   - id: tsmc_monthly_revenue
     dimension: supply_chain
-    name: TSMC monthly revenue momentum
-    calc: unavailable
-    reason: Not yet connected (TWSE/MOPS monthly revenue open data not ingested in Phase 2).
-    thresholds: {benign: null, stretched: null}
+    name: TSMC (2330) monthly revenue YoY (TWSE t187ap05_L, exchange-published)
+    calc: obs_latest
+    args: {metric: tw_monthly_revenue_yoy, entity: "2330"}
+    max_age_days: 75
+    thresholds: {benign: 0.15, stretched: 0.6}
+    rationale: >-
+      Foundry revenue growth far above its long-run ~15% trend signals boom-phase demand whose durability is
+      uncertain (same logic as NVDA Data Center YoY). Research hypothesis, not a validated threshold.
 
   # --- macro ----------------------------------------------------------------------------------
   - id: us10y

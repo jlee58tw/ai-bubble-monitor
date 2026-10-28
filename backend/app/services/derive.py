@@ -185,6 +185,11 @@ def market_cap_asof(prices: pd.DataFrame, shares: pd.DataFrame, splits: pd.DataF
         if gb.empty:
             continue
         snaps = sorted(gb.to_dict("records"), key=lambda x: x["period_end"])
+        # Filer XBRL scaling errors exist in the source (e.g. ORCL 10-Q 0001193125-12-401697 reports
+        # 4,819,056,000,000,000 shares; AMD 2012 707,555,106,000,000). Skip snapshots >1000x away from the
+        # entity's median rather than producing absurd market caps (audit 2026-10-28). The reported row stays stored.
+        med = float(pd.Series([x["value"] for x in snaps]).median())
+        snaps = [x for x in snaps if med <= 0 or 1e-3 <= x["value"] / med <= 1e3]  # splits move counts <~100x
         lim = int(max_age_overrides.get(eid, max_age_days)); k = float(scale.get(eid, 1.0))
         for r in ga.to_dict("records"):
             t = r["period_end"]

@@ -167,8 +167,11 @@ def calc_model_price_change(s, ind, today):
                             "Undocumented past prices are never back-filled.")
     since = today - dt.timedelta(days=365)
     by_id = {r.id: r for r in rows}
+    # Only real price moves: a revision that only fills effective_to / fixes metadata (same value) is not a
+    # "change" and must not pull the median towards 0 (audit 2026-10-28).
     ch = [r.usd_per_mtok / by_id[r.supersedes_id].usd_per_mtok - 1 for r in rows
-          if r.supersedes_id in by_id and r.first_seen_at.date() >= since and by_id[r.supersedes_id].usd_per_mtok]
+          if r.supersedes_id in by_id and r.first_seen_at.date() >= since and by_id[r.supersedes_id].usd_per_mtok
+          and r.usd_per_mtok != by_id[r.supersedes_id].usd_per_mtok]
     if len(ch) < a["min_changes"]:
         return Value(None, "insufficient", detail=f"{len(ch)} observed price changes in 365 days "
                                                    f"(need {a['min_changes']})")

@@ -35,7 +35,7 @@ def test_anthropic_pricing_and_documented_history():
 
 def test_gemini_scheduled_price_kept_separate():
     rows = P.parse_gemini(_t("gemini_pricing.md"))
-    assert len(rows) == 60
+    assert len(rows) == 71
     argon = [r for r in rows if r["model_id"] == "gemini-4-argon" and r["price_type"] == "input"]
     by = {r["price_status"]: r for r in argon}
     assert by["current"]["usd_per_mtok"] == 2.0 and by["current"]["effective_to"] == dt.date(2026, 11, 30)
@@ -103,3 +103,32 @@ def test_store_rows_append_only(db_session):
     assert store_rows(s, "model_prices", run, [cut]) == {"inserted": 0, "revised": 1, "unchanged": 0}
     rows = s.scalars(select(ModelPrice).order_by(ModelPrice.id)).all()
     assert [r.usd_per_mtok for r in rows] == [5.0, 2.5] and rows[1].supersedes_id == rows[0].id
+
+
+def test_gemini_units_modalities_and_parenthesised_schedule():
+    """Audit 2026-10-28: per-image price must not be stored per 1M tokens; multi-modality cells keep the
+    text price; '$1.00 (text / image / video / audio) through DATE. $2.00 ... starting DATE' is a schedule."""
+    rows = P.parse_gemini(_t("gemini_pricing.md"))
+    get = lambda m, p, s="current": [r for r in rows if r["model_id"] == m and r["price_type"] == p
+                                     and r["price_status"] == s]
+    assert get("gemini-2.5-flash-image", "output") == []          # "$0.039 per image" -> not per-1M tokens
+    assert get("gemini-2.5-flash", "input")[0]["usd_per_mtok"] == 0.30   # text/image/video, not audio $1.00
+    assert get("gemini-2.5-flash", "cached_input")[0]["usd_per_mtok"] == 0.03
+    cur = get("gemini-robotics-er-2-preview", "input")[0]
+    sch = get("gemini-robotics-er-2-preview", "input", "scheduled")[0]
+    assert cur["usd_per_mtok"] == 1.0 and cur["effective_to"] == dt.date(2026, 12, 31)
+    assert sch["usd_per_mtok"] == 2.0 and sch["effective_from"] == dt.date(2027, 1, 1)
+    assert get("gemini-3.5-transcribe", "input") == []            # audio-only price
+    assert P._gemini_first_price("$3.50 or $0.005/min (audio)")[0] is None
+    assert P._gemini_first_price("$21.00 or $0.004/min (text)")[0] == 21.0
+
+
+def test_rows_dropped_from_latest_snapshot_are_flagged():
+    import datetime as _dt
+    from types import SimpleNamespace as NS
+    from app.api.datasets_routes import in_latest_snapshot
+    start = _dt.datetime(2026, 10, 28, 10, 0)
+    starts = {"google": start, "openai": None}
+    assert in_latest_snapshot(NS(vendor="google", last_seen_at=start + _dt.timedelta(seconds=5)), starts)
+    assert not in_latest_snapshot(NS(vendor="google", last_seen_at=start - _dt.timedelta(days=2)), starts)
+    assert in_latest_snapshot(NS(vendor="openai", last_seen_at=start), starts)  # no successful run -> not hidden

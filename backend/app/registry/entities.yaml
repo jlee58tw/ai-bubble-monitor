@@ -12,6 +12,8 @@ entities:
   - {id: "2330", name: "台積電 TSMC (TWSE 2330)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; prices in TWD"}
   - {id: "2382", name: "廣達 Quanta Computer (TWSE 2382)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; AI server ODM; prices in TWD"}
   - {id: "2317", name: "鴻海 Hon Hai / Foxconn (TWSE 2317)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; AI server assembly; prices in TWD"}
+  - {id: "3231", name: "緯創 Wistron (TWSE 3231)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; AI server ODM; monthly revenue only"}
+  - {id: "6669", name: "緯穎 Wiwynn (TWSE 6669)", entity_type: company, group: tw_supply_chain, notes: "TWSE listed; hyperscale server ODM; monthly revenue only"}
   - {id: BIG4_CAL, name: "MSFT+GOOGL+AMZN+META (calendar-aligned sum)", entity_type: aggregate, group: hyperscaler_aggregate,
      notes: "Sum only for calendar quarters where ALL four companies have a value. ORCL excluded (May fiscal year, quarters not calendar-aligned)."}
   - {id: US, name: United States (macro), entity_type: macro, group: macro}

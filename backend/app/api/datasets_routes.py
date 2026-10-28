@@ -69,9 +69,32 @@ def datasets_refresh(source: str | None = Query(None)):
     return {"started": True, "sources": [source] if source else list(srcs)}
 
 
+PRICE_SOURCES = {"openai": "pricing_openai", "anthropic": "pricing_anthropic", "google": "pricing_google",
+                 "openrouter": "pricing_openrouter"}
+
+
+def _snapshot_starts(session: Session) -> dict[str, object]:
+    """vendor -> started_at of the latest successful pricing run (rows not re-seen since then were dropped
+    from the vendor page or are no longer parsed, e.g. a per-image price that is not a per-1M-token price)."""
+    out = {}
+    for v, n in PRICE_SOURCES.items():
+        ok = session.scalars(select(IngestionRun).where(IngestionRun.provider == n, IngestionRun.status == "success")
+                             .order_by(IngestionRun.id.desc()).limit(1)).first()
+        out[v] = ok.started_at if ok else None
+    return out
+
+
+def in_latest_snapshot(row, starts: dict) -> bool:
+    st = starts.get(row.vendor)
+    if st is None or row.last_seen_at is None:
+        return True  # unknown -> do not hide
+    a, b = row.last_seen_at.replace(tzinfo=None), st.replace(tzinfo=None)
+    return a >= b
+
+
 @router.get("/model-prices")
 def model_prices(vendor: str | None = None, open_weight: bool | None = None, q: str | None = None,
-                 session: Session = Depends(get_session)):
+                 include_stale: bool = False, session: Session = Depends(get_session)):
     stmt = _current(session, ModelPrice)
     if vendor:
         stmt = stmt.where(ModelPrice.vendor == vendor)
@@ -79,14 +102,19 @@ def model_prices(vendor: str | None = None, open_weight: bool | None = None, q: 
         stmt = stmt.where(ModelPrice.open_weight == open_weight)
     if q:
         stmt = stmt.where(ModelPrice.model_id.ilike(f"%{q}%"))
-    rows = [_cols(r) for r in session.scalars(stmt.order_by(ModelPrice.vendor, ModelPrice.model_id))]
-    names = {"openai": "pricing_openai", "anthropic": "pricing_anthropic", "google": "pricing_google",
-             "openrouter": "pricing_openrouter"}
-    return {"rows": rows, "sources": _last_runs(session, names.values()),
+    starts = _snapshot_starts(session)
+    rows = []
+    for r in session.scalars(stmt.order_by(ModelPrice.vendor, ModelPrice.model_id)):
+        fresh = in_latest_snapshot(r, starts)
+        if fresh or include_stale:
+            rows.append({**_cols(r), "in_latest_snapshot": fresh})
+    return {"rows": rows, "sources": _last_runs(session, PRICE_SOURCES.values()),
             "notes": ["Prices are USD per 1M tokens, list/standard tier as published by the vendor.",
                       "observed = first_seen_at/last_seen_at (UTC) when this app saw the price; effective_from/to "
                       "only when the vendor documents it. History before the first observation is shown only where "
-                      "the vendor documents it (price_status=documented_history)."]}
+                      "the vendor documents it (price_status=documented_history).",
+                      "Rows no longer present in the latest successful snapshot of their vendor page are hidden "
+                      "(include_stale=true shows them with in_latest_snapshot=false)."]}
 
 
 @router.get("/model-prices/changes")

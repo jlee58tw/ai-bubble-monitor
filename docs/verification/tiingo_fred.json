@@ -1,0 +1,686 @@
+{
+ "family": "tiingo_fred",
+ "checked_at": "2026-10-28T19:15:53+08:00",
+ "rows": [
+  {
+   "check": "AMD raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMD/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 560.26 source 560.26"
+  },
+  {
+   "check": "AMD split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMD/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "AMD 52w drawdown 2026-10-26",
+   "stored": -0.181916,
+   "source": -0.181916,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMD/prices?startDate=2024-06-01",
+   "note": "high 649.4200 on 2026-10-06"
+  },
+  {
+   "check": "AMD 52w drawdown 2026-10-27",
+   "stored": -0.137292,
+   "source": -0.137292,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMD/prices?startDate=2024-06-01",
+   "note": "high 649.4200 on 2026-10-06"
+  },
+  {
+   "check": "AMZN raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMZN/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 253.1 source 253.1"
+  },
+  {
+   "check": "AMZN split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMZN/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "AMZN split-adj vs Tiingo adjClose (no dividends)",
+   "stored": 178.34,
+   "source": 178.34,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMZN/prices?startDate=2024-06-01",
+   "note": "2024-06-03"
+  },
+  {
+   "check": "AMZN 52w drawdown 2026-10-26",
+   "stored": -0.122984,
+   "source": -0.122984,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMZN/prices?startDate=2024-06-01",
+   "note": "high 284.0200 on 2026-08-03"
+  },
+  {
+   "check": "AMZN 52w drawdown 2026-10-27",
+   "stored": -0.108866,
+   "source": -0.108866,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/AMZN/prices?startDate=2024-06-01",
+   "note": "high 284.0200 on 2026-08-03"
+  },
+  {
+   "check": "GOOGL raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/GOOGL/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 320.58 source 320.58"
+  },
+  {
+   "check": "GOOGL split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/GOOGL/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "GOOGL 52w drawdown 2026-10-26",
+   "stored": -0.213154,
+   "source": -0.213154,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/GOOGL/prices?startDate=2024-06-01",
+   "note": "high 402.6200 on 2026-05-13"
+  },
+  {
+   "check": "GOOGL 52w drawdown 2026-10-27",
+   "stored": -0.203765,
+   "source": -0.203765,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/GOOGL/prices?startDate=2024-06-01",
+   "note": "high 402.6200 on 2026-05-13"
+  },
+  {
+   "check": "META raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/META/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 620.19 source 620.19"
+  },
+  {
+   "check": "META split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/META/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "META 52w drawdown 2026-10-26",
+   "stored": -0.189084,
+   "source": -0.189084,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/META/prices?startDate=2024-06-01",
+   "note": "high 777.5900 on 2026-09-24"
+  },
+  {
+   "check": "META 52w drawdown 2026-10-27",
+   "stored": -0.20242,
+   "source": -0.20242,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/META/prices?startDate=2024-06-01",
+   "note": "high 777.5900 on 2026-09-24"
+  },
+  {
+   "check": "MSFT raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/MSFT/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 531.33 source 531.33"
+  },
+  {
+   "check": "MSFT split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/MSFT/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "MSFT 52w drawdown 2026-10-26",
+   "stored": -0.019965,
+   "source": -0.019965,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/MSFT/prices?startDate=2024-06-01",
+   "note": "high 543.4500 on 2026-10-13"
+  },
+  {
+   "check": "MSFT 52w drawdown 2026-10-27",
+   "stored": -0.022302,
+   "source": -0.022302,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/MSFT/prices?startDate=2024-06-01",
+   "note": "high 543.4500 on 2026-10-13"
+  },
+  {
+   "check": "NVDA raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/NVDA/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 217.94 source 217.94"
+  },
+  {
+   "check": "NVDA split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/NVDA/prices?startDate=2024-06-01",
+   "note": "source splits in window {'2024-06-10': 10.0}; sample []"
+  },
+  {
+   "check": "NVDA 10:1 split 2024-06-10 handled: 2024-06-07 split-adj close",
+   "stored": 120.888,
+   "source": 120.888,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/NVDA/prices?startDate=2024-06-01",
+   "note": "raw 1208.88 / 10"
+  },
+  {
+   "check": "NVDA 52w drawdown 2026-10-26",
+   "stored": -0.097141,
+   "source": -0.097141,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/NVDA/prices?startDate=2024-06-01",
+   "note": "high 239.2400 on 2026-10-06"
+  },
+  {
+   "check": "NVDA 52w drawdown 2026-10-27",
+   "stored": -0.089032,
+   "source": -0.089032,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/NVDA/prices?startDate=2024-06-01",
+   "note": "high 239.2400 on 2026-10-06"
+  },
+  {
+   "check": "ORCL raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/ORCL/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 130.53 source 130.53"
+  },
+  {
+   "check": "ORCL split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/ORCL/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "ORCL 52w drawdown 2026-10-26",
+   "stored": -0.552026,
+   "source": -0.552026,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/ORCL/prices?startDate=2024-06-01",
+   "note": "high 281.4000 on 2025-10-27"
+  },
+  {
+   "check": "ORCL 52w drawdown 2026-10-27",
+   "stored": -0.535199,
+   "source": -0.535199,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/ORCL/prices?startDate=2024-06-01",
+   "note": "high 280.8300 on 2025-10-28"
+  },
+  {
+   "check": "QQQ raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/QQQ/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 721.25 source 721.25"
+  },
+  {
+   "check": "QQQ split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/QQQ/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "QQQ 52w drawdown 2026-10-26",
+   "stored": -0.062475,
+   "source": -0.062475,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/QQQ/prices?startDate=2024-06-01",
+   "note": "high 759.6600 on 2026-10-06"
+  },
+  {
+   "check": "QQQ 52w drawdown 2026-10-27",
+   "stored": -0.050562,
+   "source": -0.050562,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/QQQ/prices?startDate=2024-06-01",
+   "note": "high 759.6600 on 2026-10-06"
+  },
+  {
+   "check": "SMH raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SMH/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 557.98 source 557.98"
+  },
+  {
+   "check": "SMH split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SMH/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "SMH 52w drawdown 2026-10-26",
+   "stored": -0.190295,
+   "source": -0.190295,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SMH/prices?startDate=2024-06-01",
+   "note": "high 668.9100 on 2026-06-22"
+  },
+  {
+   "check": "SMH 52w drawdown 2026-10-27",
+   "stored": -0.165837,
+   "source": -0.165837,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SMH/prices?startDate=2024-06-01",
+   "note": "high 668.9100 on 2026-06-22"
+  },
+  {
+   "check": "SOXX raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SOXX/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 511.06 source 511.06"
+  },
+  {
+   "check": "SOXX split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SOXX/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "SOXX 52w drawdown 2026-10-26",
+   "stored": -0.249126,
+   "source": -0.249126,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SOXX/prices?startDate=2024-06-01",
+   "note": "high 655.0100 on 2026-06-22"
+  },
+  {
+   "check": "SOXX 52w drawdown 2026-10-27",
+   "stored": -0.219768,
+   "source": -0.219768,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/SOXX/prices?startDate=2024-06-01",
+   "note": "high 655.0100 on 2026-06-22"
+  },
+  {
+   "check": "TSM raw close 2024-06-03..2026-10-27 (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/TSM/prices?startDate=2024-06-01",
+   "note": "mismatch sample []; last 2026-10-27 stored 436.87 source 436.87"
+  },
+  {
+   "check": "TSM split-adjusted close (603 days)",
+   "stored": "603 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/TSM/prices?startDate=2024-06-01",
+   "note": "source splits in window {}; sample []"
+  },
+  {
+   "check": "TSM 52w drawdown 2026-10-26",
+   "stored": -0.126451,
+   "source": -0.126451,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/TSM/prices?startDate=2024-06-01",
+   "note": "high 485.8000 on 2026-10-05"
+  },
+  {
+   "check": "TSM 52w drawdown 2026-10-27",
+   "stored": -0.10072,
+   "source": -0.10072,
+   "ok": true,
+   "url": "https://api.tiingo.com/tiingo/daily/TSM/prices?startDate=2024-06-01",
+   "note": "high 485.8000 on 2026-10-05"
+  },
+  {
+   "check": "FRED NASDAQ100 (NDX) closes (291 days)",
+   "stored": "291 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQ100&cosd=2025-09-01",
+   "note": "last stored 2026-10-27 last source 2026-10-27; sample []"
+  },
+  {
+   "check": "FRED NASDAQ100 freshness",
+   "stored": "2026-10-27",
+   "source": "2026-10-27",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQ100&cosd=2025-09-01",
+   "note": ""
+  },
+  {
+   "check": "NDX 52w drawdown 2026-10-27",
+   "stored": -0.050385,
+   "source": -0.050385,
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQ100&cosd=2025-09-01",
+   "note": "high 31224.69 on 2026-10-06"
+  },
+  {
+   "check": "FRED NASDAQSOX (SOX) closes (291 days)",
+   "stored": "291 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQSOX&cosd=2025-09-01",
+   "note": "last stored 2026-10-27 last source 2026-10-27; sample []"
+  },
+  {
+   "check": "FRED NASDAQSOX freshness",
+   "stored": "2026-10-27",
+   "source": "2026-10-27",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQSOX&cosd=2025-09-01",
+   "note": ""
+  },
+  {
+   "check": "SOX 52w drawdown 2026-10-27",
+   "stored": -0.215393,
+   "source": -0.215393,
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQSOX&cosd=2025-09-01",
+   "note": "high 14634.72 on 2026-06-22"
+  },
+  {
+   "check": "FRED NASDAQCOM (COMP) closes (291 days)",
+   "stored": "291 match",
+   "source": "0 mismatch",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2025-09-01",
+   "note": "last stored 2026-10-27 last source 2026-10-27; sample []"
+  },
+  {
+   "check": "FRED NASDAQCOM freshness",
+   "stored": "2026-10-27",
+   "source": "2026-10-27",
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2025-09-01",
+   "note": ""
+  },
+  {
+   "check": "COMP 52w drawdown 2026-10-27",
+   "stored": -0.040655,
+   "source": -0.040655,
+   "ok": true,
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2025-09-01",
+   "note": "high 27599.89 on 2026-10-06"
+  },
+  {
+   "check": "AMD rel return 1y vs NDX 2026-10-27",
+   "stored": 0.878903,
+   "source": 0.878903,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 259.6700(2025-10-27)->560.2600; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "AMZN rel return 1y vs NDX 2026-10-27",
+   "stored": -0.028908,
+   "source": -0.028908,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 226.9700(2025-10-27)->253.1000; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "GOOGL rel return 1y vs NDX 2026-10-27",
+   "stored": 0.036776,
+   "source": 0.036776,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 269.2700(2025-10-27)->320.5800; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "META rel return 1y vs NDX 2026-10-27",
+   "stored": -0.280675,
+   "source": -0.280675,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 750.8200(2025-10-27)->620.1900; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "MSFT rel return 1y vs NDX 2026-10-27",
+   "stored": -0.129475,
+   "source": -0.129475,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 531.5200(2025-10-27)->531.3300; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "NVDA rel return 1y vs NDX 2026-10-27",
+   "stored": -0.008877,
+   "source": -0.008877,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 191.4900(2025-10-27)->217.9400; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "ORCL rel return 1y vs NDX 2026-10-27",
+   "stored": -0.596055,
+   "source": -0.596055,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 281.4000(2025-10-27)->130.5300; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "TSM rel return 1y vs NDX 2026-10-27",
+   "stored": 0.275582,
+   "source": 0.275582,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQ100",
+   "note": "stock 298.2500(2025-10-27)->436.8700; index 25821.55(2025-10-27)->29651.44"
+  },
+  {
+   "check": "AMD rel return 1y vs SOX 2026-10-27",
+   "stored": 0.346877,
+   "source": 0.346877,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 259.6700(2025-10-27)->560.2600; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "AMZN rel return 1y vs SOX 2026-10-27",
+   "stored": -0.303881,
+   "source": -0.303881,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 226.9700(2025-10-27)->253.1000; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "GOOGL rel return 1y vs SOX 2026-10-27",
+   "stored": -0.256795,
+   "source": -0.256795,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 269.2700(2025-10-27)->320.5800; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "META rel return 1y vs SOX 2026-10-27",
+   "stored": -0.484357,
+   "source": -0.484357,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 750.8200(2025-10-27)->620.1900; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "MSFT rel return 1y vs SOX 2026-10-27",
+   "stored": -0.375971,
+   "source": -0.375971,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 531.5200(2025-10-27)->531.3300; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "NVDA rel return 1y vs SOX 2026-10-27",
+   "stored": -0.289522,
+   "source": -0.289522,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 191.4900(2025-10-27)->217.9400; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "ORCL rel return 1y vs SOX 2026-10-27",
+   "stored": -0.710435,
+   "source": -0.710435,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 281.4000(2025-10-27)->130.5300; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "TSM rel return 1y vs SOX 2026-10-27",
+   "stored": -0.085609,
+   "source": -0.085609,
+   "ok": true,
+   "url": "tiingo + https://fred.stlouisfed.org/series/NASDAQSOX",
+   "note": "stock 298.2500(2025-10-27)->436.8700; index 7167.98(2025-10-27)->11482.51"
+  },
+  {
+   "check": "AMD market cap 2026-10-27",
+   "stored": 914610467031,
+   "source": 914610467031,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000002488/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "close 560.26 x shares 1632475042 (as of 2026-07-29) x scale 1.0"
+  },
+  {
+   "check": "AMD market cap shares as-of age at 2026-10-27 (days)",
+   "stored": 90,
+   "source": "<=120 (TSM <=400)",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000002488/dei/EntityCommonStockSharesOutstanding.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN market cap 2026-10-27",
+   "stored": 2730015965073,
+   "source": 2730015965073,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "close 253.1 x shares 10786313572 (as of 2026-07-22) x scale 1.0"
+  },
+  {
+   "check": "AMZN market cap shares as-of age at 2026-10-27 (days)",
+   "stored": 97,
+   "source": "<=120 (TSM <=400)",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/dei/EntityCommonStockSharesOutstanding.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT market cap 2026-10-27",
+   "stored": 3945415085733,
+   "source": 3945415085733,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "close 531.33 x shares 7425545491 (as of 2026-07-23) x scale 1.0"
+  },
+  {
+   "check": "MSFT market cap shares as-of age at 2026-10-27 (days)",
+   "stored": 96,
+   "source": "<=120 (TSM <=400)",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/dei/EntityCommonStockSharesOutstanding.json",
+   "note": ""
+  },
+  {
+   "check": "NVDA market cap 2026-10-27",
+   "stored": 5252354000000,
+   "source": 5252354000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "close 217.94 x shares 24100000000 (as of 2026-08-21) x scale 1.0"
+  },
+  {
+   "check": "NVDA market cap shares as-of age at 2026-10-27 (days)",
+   "stored": 67,
+   "source": "<=120 (TSM <=400)",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/dei/EntityCommonStockSharesOutstanding.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL market cap 2026-10-27",
+   "stored": 394688260080,
+   "source": 394688260080,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "close 130.53 x shares 3023736000 (as of 2026-09-07) x scale 1.0"
+  },
+  {
+   "check": "ORCL market cap shares as-of age at 2026-10-27 (days)",
+   "stored": 50,
+   "source": "<=120 (TSM <=400)",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/dei/EntityCommonStockSharesOutstanding.json",
+   "note": ""
+  },
+  {
+   "check": "TSM market cap 2026-10-27",
+   "stored": 2265828397498,
+   "source": 2265828397498,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001046179/dei/EntityCommonStockSharesOutstanding.json",
+   "note": "close 436.87 x shares 25932524521 (as of 2025-12-31) x scale 0.2; TSM: 1 ADR = 5 ordinary shares"
+  },
+  {
+   "check": "TSM market cap shares as-of age at 2026-10-27 (days)",
+   "stored": 300,
+   "source": "<=120 (TSM <=400)",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001046179/dei/EntityCommonStockSharesOutstanding.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL market cap rows",
+   "stored": 0,
+   "source": "n/a (multi-class)",
+   "ok": null,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/",
+   "note": "not computed: dei shares reported per share class; shown as unavailable in UI (not zero)"
+  },
+  {
+   "check": "META market cap rows",
+   "stored": 0,
+   "source": "n/a (multi-class)",
+   "ok": null,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/",
+   "note": "not computed: dei shares reported per share class; shown as unavailable in UI (not zero)"
+  }
+ ]
+}
