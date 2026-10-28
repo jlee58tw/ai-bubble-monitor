@@ -13,6 +13,7 @@ from .registry.registry import sync_registry
 from .api.datasets_routes import router as datasets_router
 from .api.risk_routes import router as risk_router
 from .api.roi_routes import router as roi_router
+from .api.phase3_routes import router as phase3_router
 from .scheduler import start_scheduler
 
 settings = get_settings()
@@ -43,3 +44,4 @@ app.include_router(router)
 app.include_router(datasets_router)
 app.include_router(risk_router)
 app.include_router(roi_router)
+app.include_router(phase3_router)

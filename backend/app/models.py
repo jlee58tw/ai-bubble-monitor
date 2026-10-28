@@ -197,3 +197,57 @@ class RiskSnapshot(Base):
     score_low: Mapped[float] = mapped_column(Float)
     score_high: Mapped[float] = mapped_column(Float)
     detail: Mapped[dict] = mapped_column(JSON)
+
+
+# ---------------------------------------------------------------- Phase 3
+class FilingEvent(Base):
+    """One SEC filing event (10-Q / 10-K / 20-F / 8-K Item 2.02) from EDGAR submissions metadata.
+    report_date = period the filing covers (observation date); filing_date = publication date.
+    Append-only like the Phase 2 datasets: unchanged -> last_seen_at bump, changed -> new superseding row."""
+    __tablename__ = "filing_events"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    entity_id: Mapped[str] = mapped_column(ForeignKey("entities.id"), index=True)
+    cik: Mapped[str] = mapped_column(String(10))
+    accession_number: Mapped[str] = mapped_column(String(32), index=True)
+    form: Mapped[str] = mapped_column(String(16))
+    event_type: Mapped[str] = mapped_column(String(32))          # periodic_report / earnings_release_8k
+    filing_date: Mapped[dt.date] = mapped_column(Date, index=True)
+    acceptance_datetime: Mapped[str | None] = mapped_column(String(32))  # as published by EDGAR (UTC 'Z')
+    report_date: Mapped[dt.date | None] = mapped_column(Date)
+    items: Mapped[str | None] = mapped_column(String(200))       # 8-K item numbers, e.g. "2.02,9.01"
+    primary_document: Mapped[str | None] = mapped_column(String(300))
+    primary_doc_description: Mapped[str | None] = mapped_column(String(300))
+    source_url: Mapped[str] = mapped_column(Text)                # filing index page
+    first_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    last_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+    run_id: Mapped[int | None] = mapped_column(ForeignKey("ingestion_runs.id"))
+    supersedes_id: Mapped[int | None] = mapped_column(ForeignKey("filing_events.id"))
+
+
+class GuidanceItem(Base):
+    """Company guidance. Rows exist ONLY with a source URL + quote; nothing is inferred or estimated.
+    (No guidance source is connected yet, so this table is empty and the UI shows a placeholder.)"""
+    __tablename__ = "guidance_items"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    entity_id: Mapped[str] = mapped_column(ForeignKey("entities.id"), index=True)
+    metric_id: Mapped[str | None] = mapped_column(ForeignKey("metrics.id"))
+    target_period: Mapped[str] = mapped_column(String(64))
+    value_low: Mapped[float | None] = mapped_column(Float)
+    value_high: Mapped[float | None] = mapped_column(Float)
+    unit: Mapped[str | None] = mapped_column(String(32))
+    publication_date: Mapped[dt.date] = mapped_column(Date)
+    source_url: Mapped[str] = mapped_column(Text, nullable=False)
+    quote: Mapped[str] = mapped_column(Text, nullable=False)
+    filing_event_id: Mapped[int | None] = mapped_column(ForeignKey("filing_events.id"))
+    first_seen_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class WatchlistItem(Base):
+    """User-configured watchlist: an entity, a metric, or an (entity, metric) series."""
+    __tablename__ = "watchlist_items"
+    __table_args__ = (UniqueConstraint("entity_id", "metric_id", name="uq_watch"),)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    entity_id: Mapped[str | None] = mapped_column(ForeignKey("entities.id"))
+    metric_id: Mapped[str | None] = mapped_column(ForeignKey("metrics.id"))
+    note: Mapped[str | None] = mapped_column(String(500))
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime, default=utcnow)

@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from ..config import get_settings
 from ..logging_setup import get_logger
-from ..models import BenchmarkResult, GpuPrice, IngestionError, IngestionRun, ModelPrice, utcnow
+from ..models import BenchmarkResult, FilingEvent, GpuPrice, IngestionError, IngestionRun, ModelPrice, utcnow
 from ..providers.base import RateLimiter, get_with_retry
 
 log = get_logger(__name__)
@@ -20,6 +20,8 @@ TABLES = {
     "benchmark_results": (BenchmarkResult, ("benchmark", "benchmark_version", "split", "metric", "entry_key"),
                           ("value", "ci_low", "ci_high", "result_date")),
     "gpu_prices": (GpuPrice, ("source", "price_kind", "sku", "region"), ("usd_per_hour", "effective_from")),
+    "filing_events": (FilingEvent, ("entity_id", "accession_number"),
+                      ("form", "filing_date", "report_date", "items", "acceptance_datetime")),
 }
 
 
@@ -96,7 +98,7 @@ def simple_fetch(url: str, kind: str, parse: Callable, min_interval_s: float = 1
 
 def dataset_sources() -> dict[str, tuple[str, Callable]]:
     """name -> (table, fetch). Imported lazily to keep modules independent."""
-    from . import benchmarks, gpu, pricing
+    from . import benchmarks, filings, gpu, pricing
     out: dict[str, tuple[str, Callable]] = {}
     for n, (url, kind, parse) in pricing.SOURCES.items():
         out[n] = ("model_prices", simple_fetch(url, kind, parse))
@@ -104,6 +106,8 @@ def dataset_sources() -> dict[str, tuple[str, Callable]]:
         out[n] = ("benchmark_results", fetch)
     for n, fetch in gpu.SOURCES.items():
         out[n] = ("gpu_prices", fetch)
+    for n, fetch in filings.SOURCES.items():
+        out[n] = ("filing_events", fetch)
     return out
 
 
@@ -114,5 +118,13 @@ def run_datasets(session: Session, names: list[str] | None = None, trigger: str 
         if n not in srcs:
             raise KeyError(f"unknown dataset source {n}")
         table, fetch = srcs[n]
-        runs.append(run_source(session, n, table, fetch, trigger))
+        client = None
+        if table == "filing_events":  # SEC: send the configured SEC_USER_AGENT verbatim
+            from .filings import sec_client
+            client = sec_client()
+        try:
+            runs.append(run_source(session, n, table, fetch, trigger, client=client))
+        finally:
+            if client is not None:
+                client.close()
     return runs

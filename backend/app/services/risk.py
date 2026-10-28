@@ -57,10 +57,22 @@ def _age_ok(d: dt.date | None, max_age: int | None, today: dt.date) -> bool:
     return d is not None and (max_age is None or (today - d).days <= max_age)
 
 
-def _latest_per_entity(s: Session, metrics, entities) -> dict[str, object]:
+OBS_CALCS = {"obs_mean_latest", "obs_median_latest", "obs_spread_latest", "obs_ratio_latest", "obs_latest",
+             "obs_yoy_latest"}  # calcs that read only the append-only observations table (point-in-time capable)
+
+
+def _obs(s, metrics: list[str], entities: list[str], today: dt.date) -> list:
+    """Current observations as known on `today` (publication_date <= today): no look-ahead.
+    `s` is a Session, or any object with .rows(metrics, entities, as_of) (e.g. services.backtest.PitCache)."""
+    if hasattr(s, "rows"):
+        return s.rows(metrics, entities, today)
+    return query_observations(s, metrics, entities, as_of=today)
+
+
+def _latest_per_entity(s: Session, metrics, entities, today: dt.date) -> dict[str, object]:
     metrics = metrics if isinstance(metrics, list) else [metrics]
     out = {}
-    for o in query_observations(s, metrics, entities):
+    for o in _obs(s, metrics, entities, today):
         cur = out.get(o.entity_id)
         if cur is None or o.period_end > cur.period_end:
             out[o.entity_id] = o
@@ -69,7 +81,7 @@ def _latest_per_entity(s: Session, metrics, entities) -> dict[str, object]:
 
 def _agg_latest(s, ind, today, fn) -> Value:
     a = ind["args"]
-    latest = _latest_per_entity(s, a["metric"], a["entities"])
+    latest = _latest_per_entity(s, a["metric"], a["entities"], today)
     fresh = {e: o for e, o in latest.items() if _age_ok(o.period_end, ind.get("max_age_days"), today)}
     if len(fresh) < a.get("min_entities", 1):
         st = "stale" if latest else "missing"
@@ -91,7 +103,7 @@ def calc_obs_median_latest(s, ind, today):
 
 def calc_obs_spread_latest(s, ind, today):
     a = ind["args"]
-    la, lb = _latest_per_entity(s, a["metric_a"], a["entities"]), _latest_per_entity(s, a["metric_b"], a["entities"])
+    la, lb = _latest_per_entity(s, a["metric_a"], a["entities"], today), _latest_per_entity(s, a["metric_b"], a["entities"], today)
     pairs = {e: (la[e], lb[e]) for e in la if e in lb and la[e].period_end == lb[e].period_end
              and _age_ok(la[e].period_end, ind.get("max_age_days"), today)}
     if len(pairs) < a.get("min_entities", 1):
@@ -104,7 +116,7 @@ def calc_obs_spread_latest(s, ind, today):
 
 def calc_obs_ratio_latest(s, ind, today):
     a = ind["args"]
-    la, lb = _latest_per_entity(s, a["metric_a"], a["entities"]), _latest_per_entity(s, a["metric_b"], a["entities"])
+    la, lb = _latest_per_entity(s, a["metric_a"], a["entities"], today), _latest_per_entity(s, a["metric_b"], a["entities"], today)
     pairs = {e: (la[e], lb[e]) for e in la if e in lb and la[e].period_end == lb[e].period_end and lb[e].value
              and _age_ok(la[e].period_end, ind.get("max_age_days"), today)}
     if len(pairs) < a.get("min_entities", 1):
@@ -117,7 +129,7 @@ def calc_obs_ratio_latest(s, ind, today):
 
 def calc_obs_latest(s, ind, today):
     a = ind["args"]
-    o = _latest_per_entity(s, a["metric"], [a["entity"]]).get(a["entity"])
+    o = _latest_per_entity(s, a["metric"], [a["entity"]], today).get(a["entity"])
     if o is None:
         return Value(None, "missing")
     if not _age_ok(o.period_end, ind.get("max_age_days"), today):
@@ -127,7 +139,7 @@ def calc_obs_latest(s, ind, today):
 
 def calc_obs_yoy_latest(s, ind, today):
     a = ind["args"]
-    rows = sorted(query_observations(s, [a["metric"]], [a["entity"]]), key=lambda o: o.period_end)
+    rows = sorted(_obs(s, [a["metric"]], [a["entity"]], today), key=lambda o: o.period_end)
     if not rows:
         return Value(None, "missing")
     cur = rows[-1]
