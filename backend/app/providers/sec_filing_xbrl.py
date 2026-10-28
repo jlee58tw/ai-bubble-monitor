@@ -83,7 +83,27 @@ def parse_instance(xml_bytes: bytes, concepts: list[str], axis: str, member: str
     return list({(f.concept, f.start, f.end): f for f in out}.values())
 
 
-def records_from_facts(facts: list[Fact], m: MetricDef, entity_id: str, cik: str) -> list[ObservationRecord]:
+def original_filing_dates(sub: dict) -> dict[dt.date, dt.date]:
+    """report period end -> filing date of the ORIGINAL 10-Q/10-K for that period (earliest filing)."""
+    r = sub.get("filings", {}).get("recent", {})
+    out: dict[dt.date, dt.date] = {}
+    for i, form in enumerate(r.get("form", [])):
+        if form in ("10-Q", "10-K") and r["reportDate"][i]:
+            e, f = dt.date.fromisoformat(r["reportDate"][i]), dt.date.fromisoformat(r["filingDate"][i])
+            out[e] = min(f, out.get(e, f))
+    return out
+
+
+def _original_filed(own: dict[dt.date, dt.date], end: dt.date) -> dt.date | None:
+    cands = [f for e, f in own.items() if abs((e - end).days) <= 7]
+    return min(cands) if cands else None
+
+
+def records_from_facts(facts: list[Fact], m: MetricDef, entity_id: str, cik: str,
+                       own_filed: dict[dt.date, dt.date] | None = None) -> list[ObservationRecord]:
+    """`own_filed` (period end -> original filing date): quarters whose earliest available vintage was filed AFTER the
+    period's own 10-Q/10-K (i.e. only seen as a prior-year comparative in a later filing, because the original filing
+    is outside the fetched window) are dropped - storing them would date the number a year late."""
     fy_starts = fiscal_year_starts(facts)
     chosen: dict[dt.date, tuple[str, object]] = {}
     for c in m.concepts:
@@ -92,6 +112,13 @@ def records_from_facts(facts: list[Fact], m: MetricDef, entity_id: str, cik: str
     axis, member = m.params["axis"], m.params["member"]
     out = []
     for end, (c, q) in sorted(chosen.items()):
+        if own_filed is not None:
+            orig = _original_filed(own_filed, q.end)
+            first = min(v.filed for v in q.vintages)
+            if orig is None or first > orig + dt.timedelta(days=3):
+                log.info("sec_filing_xbrl_skip_late_vintage", entity=entity_id, metric=m.id, end=str(q.end),
+                         first_seen=str(first), original_filing=str(orig))
+                continue
         label = fiscal_label(q.start, q.end, fy_starts)
         for v in q.vintages:
             if q.derived:
@@ -179,6 +206,6 @@ class SecFilingXbrlProvider(Provider):
                         except Exception as exc:  # noqa: BLE001
                             res.errors.append(ProviderError(f"{f['accn']} instance failed: {exc}",
                                                             entity_id=eid, metric_id=m.id))
-                    res.records.extend(records_from_facts(facts, m, eid, cik))
+                    res.records.extend(records_from_facts(facts, m, eid, cik, original_filing_dates(sub)))
                     log.info("sec_filing_xbrl_parsed", entity=eid, metric=m.id, facts=len(facts))
         return res

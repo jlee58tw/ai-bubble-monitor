@@ -124,3 +124,20 @@ def test_multiply_asof_gap():
     out = D.multiply_asof(px, sh, max_gap_days=45)
     assert out["value"].tolist() == [10_000.0]
     assert out["publication_date"].tolist() == [d(2026, 10, 25)]
+
+
+def test_nvda_comparative_only_quarters_are_dropped_not_dated_late():
+    """Audit finding: quarters seen only as prior-year comparatives in a later filing were stored with that later
+    filing's date (a year late). With the original-filing map they are dropped instead."""
+    reg = get_registry()
+    m = reg.metrics["nvda_datacenter_revenue"]
+    xml = (FIX / "nvda_10q_20260726_revenues_subset.xml").read_bytes()
+    facts = SX.parse_instance(xml, m.concepts, m.params["axis"], m.params["member"], d(2026, 8, 26), "A", "10-Q")
+    own = {d(2026, 7, 26): d(2026, 8, 26), d(2025, 7, 27): d(2025, 8, 27)}
+    recs = SX.records_from_facts(facts, m, "NVDA", "1045810", own)
+    ends = {r.period_end for r in recs}
+    assert d(2026, 7, 26) in ends and d(2025, 7, 27) not in ends
+    assert all(r.publication_date >= r.period_end for r in recs)
+    sub = {"filings": {"recent": {"form": ["10-Q", "8-K", "10-Q"], "reportDate": ["2026-07-26", "2026-08-26", "2025-07-27"],
+                                  "filingDate": ["2026-08-26", "2026-08-26", "2025-08-27"]}}}
+    assert SX.original_filing_dates(sub) == own

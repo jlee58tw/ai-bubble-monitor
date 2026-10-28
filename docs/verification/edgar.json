@@ -1,0 +1,2622 @@
+{
+ "family": "edgar",
+ "checked_at": "2026-10-28T18:33:03+08:00",
+ "rows": [
+  {
+   "check": "MSFT capex_total FY2026 Q2 (2025-10-01..2025-12-31) value",
+   "stored": 29876000000.0,
+   "source": 29876000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "reported 3m; source filed 2026-01-28; stored pub 2026-01-28"
+  },
+  {
+   "check": "MSFT capex_total 2025-12-31 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "MSFT capex_total 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-01-28",
+   "source": "2026-01-28",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT capex_total 2025-12-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT capex_total FY2026 Q3 (2026-01-01..2026-03-31) value",
+   "stored": 30876000000.0,
+   "source": 30876000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "reported 3m; source filed 2026-04-29; stored pub 2026-04-29"
+  },
+  {
+   "check": "MSFT capex_total 2026-03-31 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "MSFT capex_total 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-29",
+   "source": "2026-04-29",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT capex_total 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT capex_total FY2026 Q4 (2026-04-01..2026-06-30) value",
+   "stored": 35802000000.0,
+   "source": 35802000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2025-07-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-29; stored pub 2026-07-29"
+  },
+  {
+   "check": "MSFT capex_total 2026-06-30 fiscal label",
+   "stored": "FY2026 Q4",
+   "source": "FY2026 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=FY"
+  },
+  {
+   "check": "MSFT capex_total 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-29",
+   "source": "2026-07-29",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT capex_total 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow FY2026 Q2 (2025-10-01..2025-12-31) value",
+   "stored": 35758000000.0,
+   "source": 35758000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-01-28; stored pub 2026-01-28"
+  },
+  {
+   "check": "MSFT operating_cash_flow 2025-12-31 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "MSFT operating_cash_flow 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-01-28",
+   "source": "2026-01-28",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow 2025-12-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow FY2026 Q3 (2026-01-01..2026-03-31) value",
+   "stored": 46679000000.0,
+   "source": 46679000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-04-29; stored pub 2026-04-29"
+  },
+  {
+   "check": "MSFT operating_cash_flow 2026-03-31 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "MSFT operating_cash_flow 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-29",
+   "source": "2026-04-29",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow FY2026 Q4 (2026-04-01..2026-06-30) value",
+   "stored": 55441000000.0,
+   "source": 55441000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2025-07-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-29; stored pub 2026-07-29"
+  },
+  {
+   "check": "MSFT operating_cash_flow 2026-06-30 fiscal label",
+   "stored": "FY2026 Q4",
+   "source": "FY2026 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=FY"
+  },
+  {
+   "check": "MSFT operating_cash_flow 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-29",
+   "source": "2026-07-29",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue FY2026 Q2 (2025-10-01..2025-12-31) value",
+   "stored": 81273000000.0,
+   "source": 81273000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-01-28; stored pub 2026-01-28"
+  },
+  {
+   "check": "MSFT revenue 2025-12-31 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "MSFT revenue 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-01-28",
+   "source": "2026-01-28",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue 2025-12-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue FY2026 Q3 (2026-01-01..2026-03-31) value",
+   "stored": 82886000000.0,
+   "source": 82886000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-04-29; stored pub 2026-04-29"
+  },
+  {
+   "check": "MSFT revenue 2026-03-31 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "MSFT revenue 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-29",
+   "source": "2026-04-29",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue FY2026 Q4 (2026-04-01..2026-06-30) value",
+   "stored": 90007000000.0,
+   "source": 90007000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "YTD(2025-07-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-29; stored pub 2026-07-29"
+  },
+  {
+   "check": "MSFT revenue 2026-06-30 fiscal label",
+   "stored": "FY2026 Q4",
+   "source": "FY2026 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=FY"
+  },
+  {
+   "check": "MSFT revenue 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-29",
+   "source": "2026-07-29",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total FY2025 Q4 (2025-10-01..2025-12-31) value",
+   "stored": 27851000000.0,
+   "source": 27851000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2025-01-01..2025-12-31) - YTD(..2025-09-30); source filed 2026-02-05; stored pub 2026-02-05"
+  },
+  {
+   "check": "GOOGL capex_total 2025-12-31 fiscal label",
+   "stored": "FY2025 Q4",
+   "source": "FY2025 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2025 fp=FY"
+  },
+  {
+   "check": "GOOGL capex_total 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-02-05",
+   "source": "2026-02-05",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total 2025-12-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 35674000000.0,
+   "source": 35674000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "GOOGL capex_total 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "GOOGL capex_total 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 44924000000.0,
+   "source": 44924000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2026-01-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-23; stored pub 2026-07-23"
+  },
+  {
+   "check": "GOOGL capex_total 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "GOOGL capex_total 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-23",
+   "source": "2026-07-23",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow FY2025 Q4 (2025-10-01..2025-12-31) value",
+   "stored": 52402000000.0,
+   "source": 52402000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2025-01-01..2025-12-31) - YTD(..2025-09-30); source filed 2026-02-05; stored pub 2026-02-05"
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2025-12-31 fiscal label",
+   "stored": "FY2025 Q4",
+   "source": "FY2025 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2025 fp=FY"
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-02-05",
+   "source": "2026-02-05",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2025-12-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 45790000000.0,
+   "source": 45790000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 39069000000.0,
+   "source": 39069000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2026-01-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-23; stored pub 2026-07-23"
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-23",
+   "source": "2026-07-23",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue FY2025 Q4 (2025-10-01..2025-12-31) value",
+   "stored": 113829000000.0,
+   "source": 113829000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": "YTD(2025-01-01..2025-12-31) - YTD(..2025-09-30); source filed 2026-02-05; stored pub 2026-02-05"
+  },
+  {
+   "check": "GOOGL revenue 2025-12-31 fiscal label",
+   "stored": "FY2025 Q4",
+   "source": "FY2025 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2025 fp=FY"
+  },
+  {
+   "check": "GOOGL revenue 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-02-05",
+   "source": "2026-02-05",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue 2025-12-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 109896000000.0,
+   "source": 109896000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "GOOGL revenue 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "GOOGL revenue 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 119796000000.0,
+   "source": 119796000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": "reported 3m; source filed 2026-07-23; stored pub 2026-07-23"
+  },
+  {
+   "check": "GOOGL revenue 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "GOOGL revenue 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-23",
+   "source": "2026-07-23",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue 2026-06-30 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total FY2025 Q4 (2025-10-01..2025-12-31) value",
+   "stored": 39522000000.0,
+   "source": 39522000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": "YTD(2025-01-01..2025-12-31) - YTD(..2025-09-30); source filed 2026-02-06; stored pub 2026-02-06"
+  },
+  {
+   "check": "AMZN capex_total 2025-12-31 fiscal label",
+   "stored": "FY2025 Q4",
+   "source": "FY2025 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2025 fp=FY"
+  },
+  {
+   "check": "AMZN capex_total 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-02-06",
+   "source": "2026-02-06",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total 2025-12-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 44203000000.0,
+   "source": 44203000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "AMZN capex_total 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "AMZN capex_total 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 54208000000.0,
+   "source": 54208000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": "reported 3m; source filed 2026-07-31; stored pub 2026-07-31"
+  },
+  {
+   "check": "AMZN capex_total 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "AMZN capex_total 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-31",
+   "source": "2026-07-31",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total 2026-06-30 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow FY2025 Q4 (2025-10-01..2025-12-31) value",
+   "stored": 54459000000.0,
+   "source": 54459000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2025-01-01..2025-12-31) - YTD(..2025-09-30); source filed 2026-02-06; stored pub 2026-02-06"
+  },
+  {
+   "check": "AMZN operating_cash_flow 2025-12-31 fiscal label",
+   "stored": "FY2025 Q4",
+   "source": "FY2025 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2025 fp=FY"
+  },
+  {
+   "check": "AMZN operating_cash_flow 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-02-06",
+   "source": "2026-02-06",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow 2025-12-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 26032000000.0,
+   "source": 26032000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "AMZN operating_cash_flow 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "AMZN operating_cash_flow 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 45387000000.0,
+   "source": 45387000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-07-31; stored pub 2026-07-31"
+  },
+  {
+   "check": "AMZN operating_cash_flow 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "AMZN operating_cash_flow 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-31",
+   "source": "2026-07-31",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow 2026-06-30 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue FY2025 Q4 (2025-10-01..2025-12-31) value",
+   "stored": 213386000000.0,
+   "source": 213386000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "YTD(2025-01-01..2025-12-31) - YTD(..2025-09-30); source filed 2026-02-06; stored pub 2026-02-06"
+  },
+  {
+   "check": "AMZN revenue 2025-12-31 fiscal label",
+   "stored": "FY2025 Q4",
+   "source": "FY2025 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2025 fp=FY"
+  },
+  {
+   "check": "AMZN revenue 2025-12-31 publication_date >= original filing date",
+   "stored": "2026-02-06",
+   "source": "2026-02-06",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue 2025-12-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 181519000000.0,
+   "source": 181519000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "AMZN revenue 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "AMZN revenue 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 200606000000.0,
+   "source": 200606000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-07-31; stored pub 2026-07-31"
+  },
+  {
+   "check": "AMZN revenue 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "AMZN revenue 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-31",
+   "source": "2026-07-31",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue 2026-06-30 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 18997000000.0,
+   "source": 18997000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "META capex_total 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "META capex_total 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 30116000000.0,
+   "source": 30116000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2026-01-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-30; stored pub 2026-07-30"
+  },
+  {
+   "check": "META capex_total 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "META capex_total 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-30",
+   "source": "2026-07-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total FY2026 Q3 (2026-07-01..2026-09-30) value",
+   "stored": 33942000000.0,
+   "source": 33942000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2026-01-01..2026-09-30) - YTD(..2026-06-30); source filed 2026-10-22; stored pub 2026-10-22"
+  },
+  {
+   "check": "META capex_total 2026-09-30 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "META capex_total 2026-09-30 publication_date >= original filing date",
+   "stored": "2026-10-22",
+   "source": "2026-10-22",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total 2026-09-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 32226000000.0,
+   "source": 32226000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "META operating_cash_flow 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "META operating_cash_flow 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 31862000000.0,
+   "source": 31862000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2026-01-01..2026-06-30) - YTD(..2026-03-31); source filed 2026-07-30; stored pub 2026-07-30"
+  },
+  {
+   "check": "META operating_cash_flow 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "META operating_cash_flow 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-30",
+   "source": "2026-07-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow 2026-06-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow FY2026 Q3 (2026-07-01..2026-09-30) value",
+   "stored": 32785000000.0,
+   "source": 32785000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2026-01-01..2026-09-30) - YTD(..2026-06-30); source filed 2026-10-22; stored pub 2026-10-22"
+  },
+  {
+   "check": "META operating_cash_flow 2026-09-30 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "META operating_cash_flow 2026-09-30 publication_date >= original filing date",
+   "stored": "2026-10-22",
+   "source": "2026-10-22",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow 2026-09-30 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue FY2026 Q1 (2026-01-01..2026-03-31) value",
+   "stored": 56311000000.0,
+   "source": 56311000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-04-30; stored pub 2026-04-30"
+  },
+  {
+   "check": "META revenue 2026-03-31 fiscal label",
+   "stored": "FY2026 Q1",
+   "source": "FY2026 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "META revenue 2026-03-31 publication_date >= original filing date",
+   "stored": "2026-04-30",
+   "source": "2026-04-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue 2026-03-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue FY2026 Q2 (2026-04-01..2026-06-30) value",
+   "stored": 60801000000.0,
+   "source": 60801000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-07-30; stored pub 2026-07-30"
+  },
+  {
+   "check": "META revenue 2026-06-30 fiscal label",
+   "stored": "FY2026 Q2",
+   "source": "FY2026 Q2",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q2"
+  },
+  {
+   "check": "META revenue 2026-06-30 publication_date >= original filing date",
+   "stored": "2026-07-30",
+   "source": "2026-07-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue 2026-06-30 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue FY2026 Q3 (2026-07-01..2026-09-30) value",
+   "stored": 64601000000.0,
+   "source": 64601000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-10-22; stored pub 2026-10-22"
+  },
+  {
+   "check": "META revenue 2026-09-30 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "META revenue 2026-09-30 publication_date >= original filing date",
+   "stored": "2026-10-22",
+   "source": "2026-10-22",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue 2026-09-30 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total FY2026 Q3 (2025-12-01..2026-02-28) value",
+   "stored": 18635000000.0,
+   "source": 18635000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2025-06-01..2026-02-28) - YTD(..2025-11-30); source filed 2026-03-11; stored pub 2026-03-11"
+  },
+  {
+   "check": "ORCL capex_total 2026-02-28 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "ORCL capex_total 2026-02-28 publication_date >= original filing date",
+   "stored": "2026-03-11",
+   "source": "2026-03-11",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total 2026-02-28 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total FY2026 Q4 (2026-03-01..2026-05-31) value",
+   "stored": 16493000000.0,
+   "source": 16493000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "YTD(2025-06-01..2026-05-31) - YTD(..2026-02-28); source filed 2026-06-22; stored pub 2026-06-22"
+  },
+  {
+   "check": "ORCL capex_total 2026-05-31 fiscal label",
+   "stored": "FY2026 Q4",
+   "source": "FY2026 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=FY"
+  },
+  {
+   "check": "ORCL capex_total 2026-05-31 publication_date >= original filing date",
+   "stored": "2026-06-22",
+   "source": "2026-06-22",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total 2026-05-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total FY2027 Q1 (2026-06-01..2026-08-31) value",
+   "stored": 28499000000.0,
+   "source": 28499000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "reported 3m; source filed 2026-09-11; stored pub 2026-09-11"
+  },
+  {
+   "check": "ORCL capex_total 2026-08-31 fiscal label",
+   "stored": "FY2027 Q1",
+   "source": "FY2027 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "ORCL capex_total 2026-08-31 publication_date >= original filing date",
+   "stored": "2026-09-11",
+   "source": "2026-09-11",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total 2026-08-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow FY2026 Q3 (2025-12-01..2026-02-28) value",
+   "stored": 7151000000.0,
+   "source": 7151000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2025-06-01..2026-02-28) - YTD(..2025-11-30); source filed 2026-03-11; stored pub 2026-03-11"
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-02-28 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-02-28 publication_date >= original filing date",
+   "stored": "2026-03-11",
+   "source": "2026-03-11",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-02-28 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow FY2026 Q4 (2026-03-01..2026-05-31) value",
+   "stored": 14620000000.0,
+   "source": 14620000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "YTD(2025-06-01..2026-05-31) - YTD(..2026-02-28); source filed 2026-06-22; stored pub 2026-06-22"
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-05-31 fiscal label",
+   "stored": "FY2026 Q4",
+   "source": "FY2026 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=FY"
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-05-31 publication_date >= original filing date",
+   "stored": "2026-06-22",
+   "source": "2026-06-22",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-05-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow FY2027 Q1 (2026-06-01..2026-08-31) value",
+   "stored": 23103000000.0,
+   "source": 23103000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "reported 3m; source filed 2026-09-11; stored pub 2026-09-11"
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-08-31 fiscal label",
+   "stored": "FY2027 Q1",
+   "source": "FY2027 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-08-31 publication_date >= original filing date",
+   "stored": "2026-09-11",
+   "source": "2026-09-11",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow 2026-08-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue FY2026 Q3 (2025-12-01..2026-02-28) value",
+   "stored": 17190000000.0,
+   "source": 17190000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-03-11; stored pub 2026-03-11"
+  },
+  {
+   "check": "ORCL revenue 2026-02-28 fiscal label",
+   "stored": "FY2026 Q3",
+   "source": "FY2026 Q3",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q3"
+  },
+  {
+   "check": "ORCL revenue 2026-02-28 publication_date >= original filing date",
+   "stored": "2026-03-11",
+   "source": "2026-03-11",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue 2026-02-28 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue FY2026 Q4 (2026-03-01..2026-05-31) value",
+   "stored": 19184000000.0,
+   "source": 19184000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "YTD(2025-06-01..2026-05-31) - YTD(..2026-02-28); source filed 2026-06-22; stored pub 2026-06-22"
+  },
+  {
+   "check": "ORCL revenue 2026-05-31 fiscal label",
+   "stored": "FY2026 Q4",
+   "source": "FY2026 Q4",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=FY"
+  },
+  {
+   "check": "ORCL revenue 2026-05-31 publication_date >= original filing date",
+   "stored": "2026-06-22",
+   "source": "2026-06-22",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue 2026-05-31 classification",
+   "stored": "derived",
+   "source": "derived",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue FY2027 Q1 (2026-06-01..2026-08-31) value",
+   "stored": 19345000000.0,
+   "source": 19345000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "reported 3m; source filed 2026-09-11; stored pub 2026-09-11"
+  },
+  {
+   "check": "ORCL revenue 2026-08-31 fiscal label",
+   "stored": "FY2027 Q1",
+   "source": "FY2027 Q1",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": "convention: FY named for the year it ends; filer DEI fy=2026 fp=Q1"
+  },
+  {
+   "check": "ORCL revenue 2026-08-31 publication_date >= original filing date",
+   "stored": "2026-09-11",
+   "source": "2026-09-11",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue 2026-08-31 classification",
+   "stored": "reported",
+   "source": "reported",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT fcf FY2026 Q2 recomputed",
+   "stored": 5882000000.0,
+   "source": 5882000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_to_ocf FY2026 Q2 recomputed",
+   "stored": 0.8355053414620505,
+   "source": 0.8355053414620505,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_to_revenue FY2026 Q2 recomputed",
+   "stored": 0.367600556150259,
+   "source": 0.367600556150259,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_yoy FY2026 Q2 recomputed",
+   "stored": 0.8904074917742344,
+   "source": 0.8904074917742344,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT revenue_yoy FY2026 Q2 recomputed",
+   "stored": 0.16717888327205888,
+   "source": 0.16717888327205888,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT ocf_yoy FY2026 Q2 recomputed",
+   "stored": 0.6041451706966938,
+   "source": 0.6041451706966938,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT fcf FY2026 Q3 recomputed",
+   "stored": 15803000000.0,
+   "source": 15803000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_to_ocf FY2026 Q3 recomputed",
+   "stored": 0.6614537586494997,
+   "source": 0.6614537586494997,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_to_revenue FY2026 Q3 recomputed",
+   "stored": 0.3725116424969235,
+   "source": 0.3725116424969235,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_yoy FY2026 Q3 recomputed",
+   "stored": 0.8438936996118245,
+   "source": 0.8438936996118245,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT revenue_yoy FY2026 Q3 recomputed",
+   "stored": 0.18297034224873698,
+   "source": 0.18297034224873698,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT ocf_yoy FY2026 Q3 recomputed",
+   "stored": 0.2600961019328367,
+   "source": 0.2600961019328367,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT fcf FY2026 Q4 recomputed",
+   "stored": 19639000000.0,
+   "source": 19639000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_to_ocf FY2026 Q4 recomputed",
+   "stored": 0.6457675727349795,
+   "source": 0.6457675727349795,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_to_revenue FY2026 Q4 recomputed",
+   "stored": 0.3977690624062573,
+   "source": 0.3977690624062573,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT capex_yoy FY2026 Q4 recomputed",
+   "stored": 1.096258563147725,
+   "source": 1.096258563147725,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT revenue_yoy FY2026 Q4 recomputed",
+   "stored": 0.17747020577962092,
+   "source": 0.17747020577962092,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "MSFT ocf_yoy FY2026 Q4 recomputed",
+   "stored": 0.29999765516917964,
+   "source": 0.29999765516917964,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL fcf FY2025 Q4 recomputed",
+   "stored": 24551000000.0,
+   "source": 24551000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_to_ocf FY2025 Q4 recomputed",
+   "stored": 0.5314873478111523,
+   "source": 0.5314873478111523,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_to_revenue FY2025 Q4 recomputed",
+   "stored": 0.24467402858673976,
+   "source": 0.24467402858673976,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_yoy FY2025 Q4 recomputed",
+   "stored": 0.9508966096945923,
+   "source": 0.9508966096945923,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL revenue_yoy FY2025 Q4 recomputed",
+   "stored": 0.17995418217251147,
+   "source": 0.17995418217251147,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL ocf_yoy FY2025 Q4 recomputed",
+   "stored": 0.339759159358781,
+   "source": 0.339759159358781,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL fcf FY2026 Q1 recomputed",
+   "stored": 10116000000.0,
+   "source": 10116000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_to_ocf FY2026 Q1 recomputed",
+   "stored": 0.7790784013976851,
+   "source": 0.7790784013976851,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_to_revenue FY2026 Q1 recomputed",
+   "stored": 0.3246160005823688,
+   "source": 0.3246160005823688,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_yoy FY2026 Q1 recomputed",
+   "stored": 1.0744315869046925,
+   "source": 1.0744315869046925,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL revenue_yoy FY2026 Q1 recomputed",
+   "stored": 0.21790012633818745,
+   "source": 0.21790012633818745,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL ocf_yoy FY2026 Q1 recomputed",
+   "stored": 0.2666666666666666,
+   "source": 0.2666666666666666,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL fcf FY2026 Q2 recomputed",
+   "stored": -5855000000.0,
+   "source": -5855000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_to_ocf FY2026 Q2 recomputed",
+   "stored": 1.1498630627863524,
+   "source": 1.1498630627863524,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_to_revenue FY2026 Q2 recomputed",
+   "stored": 0.3750041737620622,
+   "source": 0.3750041737620622,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL capex_yoy FY2026 Q2 recomputed",
+   "stored": 1.0014256437672637,
+   "source": 1.0014256437672637,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL revenue_yoy FY2026 Q2 recomputed",
+   "stored": 0.2423362508814868,
+   "source": 0.2423362508814868,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "GOOGL ocf_yoy FY2026 Q2 recomputed",
+   "stored": 0.40804411287706777,
+   "source": 0.40804411287706777,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN fcf FY2025 Q4 recomputed",
+   "stored": 14937000000.0,
+   "source": 14937000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_to_ocf FY2025 Q4 recomputed",
+   "stored": 0.7257202666225968,
+   "source": 0.7257202666225968,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_to_revenue FY2025 Q4 recomputed",
+   "stored": 0.18521365038006243,
+   "source": 0.18521365038006243,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_yoy FY2025 Q4 recomputed",
+   "stored": 0.4199180857943523,
+   "source": 0.4199180857943523,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN revenue_yoy FY2025 Q4 recomputed",
+   "stored": 0.136289085797052,
+   "source": 0.136289085797052,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN ocf_yoy FY2025 Q4 recomputed",
+   "stored": 0.19333420983434135,
+   "source": 0.19333420983434135,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN fcf FY2026 Q1 recomputed",
+   "stored": -18171000000.0,
+   "source": -18171000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_to_ocf FY2026 Q1 recomputed",
+   "stored": 1.6980255070682237,
+   "source": 1.6980255070682237,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_to_revenue FY2026 Q1 recomputed",
+   "stored": 0.2435172075650483,
+   "source": 0.2435172075650483,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_yoy FY2026 Q1 recomputed",
+   "stored": 0.7667772492905391,
+   "source": 0.7667772492905391,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN revenue_yoy FY2026 Q1 recomputed",
+   "stored": 0.16607244952366274,
+   "source": 0.16607244952366274,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN ocf_yoy FY2026 Q1 recomputed",
+   "stored": 0.5299441669115486,
+   "source": 0.5299441669115486,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN fcf FY2026 Q2 recomputed",
+   "stored": -8821000000.0,
+   "source": -8821000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_to_ocf FY2026 Q2 recomputed",
+   "stored": 1.194350805296671,
+   "source": 1.194350805296671,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_to_revenue FY2026 Q2 recomputed",
+   "stored": 0.2702212296740875,
+   "source": 0.2702212296740875,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN capex_yoy FY2026 Q2 recomputed",
+   "stored": 0.6843675232265483,
+   "source": 0.6843675232265483,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN revenue_yoy FY2026 Q2 recomputed",
+   "stored": 0.19620517346245125,
+   "source": 0.19620517346245125,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "AMZN ocf_yoy FY2026 Q2 recomputed",
+   "stored": 0.3958788251576195,
+   "source": 0.3958788251576195,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META fcf FY2026 Q1 recomputed",
+   "stored": 13229000000.0,
+   "source": 13229000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_to_ocf FY2026 Q1 recomputed",
+   "stored": 0.5894929559982622,
+   "source": 0.5894929559982622,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_to_revenue FY2026 Q1 recomputed",
+   "stored": 0.33735859778728844,
+   "source": 0.33735859778728844,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_yoy FY2026 Q1 recomputed",
+   "stored": 0.46797001777296954,
+   "source": 0.46797001777296954,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META revenue_yoy FY2026 Q1 recomputed",
+   "stored": 0.3307888642057002,
+   "source": 0.3307888642057002,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META ocf_yoy FY2026 Q1 recomputed",
+   "stored": 0.341296928327645,
+   "source": 0.341296928327645,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META fcf FY2026 Q2 recomputed",
+   "stored": 1746000000.0,
+   "source": 1746000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_to_ocf FY2026 Q2 recomputed",
+   "stored": 0.9452011800891343,
+   "source": 0.9452011800891343,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_to_revenue FY2026 Q2 recomputed",
+   "stored": 0.4953208006447262,
+   "source": 0.4953208006447262,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_yoy FY2026 Q2 recomputed",
+   "stored": 0.821018260974725,
+   "source": 0.821018260974725,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META revenue_yoy FY2026 Q2 recomputed",
+   "stored": 0.27959003283104633,
+   "source": 0.27959003283104633,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META ocf_yoy FY2026 Q2 recomputed",
+   "stored": 0.24650835256836579,
+   "source": 0.24650835256836579,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META fcf FY2026 Q3 recomputed",
+   "stored": -1157000000.0,
+   "source": -1157000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_to_ocf FY2026 Q3 recomputed",
+   "stored": 1.0352905292054293,
+   "source": 1.0352905292054293,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_to_revenue FY2026 Q3 recomputed",
+   "stored": 0.5254098233773471,
+   "source": 0.5254098233773471,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META capex_yoy FY2026 Q3 recomputed",
+   "stored": 0.8026448563386266,
+   "source": 0.8026448563386266,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META revenue_yoy FY2026 Q3 recomputed",
+   "stored": 0.2607041099098395,
+   "source": 0.2607041099098395,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "META ocf_yoy FY2026 Q3 recomputed",
+   "stored": 0.09286976232541089,
+   "source": 0.09286976232541089,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL fcf FY2026 Q3 recomputed",
+   "stored": -11484000000.0,
+   "source": -11484000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_to_ocf FY2026 Q3 recomputed",
+   "stored": 2.6059292406656414,
+   "source": 2.6059292406656414,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_to_revenue FY2026 Q3 recomputed",
+   "stored": 1.0840605002908668,
+   "source": 1.0840605002908668,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_yoy FY2026 Q3 recomputed",
+   "stored": 2.178949164107813,
+   "source": 2.178949164107813,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL revenue_yoy FY2026 Q3 recomputed",
+   "stored": 0.21656050955414008,
+   "source": 0.21656050955414008,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL ocf_yoy FY2026 Q3 recomputed",
+   "stored": 0.20529243215911008,
+   "source": 0.20529243215911008,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL fcf FY2026 Q4 recomputed",
+   "stored": -1873000000.0,
+   "source": -1873000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_to_ocf FY2026 Q4 recomputed",
+   "stored": 1.128112175102599,
+   "source": 1.128112175102599,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_to_revenue FY2026 Q4 recomputed",
+   "stored": 0.8597268557130943,
+   "source": 0.8597268557130943,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_yoy FY2026 Q4 recomputed",
+   "stored": 0.8164096916299559,
+   "source": 0.8164096916299559,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL revenue_yoy FY2026 Q4 recomputed",
+   "stored": 0.2063132742249889,
+   "source": 0.2063132742249889,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL ocf_yoy FY2026 Q4 recomputed",
+   "stored": 1.374533051810947,
+   "source": 1.374533051810947,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL fcf FY2027 Q1 recomputed",
+   "stored": -5396000000.0,
+   "source": -5396000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_to_ocf FY2027 Q1 recomputed",
+   "stored": 1.233562740769597,
+   "source": 1.233562740769597,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_to_revenue FY2027 Q1 recomputed",
+   "stored": 1.4731972085810288,
+   "source": 1.4731972085810288,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL capex_yoy FY2027 Q1 recomputed",
+   "stored": 2.3520348153375674,
+   "source": 2.3520348153375674,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL revenue_yoy FY2027 Q1 recomputed",
+   "stored": 0.2960605654562509,
+   "source": 0.2960605654562509,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "ORCL ocf_yoy FY2027 Q1 recomputed",
+   "stored": 1.8382063882063884,
+   "source": 1.8382063882063884,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/\u2026",
+   "note": "independent recomputation from source values"
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q1 (2022-05-01) value $M",
+   "stored": 3750.0,
+   "source": 3750,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000079/nvda-20220501.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q1 publication_date vs original filing 2022-05-27",
+   "stored": "2022-05-27",
+   "source": "2022-05-27",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000079/nvda-20220501.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q2 (2022-07-31) value $M",
+   "stored": 3806.0,
+   "source": 3806,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000147/nvda-20220731.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q2 publication_date vs original filing 2022-08-31",
+   "stored": "2022-08-31",
+   "source": "2022-08-31",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000147/nvda-20220731.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q3 (2022-10-30) value $M",
+   "stored": 3833.0,
+   "source": 3833,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000166/nvda-20221030.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q3 publication_date vs original filing 2022-11-18",
+   "stored": "2022-11-18",
+   "source": "2022-11-18",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000166/nvda-20221030.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q4 (2023-01-29) value $M",
+   "stored": 3616.0,
+   "source": 3616,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/nvda-20230129.htm",
+   "note": "10-K FY 15,005 - 9M YTD 11,389"
+  },
+  {
+   "check": "NVDA DataCenter FY2023 Q4 publication_date vs original filing 2023-02-24",
+   "stored": "2023-02-24",
+   "source": "2023-02-24",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/nvda-20230129.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q1 (2023-04-30) value $M",
+   "stored": 4284.0,
+   "source": 4284,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000093/nvda-20230430.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q1 publication_date vs original filing 2023-05-26",
+   "stored": "2023-05-26",
+   "source": "2023-05-26",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000093/nvda-20230430.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q2 (2023-07-30) value $M",
+   "stored": 10323.0,
+   "source": 10323,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000175/nvda-20230730.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q2 publication_date vs original filing 2023-08-28",
+   "stored": "2023-08-28",
+   "source": "2023-08-28",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000175/nvda-20230730.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q3 (2023-10-29) value $M",
+   "stored": 14514.0,
+   "source": 14514,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000227/nvda-20231029.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q3 publication_date vs original filing 2023-11-21",
+   "stored": "2023-11-21",
+   "source": "2023-11-21",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000227/nvda-20231029.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q4 (2024-01-28) value $M",
+   "stored": 18404.0,
+   "source": 18404,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/nvda-20240128.htm",
+   "note": "10-K FY 47,525 - 9M YTD 29,121"
+  },
+  {
+   "check": "NVDA DataCenter FY2024 Q4 publication_date vs original filing 2024-02-21",
+   "stored": "2024-02-21",
+   "source": "2024-02-21",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/nvda-20240128.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q1 (2024-04-28) value $M",
+   "stored": 22563.0,
+   "source": 22563,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000124/nvda-20240428.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q1 publication_date vs original filing 2024-05-29",
+   "stored": "2024-05-29",
+   "source": "2024-05-29",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000124/nvda-20240428.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q2 (2024-07-28) value $M",
+   "stored": 26272.0,
+   "source": 26272,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000264/nvda-20240728.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q2 publication_date vs original filing 2024-08-28",
+   "stored": "2024-08-28",
+   "source": "2024-08-28",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000264/nvda-20240728.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q3 (2024-10-27) value $M",
+   "stored": 30771.0,
+   "source": 30771,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000316/nvda-20241027.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q3 publication_date vs original filing 2024-11-20",
+   "stored": "2024-11-20",
+   "source": "2024-11-20",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000316/nvda-20241027.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q4 (2025-01-26) value $M",
+   "stored": 35580.0,
+   "source": 35580,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+   "note": "10-K FY 115,186 - 9M YTD 79,606"
+  },
+  {
+   "check": "NVDA DataCenter FY2025 Q4 publication_date vs original filing 2025-02-26",
+   "stored": "2025-02-26",
+   "source": "2025-02-26",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q1 (2025-04-27) value $M",
+   "stored": 39112.0,
+   "source": 39112,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000116/nvda-20250427.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q1 publication_date vs original filing 2025-05-28",
+   "stored": "2025-05-28",
+   "source": "2025-05-28",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000116/nvda-20250427.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q2 (2025-07-27) value $M",
+   "stored": 41096.0,
+   "source": 41096,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000209/nvda-20250727.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q2 publication_date vs original filing 2025-08-27",
+   "stored": "2025-08-27",
+   "source": "2025-08-27",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000209/nvda-20250727.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q3 (2025-10-26) value $M",
+   "stored": 51215.0,
+   "source": 51215,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q3 publication_date vs original filing 2025-11-19",
+   "stored": "2025-11-19",
+   "source": "2025-11-19",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q4 (2026-01-25) value $M",
+   "stored": 62314.0,
+   "source": 62314,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+   "note": "10-K FY 193,737 - 9M YTD 131,423"
+  },
+  {
+   "check": "NVDA DataCenter FY2026 Q4 publication_date vs original filing 2026-02-25",
+   "stored": "2026-02-25",
+   "source": "2026-02-25",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2027 Q1 (2026-04-26) value $M",
+   "stored": 75246.0,
+   "source": 75246,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2027 Q1 publication_date vs original filing 2026-05-20",
+   "stored": "2026-05-20",
+   "source": "2026-05-20",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm",
+   "note": ""
+  },
+  {
+   "check": "NVDA DataCenter FY2027 Q2 (2026-07-26) value $M",
+   "stored": 89023.0,
+   "source": 89023,
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+   "note": "10-Q table, 3 months ended"
+  },
+  {
+   "check": "NVDA DataCenter FY2027 Q2 publication_date vs original filing 2026-08-26",
+   "stored": "2026-08-26",
+   "source": "2026-08-26",
+   "ok": true,
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+   "note": ""
+  },
+  {
+   "check": "MSFT capex_total freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT revenue freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "MSFT operating_cash_flow freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000789019/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL capex_total freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL revenue freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "GOOGL operating_cash_flow freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001652044/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN capex_total freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN revenue freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "AMZN operating_cash_flow freshness (latest period end)",
+   "stored": "2026-06-30",
+   "source": "2026-06-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001018724/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "META capex_total freshness (latest period end)",
+   "stored": "2026-09-30",
+   "source": "2026-09-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "META revenue freshness (latest period end)",
+   "stored": "2026-09-30",
+   "source": "2026-09-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "META operating_cash_flow freshness (latest period end)",
+   "stored": "2026-09-30",
+   "source": "2026-09-30",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001326801/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL capex_total freshness (latest period end)",
+   "stored": "2026-08-31",
+   "source": "2026-08-31",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL revenue freshness (latest period end)",
+   "stored": "2026-08-31",
+   "source": "2026-08-31",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+   "note": ""
+  },
+  {
+   "check": "ORCL operating_cash_flow freshness (latest period end)",
+   "stored": "2026-08-31",
+   "source": "2026-08-31",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001341439/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "NVDA capex_total freshness (latest period end)",
+   "stored": "2026-07-26",
+   "source": "2026-07-26",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/PaymentsToAcquireProductiveAssets.json",
+   "note": ""
+  },
+  {
+   "check": "NVDA revenue freshness (latest period end)",
+   "stored": "2026-07-26",
+   "source": "2026-07-26",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Revenues.json",
+   "note": ""
+  },
+  {
+   "check": "NVDA operating_cash_flow freshness (latest period end)",
+   "stored": "2026-07-26",
+   "source": "2026-07-26",
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/NetCashProvidedByUsedInOperatingActivities.json",
+   "note": ""
+  },
+  {
+   "check": "capex_total_big4_cal 2025-12-31 (calendar quarter sum MSFT+GOOGL+AMZN+META)",
+   "stored": 118632000000.0,
+   "source": 118632000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/",
+   "note": "components [29876000000, 27851000000, 39522000000, 21383000000]"
+  },
+  {
+   "check": "capex_total_big4_cal 2026-03-31 (calendar quarter sum MSFT+GOOGL+AMZN+META)",
+   "stored": 129750000000.0,
+   "source": 129750000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/",
+   "note": "components [30876000000, 35674000000, 44203000000, 18997000000]"
+  },
+  {
+   "check": "capex_total_big4_cal 2026-06-30 (calendar quarter sum MSFT+GOOGL+AMZN+META)",
+   "stored": 165050000000.0,
+   "source": 165050000000,
+   "ok": true,
+   "url": "https://data.sec.gov/api/xbrl/companyconcept/",
+   "note": "components [35802000000, 44924000000, 54208000000, 30116000000]"
+  }
+ ]
+}

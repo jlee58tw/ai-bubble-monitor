@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     # First date requested from price APIs (>= 10 years of history for drawdown / relative performance)
     us_price_start: str = "2015-01-01"
     # SEC filing-level XBRL (dimensional facts): number of recent 10-Q/10-K filings to parse
-    sec_filings_limit: int = 12
+    sec_filings_limit: int = 18  # >= 16 quarters after dropping comparatives-only quarters
     # Risk engine: refuse to show a precise overall score below this weighted coverage
     risk_min_coverage: float | None = None  # None -> value in registry/risk.yaml
 
