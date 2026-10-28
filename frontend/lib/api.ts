@@ -27,7 +27,7 @@ export async function apiGet<T>(path: string): Promise<T> {
   if (!r.ok) throw new Error(`${r.status} ${r.statusText} for ${path}`);
   return r.json();
 }
-const READ_ONLY = "STATIC SNAPSHOT (read-only): refresh / edits need the local app";
+const READ_ONLY = "靜態快照（唯讀）：重新抓取或編輯需要在本機執行應用程式";
 export async function apiPost<T>(path: string): Promise<T> {
   if (STATIC) throw new Error(READ_ONLY);
   const r = await fetch(`${API_BASE}${path}`, { method: "POST" });

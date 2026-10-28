@@ -2,9 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { background: #0a0c10; color: #d0d7de; }
-body { font-feature-settings: "tnum"; }
-.panel { @apply bg-term-panel border border-term-border rounded-sm; }
-.label { @apply text-[10px] uppercase tracking-wider text-term-muted; }
+/* 色彩以 CSS 變數定義，深色為預設；html.light 切換淺色。 */
+:root, html.dark {
+  --c-bg: 8 11 18; --c-panel: 17 22 33; --c-border: 40 49 66; --c-amber: 255 184 28; --c-muted: 143 155 173;
+  --c-up: 52 211 120; --c-down: 255 99 99; --c-info: 96 170 255; --c-fg: 220 228 238; --c-strong: 255 255 255;
+  --grad-1: #7c3aed; --grad-2: #06b6d4; --grad-3: #f59e0b;
+  --tt-bg: rgba(15, 20, 32, 0.96); --tt-border: #33405a; --grid: #253046; --tick: #8f9bad;
+  --page-bg: radial-gradient(1200px 600px at 10% -10%, rgba(124, 58, 237, 0.18), transparent 60%),
+             radial-gradient(1000px 500px at 100% 0%, rgba(6, 182, 212, 0.14), transparent 60%), #080b12;
+  color-scheme: dark;
+}
+html.light {
+  --c-bg: 244 246 251; --c-panel: 255 255 255; --c-border: 214 220 232; --c-amber: 196 112 0; --c-muted: 92 102 120;
+  --c-up: 22 150 75; --c-down: 214 48 48; --c-info: 29 100 214; --c-fg: 30 38 52; --c-strong: 10 14 22;
+  --tt-bg: rgba(255, 255, 255, 0.97); --tt-border: #d6dce8; --grid: #e3e8f0; --tick: #5c6678;
+  --page-bg: radial-gradient(1200px 600px at 10% -10%, rgba(124, 58, 237, 0.10), transparent 60%),
+             radial-gradient(1000px 500px at 100% 0%, rgba(6, 182, 212, 0.10), transparent 60%), #f4f6fb;
+  color-scheme: light;
+}
+html, body { background: var(--page-bg); background-attachment: fixed; color: rgb(var(--c-fg)); }
+body { font-feature-settings: "tnum"; line-height: 1.6; }
+/* 舊版元件使用的 text-white / bg-black：改為跟隨主題 */
+.text-white { color: rgb(var(--c-strong)) !important; }
+select.bg-black, input.bg-black, thead.bg-black, .bg-black { background-color: rgb(var(--c-panel)) !important; }
+
+.panel { @apply bg-term-panel/80 border border-term-border rounded-xl shadow-lg shadow-black/20 backdrop-blur; }
+.panel:hover { border-color: rgb(var(--c-info) / 0.35); }
+.label { @apply text-[11px] tracking-wider text-term-muted; }
 a.src { @apply text-term-info hover:underline; }
-.btn { @apply px-3 py-1 text-xs font-mono border border-term-border bg-[#161b22] hover:border-term-amber hover:text-term-amber disabled:opacity-50; }
+.btn { @apply px-3 py-1 text-xs rounded-md border border-term-border bg-term-panel hover:border-term-amber hover:text-term-amber disabled:opacity-50 transition-colors; }
+.grad-text { background: linear-gradient(90deg, var(--grad-1), var(--grad-2) 55%, var(--grad-3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grad-border { border-image: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3)) 1; }
+table th { font-weight: 600; }
+table tbody tr:hover { background: rgb(var(--c-info) / 0.06); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

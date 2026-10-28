@@ -18,8 +18,8 @@ export function useApi<T>(path: string | null) {
 
 export function ApiError({ error }: { error: string }) {
   return (
-    <div className="panel p-3 border-term-down text-term-down font-mono text-xs">
-      API UNAVAILABLE — {error}. No data is displayed rather than showing stale or invented values.
+    <div className="panel p-3 !border-red-500/50 text-term-down text-xs">
+      ⛔ 資料介面無法使用（API 無資料）— {error}。寧可不顯示，也不會顯示過期或捏造的數值。
     </div>
   );
 }

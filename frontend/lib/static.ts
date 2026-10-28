@@ -17,7 +17,7 @@ const cache = new Map<string, Promise<unknown>>();
 function getJson<T>(url: string): Promise<T> {
   if (!cache.has(url)) {
     cache.set(url, fetch(url).then((r) => {
-      if (!r.ok) throw new Error(`not included in the static snapshot (${r.status})`);
+      if (!r.ok) throw new Error(`靜態快照未包含此資料 (${r.status})`);
       return r.json();
     }));
   }
@@ -57,8 +57,8 @@ function roi(sp: URLSearchParams) {
     rework_cost: 20, rework_share: 0.7, failure_recovery_cost: 40, baseline_human_cost: 30, task_volume: 1000 };
   const x: Record<string, number> = {};
   for (const k of Object.keys(D)) { const v = sp.get(k); x[k] = v === null ? D[k] : Number(v); }
-  for (const k of ["success_probability", "rework_share"]) if (!(x[k] >= 0 && x[k] <= 1)) throw new Error(`${k} must be between 0 and 1`);
-  for (const k of Object.keys(x)) if (!(x[k] >= 0)) throw new Error(`${k} must be >= 0`);
+  for (const k of ["success_probability", "rework_share"]) if (!(x[k] >= 0 && x[k] <= 1)) throw new Error(`${k} 必須介於 0 與 1 之間`);
+  for (const k of Object.keys(x)) if (!(x[k] >= 0)) throw new Error(`${k} 必須 ≥ 0`);
   const p = x.success_probability, s = x.rework_share;
   const review = (x.review_minutes / 60) * x.reviewer_hourly_rate;
   const rework = (1 - p) * s * x.rework_cost;
@@ -88,7 +88,7 @@ export async function staticGet<T>(path: string): Promise<T> {
   try {
     return await getJson<T>(`${ROOT}/api/${keyFor(path)}`);
   } catch {
-    throw new Error(`STATIC SNAPSHOT: ${path} was not baked (only the default parameters / listed options are included; run the app locally for other inputs)`);
+    throw new Error(`靜態快照：${path} 未預先產生（只包含預設參數／列出的選項；其他輸入請在本機執行應用程式）`);
   }
 }
 
