@@ -24,6 +24,15 @@ See [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md) for connected vs unavailable 
 
 ## Quick start (local)
 
+**One command (idempotent):** `scripts/dev_up.sh` creates `.venv` and installs backend deps, creates `backend/.env` from
+`.env.example` if missing (needs `SEC_CONTACT=you@example.com` when `SEC_USER_AGENT` is empty; an existing `.env` is never
+overwritten), runs `alembic upgrade head`, ingests (`refresh`, `datasets`, `risk`) **only if the DB has no observations**,
+runs `npm ci` + `npm run build` when needed, starts the API on :8000 and the web app on :3000 with `nohup`
+(logs: `/tmp/aibm_api.log`, `/tmp/aibm_web.log`) and curls `/docs`, `/api/roi`, `/`, `/roi`, `/risk`.
+Flags: `--test` (also run pytest), `--rebuild` (force a frontend build and restart services). Re-running is safe.
+
+Manual steps:
+
 ```bash
 cp .env.example backend/.env          # then edit: SEC_USER_AGENT="YourApp you@yourdomain.com" (required by SEC)
 python3 -m venv .venv && . .venv/bin/activate
@@ -208,5 +217,6 @@ frontend/
                            benchmarks/, roi/, methodology/, [placeholder]/
   components/ lib/
 docs/                      DATA_SOURCES.md, SPOT_CHECK.md, screenshots
+scripts/dev_up.sh          idempotent local bring-up (deps, .env, DB, build, services, health checks)
 docker-compose.yml
 ```
