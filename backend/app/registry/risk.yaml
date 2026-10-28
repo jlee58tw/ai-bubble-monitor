@@ -108,8 +108,21 @@ indicators:
     dimension: monetization
     name: Disclosed AI revenue vs AI capex
     calc: unavailable
-    reason: AI revenue is disclosed only qualitatively/irregularly (metric ai_revenue_disclosed is PLACEHOLDER).
+    reason: >-
+      Hyperscaler AI revenue is disclosed only irregularly and as lower bounds (e.g. AMZN 'exceeded $25B AWS AI run
+      rate', 8-K 2026-07-30); no company discloses AI capex, so 'AI revenue vs AI capex' cannot be computed.
     thresholds: {benign: null, stretched: null}
+  - id: ai_lab_compute_intensity
+    dimension: monetization
+    name: Frontier-lab compute & infrastructure expense / revenue (Anthropic S-1, latest quarter, company-disclosed)
+    calc: obs_ratio_latest
+    args: {metric_a: ai_lab_compute_cost, metric_b: ai_lab_revenue, entities: [ANTHROPIC], min_entities: 1}
+    max_age_days: 200
+    thresholds: {benign: 0.3, stretched: 1.0}
+    rationale: >-
+      Inference/training compute consuming most of a frontier lab's revenue means AI demand is not yet self-funding.
+      Single company, company-disclosed (pre-IPO S-1, unaudited quarterly), not reported financials; OpenAI has no
+      comparable disclosure. Research hypothesis, not a validated threshold.
   - id: model_price_deflation
     dimension: monetization
     name: Median observed list-price change of frontier-vendor models (trailing 365 days)
