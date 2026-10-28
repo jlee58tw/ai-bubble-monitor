@@ -8,9 +8,34 @@ Phase 2 sources are listed first; the Phase 1 sections below are kept and update
 | Source | Endpoint | What | Terms / access notes |
 |---|---|---|---|
 | SEC EDGAR submissions API | `https://data.sec.gov/submissions/CIK##########.json` | `filing_events`: 10-Q/10-K/20-F/40-F (+/A) and 8-K with Item 2.02 for MSFT, AMZN, GOOGL, META, ORCL, NVDA, AMD, TSM. `reportDate` = observation date, `filingDate` = publication date, `acceptanceDateTime` (UTC). 360 events stored on 2026-10-28. | SEC fair-access policy: `SEC_USER_AGENT` with contact e-mail, 2 req/s (limit 10). **Only the `filings.recent` block** (latest ~1,000 filings of any form) is read, so the earliest stored event differs per company (e.g. GOOGL 2023-07, META 2024-07, ORCL 2016); older `filings.files` pages are not fetched. |
-| Guidance | — | **Placeholder.** No guidance source is connected; 8-K earnings releases are listed but not parsed. Rows can only be stored with a source URL and verbatim quote. | — |
+| Guidance | 8-K EX-99.1 (see Gap fill) | **Partial** (META only; superseded text below). 8-K earnings releases are listed but not parsed. Rows can only be stored with a source URL and verbatim quote. | — |
 | TWSE / MOPS filing calendar | — | **Not connected** (2330, 2382, 2317 show UNAVAILABLE on /events). | — |
 | Backtest outcomes | stored `tw_price_close` (TWSE STOCK_DAY), `us_price_split_adj` (Tiingo) | ~13 months of TWSE closes for 2330/2382/2317; with `TIINGO_API_KEY`, US split-adjusted closes 2015→ for 8 AI stocks + QQQ/SOXX/SMH (price return; hindsight-selected tickers). Without a key US outcomes are unavailable. | No new fetches; uses stored data only. |
+
+## Gap fill — added (verified live 2026-10-28, UTC+8)
+
+| Source | Endpoint | What | Classification / terms |
+|---|---|---|---|
+| TWSE OpenAPI monthly revenue | `https://openapi.twse.com.tw/v1/opendata/t187ap05_L` | `tw_monthly_revenue`, `tw_monthly_revenue_yoy`, `tw_revenue_ytd_yoy` for 2330, 2317, 2382, 3231, 6669 (latest month; history accrues forward) | reported; TWSE open data, robots.txt allows. Audit cross-check: MOPS CSV `https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv` |
+| SEC filing XBRL (segments) | filing `_htm.xml` instances | `cloud_segment_revenue / operating_income / margin / yoy` (MSFT Intelligent Cloud, GOOGL Google Cloud, AMZN AWS, ORCL cloud), `aws_segment_capex` | reported / derived |
+| FRED | `fredgraph.csv?id=DGS2`, `T10Y2Y`, `BAA10Y` | `us2y_yield`, `us_10y2y_spread`, `baa_10y_spread` (risk input `credit_spreads`) | reported; DGS2 public domain; T10Y2Y/BAA10Y require citation (cited in UI). ICE BofA OAS **skipped** (pre-approval needed) |
+| SEC S-1 (Anthropic, PBC, CIK 0002130357) | `https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm` | `ai_lab_revenue`, `ai_lab_compute_cost`, `ai_lab_operating_income` (6 quarters Q1'25–Q2'26) | **disclosed** (pre-IPO, unaudited quarterly) — never "reported". S-1 XBRL covers cover page/fees only, so the HTML table is parsed with a footing check |
+| SEC 8-K Item 2.02 EX-99.1 | via `data.sec.gov/submissions` | `capex_guidance` (META, verbatim, `guidance_items`), `azure_growth_yoy` (MSFT), `ai_revenue_disclosed` (AMZN lower bound) | guidance / reported / qualitative; verbatim quote + URL stored |
+| Curated media (registry `curated/ai_lab_media.yaml`) | CNBC, Investing.com (citing WSJ) | `ai_lab_revenue_media`, `ai_lab_operating_income_media`, `ai_lab_run_rate_media` for OpenAI / Anthropic | **estimated**, confidence low, verbatim quote + URL + publication date; never shown as financials |
+
+### Still unavailable after gap fill
+
+| Metric | Why |
+|---|---|
+| `ai_capex_disclosed` | No company discloses AI-only capex; total capex is never substituted. |
+| `forward_pe` | Consensus EPS is licensed (FactSet/LSEG/S&P/Bloomberg). |
+| `capex_guidance` for MSFT, GOOGL, AMZN, ORCL | Given only on earnings calls, not in the written 8-K release; no licensed/official transcript source. |
+| AI revenue for MSFT, GOOGL, META, ORCL; MSFT AI run-rate | Not stated in the last four 8-K releases (checked); only AMZN states a lower bound. |
+| OpenAI company financials | Private, no SEC filing; only media-reported estimates are stored. |
+| ICE BofA HY/IG OAS | FRED shows ICE licence requiring pre-approval. |
+| EIA electricity / data-center power | API key requires signup (not allowed for this task). |
+| GOOGL / META market cap | Multi-class shares reported per class on the cover page; not summed. |
+| TSMC IR monthly revenue page | Cloudflare challenge; TWSE/MOPS open data used instead. |
 
 ## US price options (researched and tested 2026-10-28, Asia/Taipei)
 
