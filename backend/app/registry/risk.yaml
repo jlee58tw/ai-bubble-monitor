@@ -158,10 +158,15 @@ indicators:
     rationale: Higher discount rates compress long-duration valuations and raise funding costs.
   - id: credit_spreads
     dimension: macro
-    name: High-yield / data-center credit spreads
-    calc: unavailable
-    reason: No source with clear redistribution terms connected (ICE BofA series on FRED carry licence restrictions).
-    thresholds: {benign: null, stretched: null}
+    name: Moody's Baa - 10Y Treasury credit spread (FRED BAA10Y)
+    calc: obs_latest
+    args: {metric: baa_10y_spread, entity: US}
+    max_age_days: 14
+    thresholds: {benign: 2.5, stretched: 1.5}
+    rationale: >-
+      Very tight credit spreads signal complacent risk pricing typical of late-cycle booms (stretched = tight). Proxy:
+      investment-grade Baa spread; ICE BofA high-yield OAS skipped (FRED licence: pre-approval required). Research
+      hypothesis, not a validated threshold.
 
   # --- technology -----------------------------------------------------------------------------
   - id: metr_doubling_time
