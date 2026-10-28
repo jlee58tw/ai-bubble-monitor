@@ -4,6 +4,7 @@ import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip,
 import { Hypothesis, Loading, Panel } from "@/components/Panel";
 import { ApiError, useApi } from "@/components/useApi";
 import { API_BASE } from "@/lib/api";
+import { STATIC, staticCsv } from "@/lib/static";
 
 type Eval = { status: string; reason?: string; n_signal_known_days: number; n_independent_windows: number; n_on?: number; n_off?: number;
   hits_on?: number; hits_off?: number; hit_rate_on?: number | null; hit_rate_off?: number | null; base_rate?: number;
@@ -48,7 +49,7 @@ export default function Backtest() {
             <label key={k} className="flex flex-col gap-1"><span className="text-term-muted">{l}</span>
               <input type="number" step={st} value={p[k]} onChange={(e) => { const v = parseFloat(e.target.value); if (!Number.isNaN(v)) setP({ ...p, [k]: v }); }}
                 className="w-28 bg-black border border-term-border text-white px-1 py-0.5 text-right" /></label>))}
-          <a className="btn" href={`${API_BASE}/api/backtest.csv?${q}`}>DOWNLOAD CSV (daily)</a>
+          <a className="btn" href={STATIC ? staticCsv("backtest_default.csv") : `${API_BASE}/api/backtest.csv?${q}`}>DOWNLOAD CSV (daily)</a>
           <span className="text-term-muted">window {r?.window.start ?? "—"} → {r?.window.end ?? "—"} · {r?.window.trading_days ?? 0} trading days · config {r?.config_hash}</span>
         </div>
       </Panel>

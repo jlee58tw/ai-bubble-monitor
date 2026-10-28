@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Hypothesis, Loading, Panel } from "@/components/Panel";
 import { ApiError, useApi } from "@/components/useApi";
 
@@ -46,7 +47,7 @@ export default function Methodology() {
           <table className="text-[11px] font-mono">{Object.entries(c?.alerts ?? {}).map(([k, v]) => <tr key={k}><td className="pr-4 text-term-muted">{k}</td><td>{JSON.stringify(v)}</td></tr>)}</table>
         </Panel>
         <Panel title="RELIABILITY ROI SIMULATOR FORMULAS">
-          <p className="text-xs">See <a className="src" href="/roi">/roi</a> (computed by <code>/api/roi</code>). Spec definitions: Effective Task Cost = AI Inference Cost + Tool Cost + Human Review Cost + Expected Rework Cost + Expected Failure Loss; Effective ROI = (Baseline Human Cost − Effective Task Cost) / Baseline Human Cost.</p>
+          <p className="text-xs">See <Link className="src" href="/roi">/roi</Link> (computed by <code>/api/roi</code>). Spec definitions: Effective Task Cost = AI Inference Cost + Tool Cost + Human Review Cost + Expected Rework Cost + Expected Failure Loss; Effective ROI = (Baseline Human Cost − Effective Task Cost) / Baseline Human Cost.</p>
           <p className="text-xs text-term-amber mt-1">Modeling assumptions (expected terms only): Expected Rework Cost = (1 − p) × rework share × rework cost; Expected Failure Loss = (1 − p) × (1 − rework share) × failure recovery cost; Human Review Cost = review minutes / 60 × hourly rate. Inputs are user scenario values.</p>
         </Panel>
         <Panel title="HISTORICAL BACKTEST (point-in-time) — see /backtest">

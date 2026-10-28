@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Loading, Panel, tsTaipei } from "@/components/Panel";
 import { ApiError, useApi } from "@/components/useApi";
 import { apiSend, MetricDef, Observation } from "@/lib/api";
+import { STATIC } from "@/lib/static";
 
 type W = { id: number; entity_id: string | null; entity_name: string | null; metric_id: string | null; metric_name: string | null;
   metric_status: string | null; status_reason: string | null; note: string | null; created_at: string; status: string; latest: Observation[];
@@ -29,7 +30,7 @@ export default function Watchlist() {
           <select value={f.metric_id} onChange={(e) => setF({ ...f, metric_id: e.target.value })} className="bg-black border border-term-border px-1 max-w-md">
             <option value="">(any metric)</option>{mets.data?.map((m) => <option key={m.id} value={m.id}>{m.id} [{m.status}]</option>)}</select>
           <input placeholder="note (optional)" value={f.note} onChange={(e) => setF({ ...f, note: e.target.value })} className="bg-black border border-term-border px-1 w-56" />
-          <button className="btn" disabled={!f.entity_id && !f.metric_id} onClick={add}>ADD</button>
+          <button className="btn" disabled={STATIC || (!f.entity_id && !f.metric_id)} onClick={add}>ADD</button>
           {msg ? <span className="text-term-muted">{msg}</span> : null}
         </div>
       </Panel>
@@ -48,7 +49,7 @@ export default function Watchlist() {
                 {w.latest.length > 8 ? <div className="text-term-muted">+{w.latest.length - 8} more series</div> : null}</td>
               <td className="text-center">{w.latest_filing ? <a className="src" href={w.latest_filing.source_url} target="_blank" rel="noreferrer">{w.latest_filing.form} {w.latest_filing.publication_date}</a> : "—"}</td>
               <td>{w.note}</td><td className="text-center">{tsTaipei(w.created_at)}</td>
-              <td><button className="btn" onClick={() => del(w.id)}>REMOVE</button></td></tr>))}</tbody></table>
+              <td>{STATIC ? null : <button className="btn" onClick={() => del(w.id)}>REMOVE</button>}</td></tr>))}</tbody></table>
       </Panel>
     </div>
   );

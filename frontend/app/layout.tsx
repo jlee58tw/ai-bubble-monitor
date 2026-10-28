@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
+import SnapshotBanner from "@/components/SnapshotBanner";
 
 export const metadata: Metadata = { title: "AI Bubble Monitor", description: "Does AI monetization justify capex?" };
 
@@ -8,6 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className="min-h-screen font-sans text-sm">
+        <SnapshotBanner />
         <Nav />
         <main className="p-4">{children}</main>
         <footer className="px-4 py-3 text-[10px] text-term-muted font-mono border-t border-term-border">

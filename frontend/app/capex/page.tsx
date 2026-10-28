@@ -5,6 +5,7 @@ import { ClassBadge, ConfBadge, StatusPill } from "@/components/Badges";
 import { ApiError, useApi } from "@/components/useApi";
 import { API_BASE, apiGet, apiPost, type Observation } from "@/lib/api";
 import { fmtValue } from "@/lib/format";
+import { STATIC, staticCsv } from "@/lib/static";
 
 const COMPANIES = ["MSFT", "GOOGL", "AMZN", "META", "ORCL"];
 const COLORS: Record<string, string> = { MSFT: "#58a6ff", GOOGL: "#3fb950", AMZN: "#ffb000", META: "#d2a8ff", ORCL: "#f85149",
@@ -51,7 +52,7 @@ export default function CapexPage() {
     } catch (e) { setRefreshMsg(String(e)); }
   }
 
-  const csvHref = `${API_BASE}/api/observations.csv?metric_id=${[...ABS, ...GROWTH, "capex_to_ocf", "capex_to_revenue"].join(",")}&entity_id=${company}${range}`;
+  const csvHref = STATIC ? staticCsv(`capex_${company}.csv`) : `${API_BASE}/api/observations.csv?metric_id=${[...ABS, ...GROWTH, "capex_to_ocf", "capex_to_revenue"].join(",")}&entity_id=${company}${range}`;
   const table = (single.data ?? []).filter((o) => o.metric_id === "capex_total").slice().reverse();
 
   return (
@@ -65,8 +66,8 @@ export default function CapexPage() {
         </label>
         <label className="label">from <input type="date" value={start} onChange={(e) => setStart(e.target.value)} className="ml-1 bg-black border border-term-border text-white text-xs px-1" /></label>
         <label className="label">to <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} className="ml-1 bg-black border border-term-border text-white text-xs px-1" /></label>
-        <a className="btn" href={csvHref}>⬇ CSV</a>
-        <button className="btn" onClick={refresh}>⟳ REFRESH FROM SEC EDGAR</button>
+        <a className="btn" href={csvHref}>{STATIC ? "⬇ CSV (snapshot, full history)" : "⬇ CSV"}</a>
+        {STATIC ? null : <button className="btn" onClick={refresh}>⟳ REFRESH FROM SEC EDGAR</button>}
         {refreshMsg ? <span className="text-[11px] font-mono text-term-muted">{refreshMsg}</span> : null}
       </div>
       <div className="panel p-2 text-[11px] text-term-amber font-mono">

@@ -1,3 +1,4 @@
+import { STATIC, staticGet } from "./static";
 export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 
 export type Classification = "reported" | "guidance" | "estimated" | "derived" | "qualitative" | "disclosed";
@@ -21,16 +22,20 @@ export interface Card {
 }
 
 export async function apiGet<T>(path: string): Promise<T> {
+  if (STATIC) return staticGet<T>(path);
   const r = await fetch(`${API_BASE}${path}`, { cache: "no-store" });
   if (!r.ok) throw new Error(`${r.status} ${r.statusText} for ${path}`);
   return r.json();
 }
+const READ_ONLY = "STATIC SNAPSHOT (read-only): refresh / edits need the local app";
 export async function apiPost<T>(path: string): Promise<T> {
+  if (STATIC) throw new Error(READ_ONLY);
   const r = await fetch(`${API_BASE}${path}`, { method: "POST" });
   if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 200)}`);
   return r.json();
 }
 export async function apiSend<T>(path: string, method: "POST" | "DELETE", body?: unknown): Promise<T> {
+  if (STATIC) throw new Error(READ_ONLY);
   const r = await fetch(`${API_BASE}${path}`, {
     method, headers: body === undefined ? undefined : { "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),

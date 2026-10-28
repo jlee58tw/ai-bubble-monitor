@@ -8,3 +8,6 @@ node_modules/
 frontend/.next/
 frontend/out/
 .pytest_cache/
+frontend/.next-static/
+frontend/public/snapshot/
+.pages-worktree/
