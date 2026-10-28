@@ -267,7 +267,7 @@ backend/
   tests/                   pytest + recorded EDGAR fixtures
 frontend/
   app/                     page.tsx (Overview), capex/, pipeline/, risk/, alerts/, valuation/, supply-chain/, pricing/,
-                           benchmarks/, roi/, methodology/, [placeholder]/
+                           benchmarks/, roi/, methodology/, ai-monetization/, credit/
   components/ lib/
 docs/                      DATA_SOURCES.md, SPOT_CHECK.md, screenshots
 scripts/dev_up.sh          idempotent local bring-up (deps, .env, DB, build, services, health checks)

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const LINKS = [
+const LINKS: { href: string; label: string; ph?: boolean }[] = [
   { href: "/", label: "OVERVIEW" },
   { href: "/risk", label: "RISK SCORE" },
   { href: "/alerts", label: "ALERTS" },
@@ -17,8 +17,8 @@ const LINKS = [
   { href: "/watchlist", label: "WATCHLIST" },
   { href: "/methodology", label: "METHODOLOGY" },
   { href: "/pipeline", label: "PIPELINE" },
-  { href: "/ai-monetization", label: "AI MONETIZATION", ph: true },
-  { href: "/credit", label: "CREDIT", ph: true },
+  { href: "/ai-monetization", label: "AI MONETIZATION" },
+  { href: "/credit", label: "CREDIT" },
 ];
 export default function Nav() {
   const p = usePathname();

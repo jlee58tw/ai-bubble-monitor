@@ -72,7 +72,7 @@ for i in $(seq 1 30); do port_up "$API_PORT" /docs && port_up "$WEB_PORT" && bre
 fail=0
 for u in "http://localhost:$API_PORT/docs" "http://localhost:$API_PORT/api/roi" \
          "http://localhost:$WEB_PORT/" "http://localhost:$WEB_PORT/roi" "http://localhost:$WEB_PORT/risk" \
-         "http://localhost:$API_PORT/api/backtest?include_daily=false" "http://localhost:$WEB_PORT/backtest"; do
+         "http://localhost:$API_PORT/api/backtest?include_daily=false" "http://localhost:$WEB_PORT/backtest" "http://localhost:$WEB_PORT/ai-monetization" "http://localhost:$WEB_PORT/credit"; do
   c=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$u" || true); echo "  $c $u"; [ "$c" = 200 ] || fail=1
 done
 [ "$fail" = 0 ] && log "all up" || { log "some checks failed; see /tmp/aibm_api.log /tmp/aibm_web.log"; exit 1; }
