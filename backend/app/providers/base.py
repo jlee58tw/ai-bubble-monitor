@@ -50,10 +50,25 @@ class ProviderError:
 
 
 @dataclass
+class GuidanceRecord:
+    """Management guidance quoted VERBATIM from a filing; never inferred."""
+    entity_id: str
+    metric_id: str
+    target_period: str
+    value_low: float | None
+    value_high: float | None
+    unit: str
+    publication_date: dt.date
+    source_url: str
+    quote: str
+
+
+@dataclass
 class ProviderResult:
     records: list[ObservationRecord] = field(default_factory=list)
     errors: list[ProviderError] = field(default_factory=list)
     fetched: int = 0  # raw facts / rows read from source
+    guidance: list[GuidanceRecord] = field(default_factory=list)  # verbatim-quoted guidance (GuidanceItem rows)
 
 
 @dataclass

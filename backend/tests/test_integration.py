@@ -149,3 +149,23 @@ def test_retracted_derived_vintage_is_corrected(db_session):
     c2 = store_records(db_session, run, [ObservationRecord(value=1.0, publication_date=dt.date(2024, 5, 1), **rb)])
     assert c2["corrected"] == 0
     assert sorted(o.value for o in query_observations(db_session, ["capex_total"])) == [2.0, 7665.0]
+
+
+def test_store_guidance_requires_quote_and_is_idempotent(db_session):
+    import pytest as _pytest
+    from sqlalchemy import func, select
+
+    from app.models import GuidanceItem
+    from app.providers.base import GuidanceRecord
+    from app.registry.registry import sync_registry
+    from app.services.ingest import store_guidance
+
+    sync_registry(db_session)
+    g = GuidanceRecord(entity_id="META", metric_id="capex_guidance", target_period="2026", value_low=135e9,
+                       value_high=145e9, unit="USD", publication_date=dt.date(2026, 10, 21),
+                       source_url="https://www.sec.gov/x.htm", quote="We anticipate 2026 capital expenditures ...")
+    assert store_guidance(db_session, [g]) == 1
+    assert store_guidance(db_session, [g]) == 0
+    assert db_session.scalar(select(func.count()).select_from(GuidanceItem)) == 1
+    with _pytest.raises(ValueError):
+        store_guidance(db_session, [GuidanceRecord(**{**g.__dict__, "quote": ""})])

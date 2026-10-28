@@ -334,28 +334,64 @@ metrics:
     entities: [MSFT, GOOGL, AMZN, META, ORCL]
 
   - id: capex_guidance
-    name: Forward capex guidance
-    description: Management capex guidance from earnings calls / 8-K exhibits. No structured source connected.
+    name: Forward capex guidance (verbatim, 8-K earnings release)
+    description: >-
+      Management capex outlook quoted VERBATIM from the 8-K Item 2.02 EX-99.1 earnings release (stored as GuidanceItem
+      rows with quote + URL, not as observations). Only META states a numeric capex range in its release; MSFT, GOOGL,
+      AMZN and ORCL give capex commentary only on earnings calls (no official machine-readable transcript), so they
+      remain UNAVAILABLE here.
     unit: USD
     frequency: quarterly
     category: hyperscaler_capex
     default_classification: guidance
-    provider: null
-    status: placeholder
+    provider: sec_earnings_release
+    status: connected
     is_ai_specific: false
-    entities: [MSFT, GOOGL, AMZN, META, ORCL]
+    methodology: "Regex on EX-99.1 text: 'We anticipate|expect <year> capital expenditures, including principal payments on finance leases, to be in the range of $X-Y billion'."
+    params:
+      kind: guidance
+      patterns:
+        META: "We (?:anticipate|expect) (?P<target>\\d{4}) capital expenditures, including principal payments on finance leases, to be in the range of \\$(?P<low>[\\d.]+) ?[-–] ?(?P<high>[\\d.]+) (?P<scale>billion)"
+    entities: [META]
+
+  - id: azure_growth_yoy
+    name: Azure and other cloud services revenue growth YoY (company-reported %)
+    description: Microsoft reports only the growth rate (not the dollar amount) of 'Azure and other cloud services' in its earnings release. Stored as a fraction.
+    unit: pct
+    frequency: quarterly
+    category: ai_monetization
+    default_classification: reported
+    provider: sec_earnings_release
+    status: connected
+    is_ai_specific: false
+    methodology: "8-K EX-99.1 bullet 'Azure and other cloud services revenue increased X%' (as reported, not constant currency) / 100. Fiscal quarter = MSFT FY (June year-end); period_end is the calendar quarter-end date of the release."
+    params:
+      scale: 0.01
+      note: "Company-reported growth rate (USD, as reported)."
+      patterns:
+        MSFT: "Azure and other cloud services revenue (?:increased|grew) (?P<v>\\d+(?:\\.\\d+)?)%"
+    entities: [MSFT]
 
   - id: ai_revenue_disclosed
-    name: AI revenue / run-rate (company disclosed)
-    description: e.g. Microsoft AI run-rate statements. Qualitative, irregular; no structured source connected.
+    name: AI revenue / run-rate (company disclosed, lower bound)
+    description: >-
+      AI-specific revenue run-rate statements from 8-K earnings releases, stored verbatim. Currently only Amazon states
+      one in its release ('Exceeded a $X billion annual revenue run rate for AWS's AI business') - a LOWER BOUND, not an
+      exact figure. MSFT/GOOGL/META/ORCL do not state an AI revenue figure in their latest releases (call-only), so they
+      remain unavailable. Not a comparable series; not used as a risk input.
     unit: USD
     frequency: irregular
     category: ai_monetization
     default_classification: qualitative
-    provider: null
-    status: placeholder
+    provider: sec_earnings_release
+    status: connected
     is_ai_specific: true
-    entities: [MSFT, GOOGL, AMZN, META, ORCL]
+    warning: "Lower bound ('exceeded'); company-defined, unaudited, single company."
+    params:
+      note: "LOWER BOUND - company says the run rate exceeded this amount."
+      patterns:
+        AMZN: "Exceeded an? \\$(?P<v>[\\d.]+) (?P<scale>billion) annual revenue run rate for AWS.s AI business"
+    entities: [AMZN]
 
   # ---------------- AI supply chain: dimensional XBRL (Phase 2) ----------------
   - id: nvda_datacenter_revenue

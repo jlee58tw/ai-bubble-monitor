@@ -11,7 +11,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from ..logging_setup import get_logger
-from ..models import IngestionError, IngestionRun, Observation, utcnow
+from ..models import GuidanceItem, IngestionError, IngestionRun, Observation, utcnow
 from ..providers import get_provider
 from ..providers.base import ObservationRecord, Provider
 from ..registry.registry import Registry, get_registry, sync_registry
@@ -96,6 +96,25 @@ def store_records(session: Session, run: IngestionRun, records: list[Observation
         chain.append(o)
         counts["revised" if cur else "inserted"] += 1
     return counts
+
+
+def store_guidance(session: Session, items) -> int:
+    """Append GuidanceItem rows (idempotent on entity/metric/target/publication date/url/quote)."""
+    n = 0
+    for g in items:
+        if not g.source_url or not g.quote:
+            raise ValueError("guidance rows require a source URL and a verbatim quote")
+        exists = session.scalar(select(GuidanceItem.id).where(
+            GuidanceItem.entity_id == g.entity_id, GuidanceItem.metric_id == g.metric_id,
+            GuidanceItem.target_period == g.target_period, GuidanceItem.publication_date == g.publication_date,
+            GuidanceItem.source_url == g.source_url, GuidanceItem.quote == g.quote))
+        if exists is None:
+            session.add(GuidanceItem(entity_id=g.entity_id, metric_id=g.metric_id, target_period=g.target_period,
+                                     value_low=g.value_low, value_high=g.value_high, unit=g.unit,
+                                     publication_date=g.publication_date, source_url=g.source_url, quote=g.quote))
+            n += 1
+    session.flush()
+    return n
 
 
 def _retracted(cur: Observation, r: ObservationRecord, produced: list[ObservationRecord]) -> bool:
@@ -206,6 +225,7 @@ def run_ingestion(session: Session, provider_names: list[str], trigger: str = "m
                 for e in result.errors:
                     _log_error(session, run, e.message, e.level, e.entity_id, e.metric_id, e.context)
                 c = store_records(session, run, result.records)
+                c["inserted"] += store_guidance(session, result.guidance)
                 run.records_fetched = result.fetched
                 run.records_inserted, run.records_revised = c["inserted"], c["revised"]
                 run.records_unchanged = c["unchanged"] + c["out_of_order"]
