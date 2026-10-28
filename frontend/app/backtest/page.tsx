@@ -85,11 +85,11 @@ export default function Backtest() {
             <th>亮燈天數</th><th>命中率（亮）</th><th>95% 信賴區間</th><th>命中率（未亮）</th><th>基準率</th><th className="text-left">說明</th></tr></thead>
           <tbody>{r?.signals.map((s) => s.status !== "computed" ? (
             <tr key={s.id} className="border-t border-term-border"><td>{indName(s.id, s.name)} <span className="text-term-muted">≥{s.threshold}</span></td><td>全部</td>
-              <td className="text-term-down">資料不足</td><td colSpan={8} className="text-term-muted">{tx(s.reason)}</td></tr>
+              <td className="text-term-down whitespace-nowrap">資料不足</td><td colSpan={8} className="text-term-muted">{tx(s.reason)}</td></tr>
           ) : Object.entries(s.per_series).map(([k, e], i) => (
             <tr key={s.id + k} className="border-t border-term-border text-center">
               <td className="text-left min-w-[180px]">{i === 0 ? <><span title={s.name}>{indName(s.id, s.name)}</span> <span className="text-term-muted">≥{s.threshold} · 亮燈 {pct(s.share_on, 0)}</span></> : ""}</td>
-              <td className="whitespace-nowrap">{ent(k)}</td><td className={STAT[e.status]}>{st(e.status)}</td><td>{e.n_signal_known_days}</td><td>{e.n_independent_windows}</td>
+              <td className="whitespace-nowrap">{ent(k)}</td><td className={`${STAT[e.status]} whitespace-nowrap`}>{st(e.status)}</td><td>{e.n_signal_known_days}</td><td>{e.n_independent_windows}</td>
               <td>{e.n_on ?? "—"}</td><td>{pct(e.hit_rate_on)}</td><td>{e.ci95_on_overlap_adjusted ? `${pct(e.ci95_on_overlap_adjusted[0], 0)}–${pct(e.ci95_on_overlap_adjusted[1], 0)}` : "—"}</td>
               <td>{pct(e.hit_rate_off)}</td><td>{pct(e.base_rate)}</td><td className="text-left text-term-muted">{tx(e.reason)}</td></tr>)))}</tbody></table></div>
       </Panel>

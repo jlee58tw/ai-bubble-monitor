@@ -36,3 +36,7 @@ a.src { @apply text-term-info hover:underline; }
 table th { font-weight: 600; }
 table tbody tr:hover { background: rgb(var(--c-info) / 0.06); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

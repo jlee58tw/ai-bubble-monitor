@@ -8,6 +8,8 @@ export const TT = {
 };
 export const GRID = "var(--grid)";
 export const TICK = { fill: "var(--tick)", fontSize: 11 };
-export const ANIM = { isAnimationActive: true, animationDuration: 900, animationEasing: "ease-out" as const };
+/** 使用者（或截圖腳本）要求減少動態效果時，圖表直接顯示最終狀態。 */
+export const REDUCED_MOTION = typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+export const ANIM = { isAnimationActive: !REDUCED_MOTION, animationDuration: 900, animationEasing: "ease-out" as const };
 /** 圖表 Y 軸：美元 → 億美元 */
 export const yiTick = (v: number) => `${Math.round(v / 1e8).toLocaleString("zh-TW")} 億`;

@@ -1,4 +1,5 @@
 "use client";
+import { REDUCED_MOTION } from "@/lib/chart";
 import { useEffect, useState } from "react";
 import { riskLevel } from "@/lib/i18n";
 
@@ -12,6 +13,7 @@ export default function Gauge({ score, low, high, coverage, minCoverage }: { sco
   const [shown, setShown] = useState(0);
   useEffect(() => {
     const target = score ?? 0, t0 = performance.now(), D = 1200;
+    if (REDUCED_MOTION) { setShown(target); return; }
     let raf = 0;
     const step = (now: number) => { const k = Math.min((now - t0) / D, 1); setShown(target * (1 - Math.pow(1 - k, 3))); if (k < 1) raf = requestAnimationFrame(step); };
     raf = requestAnimationFrame(step);
